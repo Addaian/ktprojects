@@ -5,95 +5,96 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Members Matrix | ktprojects</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
-body { font-family: 'Plus Jakarta Sans', sans-serif; }
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-.glass-header {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-}
-</style>
-<script>
-tailwind.config = {
-    darkMode: "class",
-    theme: {
-        extend: {
-            colors: {
-                "on-secondary-fixed-variant": "#38485d",
-                "inverse-primary": "#b8c4ff",
-                "on-secondary-fixed": "#0b1c30",
-                "background": "#f7f9fb",
-                "surface-dim": "#d8dadc",
-                "surface-container-highest": "#e0e3e5",
-                "primary": "#00288e",
-                "surface": "#f7f9fb",
-                "outline": "#757684",
-                "on-tertiary-fixed": "#001e2f",
-                "tertiary-fixed": "#c9e6ff",
-                "surface-variant": "#e0e3e5",
-                "on-secondary-container": "#54647a",
-                "on-surface-variant": "#444653",
-                "on-primary": "#ffffff",
-                "on-primary-fixed": "#001453",
-                "error-container": "#ffdad6",
-                "secondary-container": "#d0e1fb",
-                "on-background": "#191c1e",
-                "on-tertiary-container": "#68c4ff",
-                "on-error": "#ffffff",
-                "primary-fixed-dim": "#b8c4ff",
-                "on-primary-container": "#a8b8ff",
-                "on-surface": "#191c1e",
-                "surface-container": "#eceef0",
-                "surface-bright": "#f7f9fb",
-                "surface-tint": "#3755c3",
-                "surface-container-low": "#f2f4f6",
-                "on-primary-fixed-variant": "#173bab",
-                "inverse-surface": "#2d3133",
-                "surface-container-high": "#e6e8ea",
-                "tertiary-container": "#005074",
-                "inverse-on-surface": "#eff1f3",
-                "secondary-fixed": "#d3e4fe",
-                "secondary": "#505f76",
-                "primary-container": "#1e40af",
-                "primary-fixed": "#dde1ff",
-                "error": "#ba1a1a",
-                "on-tertiary": "#ffffff",
-                "on-error-container": "#93000a",
-                "outline-variant": "#c4c5d5",
-                "tertiary-fixed-dim": "#89ceff",
-                "on-tertiary-fixed-variant": "#004c6e",
-                "on-secondary": "#ffffff",
-                "tertiary": "#003853",
-                "surface-container-lowest": "#ffffff",
-                "secondary-fixed-dim": "#b7c8e1"
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#38485d",
+                        "inverse-primary": "#b8c4ff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "background": "#f7f9fb",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary": "#00288e",
+                        "surface": "#f7f9fb",
+                        "outline": "#757684",
+                        "on-tertiary-fixed": "#001e2f",
+                        "tertiary-fixed": "#c9e6ff",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary-container": "#54647a",
+                        "on-surface-variant": "#444653",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#001453",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#d0e1fb",
+                        "on-background": "#191c1e",
+                        "on-tertiary-container": "#68c4ff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "on-primary-container": "#a8b8ff",
+                        "on-surface": "#191c1e",
+                        "surface-container": "#eceef0",
+                        "surface-bright": "#f7f9fb",
+                        "surface-tint": "#3755c3",
+                        "surface-container-low": "#f2f4f6",
+                        "on-primary-fixed-variant": "#173bab",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary-container": "#005074",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-fixed": "#d3e4fe",
+                        "secondary": "#505f76",
+                        "primary-container": "#1e40af",
+                        "primary-fixed": "#dde1ff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#c4c5d5",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#003853",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#b7c8e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
             },
-            borderRadius: {
-                DEFAULT: "0.125rem",
-                lg: "0.25rem",
-                xl: "0.5rem",
-                full: "0.75rem"
-            },
-            fontFamily: {
-                headline: ["Plus Jakarta Sans"],
-                body: ["Plus Jakarta Sans"],
-                label: ["Plus Jakarta Sans"]
-            }
-        },
-    },
-}
-</script>
+        }
+    </script>
 </head>
 <body class="bg-surface text-on-surface antialiased">
-
 <!-- Top Navigation Bar -->
 <header class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-[24px] shadow-[0px_20px_40px_rgba(25,28,30,0.06)]">
 <div class="flex justify-between items-center h-16 px-8 max-w-7xl mx-auto">
-<a class="text-2xl font-black lowercase text-[#00288e] tracking-[-0.02em]" href="index.html">kt</a>
+<a href="index.html" class="text-2xl font-black lowercase text-[#00288e] tracking-[-0.02em]">ktprojects</a>
 <nav class="hidden md:flex gap-8 items-center">
 <a class="text-slate-500 font-['Plus_Jakarta_Sans'] tracking-[-0.02em] font-medium hover:text-[#1E40AF] transition-colors duration-200" href="index.html">Home</a>
 <a class="text-slate-500 font-['Plus_Jakarta_Sans'] tracking-[-0.02em] font-medium hover:text-[#1E40AF] transition-colors duration-200" href="projects.html">Projects</a>
@@ -102,10 +103,8 @@ tailwind.config = {
 <button class="bg-primary text-white px-6 py-2 rounded-lg font-medium hover:brightness-110 transition-all">Join Us</button>
 </div>
 </header>
-
 <main class="pt-32 pb-24 px-8 max-w-7xl mx-auto">
-
-<!-- Global Fraternity Stats -->
+<!-- Global Fraternity Stats: Reactive Infographic -->
 <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
 <div class="md:col-span-2 bg-surface-container-lowest p-8 rounded-lg shadow-[0px_20px_40px_rgba(25,28,30,0.06)] relative overflow-hidden group">
 <div class="relative z-10">
@@ -134,8 +133,8 @@ tailwind.config = {
 <span class="text-6xl font-black text-primary tracking-tighter">128</span>
 <div class="mt-4 flex items-center text-xs font-bold text-primary">
 <span class="material-symbols-outlined text-sm mr-1">trending_up</span>
-+12% THIS SEMESTER
-</div>
+                    +12% THIS SEMESTER
+                </div>
 </div>
 <div class="bg-surface-container-low p-8 rounded-lg flex flex-col justify-center border-l-4 border-primary">
 <span class="text-sm font-bold uppercase tracking-widest text-outline mb-2">Active Nodes</span>
@@ -143,7 +142,6 @@ tailwind.config = {
 <div class="mt-4 text-xs font-medium text-on-surface-variant">Live Projects Across 4 Hubs</div>
 </div>
 </section>
-
 <!-- Directory Header & Filter -->
 <section class="mb-12">
 <div class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-outline-variant/15 pb-8">
@@ -157,16 +155,14 @@ tailwind.config = {
 </div>
 </div>
 </section>
-
 <!-- Members Matrix Grid -->
 <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
 <!-- Operator Profile Card 1 -->
 <div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_20px_40px_rgba(25,28,30,0.06)] hover:scale-[1.02] transition-all duration-300 border-l border-t border-white/30 group">
 <div class="flex justify-between items-start mb-6">
 <div class="flex gap-4">
 <div class="w-16 h-16 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
-<img alt="Alex Chen" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDIwQ1XnpH4AuK9SUbFrw7jq39fhisBltjIikd-MO6WDnsvwNOfHMRQXaRR1DtNS-ZOHV8VJoGP6Fn07EtaepM3B2_3YodscS6krJpKITMWutV2L4QH6JCINKurvBLCi6Q3H_0xzNwdx2d7MGlM3khLcmW97ePQXFw3AhZOVvlVGWt0n27mD4dLcD2i2Rc_Vozh9dVz0L2kURqHGIOXsNAxltrYG8dAdoik_oyMlHH_cGsy03w0Nh26OQbiiLTu92kR3N2cZakDALk"/>
+<img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDIwQ1XnpH4AuK9SUbFrw7jq39fhisBltjIikd-MO6WDnsvwNOfHMRQXaRR1DtNS-ZOHV8VJoGP6Fn07EtaepM3B2_3YodscS6krJpKITMWutV2L4QH6JCINKurvBLCi6Q3H_0xzNwdx2d7MGlM3khLcmW97ePQXFw3AhZOVvlVGWt0n27mD4dLcD2i2Rc_Vozh9dVz0L2kURqHGIOXsNAxltrYG8dAdoik_oyMlHH_cGsy03w0Nh26OQbiiLTu92kR3N2cZakDALk"/>
 </div>
 <div>
 <h3 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">Alex Chen</h3>
@@ -175,6 +171,7 @@ tailwind.config = {
 </div>
 <span class="bg-secondary-container text-on-secondary-container text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter">Tier 1</span>
 </div>
+<!-- Skill Chart (Simulated Bar Infographic) -->
 <div class="space-y-3 mb-6">
 <div>
 <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1">
@@ -204,6 +201,7 @@ tailwind.config = {
 </div>
 </div>
 </div>
+<!-- Project Nodes -->
 <div class="border-t border-outline-variant/10 pt-4">
 <span class="text-[10px] font-bold text-outline uppercase tracking-widest mb-3 block">Contributions</span>
 <div class="flex flex-wrap gap-2">
@@ -212,13 +210,12 @@ tailwind.config = {
 </div>
 </div>
 </div>
-
 <!-- Operator Profile Card 2 -->
 <div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_20px_40px_rgba(25,28,30,0.06)] hover:scale-[1.02] transition-all duration-300 group">
 <div class="flex justify-between items-start mb-6">
 <div class="flex gap-4">
 <div class="w-16 h-16 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
-<img alt="Elena Rodriguez" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD62zU9ASNRsNfbcFvsmQYhC5I4MBWQvQ4Be77aqOASVeAOB4BvLt_M5OxDgpunyEnR02RrPqN0ocOQPJVHc6BHFuvWvP-FLr4vDf_cBCS4ltCwzpwm2Idv0dR8QxAseUdY9tvrK3arKuAPZf_HjWGH3Ro1aU7uE5ZTfzwUU6C7MRt8SokdX_XkLKwdprh5W0xR3Sw-KX3NpDtJYzKkVZd5DAOEwpJieexxPMZPjlX_CqryzLz_RTRWYPGGCZS26M-pfCNpDItmTEeO"/>
+<img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD62zU9ASNRsNfbcFvsmQYhC5I4MBWQvQ4Be77aqOASVeAOB4BvLt_M5OxDgpunyEnR02RrPqN0ocOQPJVHc6BHFuvWvP-FLr4vDf_cBCS4ltCwzpwm2Idv0dR8QxAseUdY9tvrK3arKuAPZf_HjWGH3Ro1aU7uE5ZTfzwUU6C7MRt8SokdX_XkLKwdprh5W0xR3Sw-KX3NpDtJYzKkVZd5DAOEwpJieexxPMZPjlX_CqryzLz_RTRWYPGGCZS26M-pfCNpDItmTEeO"/>
 </div>
 <div>
 <h3 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">Elena Rodriguez</h3>
@@ -263,13 +260,12 @@ tailwind.config = {
 </div>
 </div>
 </div>
-
 <!-- Operator Profile Card 3 -->
 <div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_20px_40px_rgba(25,28,30,0.06)] hover:scale-[1.02] transition-all duration-300 group">
 <div class="flex justify-between items-start mb-6">
 <div class="flex gap-4">
 <div class="w-16 h-16 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
-<img alt="Julian Thorne" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApNEmdH3VPaLKAiaWej2pfsior7rMoWucA_ujYmwyDAf0eXPybw6vzf4dkDmchPgZvGA7X7ngE74q25lsZgpPPqeWtqc-7bHUPXgf9mU_H-O7F4fgEWHVSNpqVxXYQ8I7T_4zQp1prjX65CCE7_9SZk_yp10V6DvIEYUfNxnRLJmYVVDu7MK2_WVZUsh0oPG3JLyGN4Q5RFmXKnrD1rFE872KNAAGiH1b7Nv-XJ-5PwttnGIE2ArryEAxQ3xVbsVf74XjeS24XWpBV"/>
+<img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApNEmdH3VPaLKAiaWej2pfsior7rMoWucA_ujYmwyDAf0eXPybw6vzf4dkDmchPgZvGA7X7ngE74q25lsZgpPPqeWtqc-7bHUPXgf9mU_H-O7F4fgEWHVSNpqVxXYQ8I7T_4zQp1prjX65CCE7_9SZk_yp10V6DvIEYUfNxnRLJmYVVDu7MK2_WVZUsh0oPG3JLyGN4Q5RFmXKnrD1rFE872KNAAGiH1b7Nv-XJ-5PwttnGIE2ArryEAxQ3xVbsVf74XjeS24XWpBV"/>
 </div>
 <div>
 <h3 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">Julian Thorne</h3>
@@ -315,13 +311,12 @@ tailwind.config = {
 </div>
 </div>
 </div>
-
 <!-- Operator Profile Card 4 -->
 <div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_20px_40px_rgba(25,28,30,0.06)] hover:scale-[1.02] transition-all duration-300 group">
 <div class="flex justify-between items-start mb-6">
 <div class="flex gap-4">
 <div class="w-16 h-16 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
-<img alt="Sarah Okoro" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcfh1lt3a3PnoxeTIkLEzVCwRGrcmurwNbfWaVQxJJcnlIHeZkKSgi-KPj2n6kfnicN3ENYSCQs4HN9jD9AHCqI4X3xfWtzL-Pf2PKv6Siifc1-Dr7dY6dyBo3RKIu1IPDVMchlVqdIDQtGANih8Jsac8kgKsSPaezBoqREc-nvVbOIvA8FewU7dwJ0ObDMx5HimmrUFiUs1cjq_5dlOBQxjd8BkF3UGmUnvVqh5TaTdLf6AqSlACesG68_DfxVySvevE5kxgu5vtG"/>
+<img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcfh1lt3a3PnoxeTIkLEzVCwRGrcmurwNbfWaVQxJJcnlIHeZkKSgi-KPj2n6kfnicN3ENYSCQs4HN9jD9AHCqI4X3xfWtzL-Pf2PKv6Siifc1-Dr7dY6dyBo3RKIu1IPDVMchlVqdIDQtGANih8Jsac8kgKsSPaezBoqREc-nvVbOIvA8FewU7dwJ0ObDMx5HimmrUFiUs1cjq_5dlOBQxjd8BkF3UGmUnvVqh5TaTdLf6AqSlACesG68_DfxVySvevE5kxgu5vtG"/>
 </div>
 <div>
 <h3 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">Sarah Okoro</h3>
@@ -349,6 +344,11 @@ tailwind.config = {
 <div class="h-full bg-primary w-[84%]"></div>
 </div>
 </div>
+<div>
+<div class="h-1 bg-surface-container-high w-full rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[0%]"></div>
+</div>
+</div>
 </div>
 <div class="border-t border-outline-variant/10 pt-4">
 <span class="text-[10px] font-bold text-outline uppercase tracking-widest mb-3 block">Contributions</span>
@@ -358,8 +358,7 @@ tailwind.config = {
 </div>
 </div>
 </section>
-
-<!-- Load More -->
+<!-- Load More / Asymmetric Layout Element -->
 <div class="mt-20 flex justify-center">
 <button class="relative group">
 <span class="text-primary font-bold tracking-widest uppercase text-sm z-10 relative">Initiate Node Scan</span>
@@ -367,19 +366,18 @@ tailwind.config = {
 </button>
 </div>
 </main>
-
 <!-- Footer -->
 <footer class="w-full py-12 border-t border-slate-200/15 bg-slate-50 dark:bg-slate-950">
 <div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-6">
-<a class="text-xl font-bold lowercase text-[#00288e] dark:text-blue-300 tracking-tight" href="index.html">kt projects</a>
+<a href="index.html" class="text-xl font-bold lowercase text-[#00288e] dark:text-blue-300 tracking-tight">kt projects</a>
 <div class="flex gap-12 font-['Plus_Jakarta_Sans'] text-sm uppercase tracking-widest">
 <a class="text-slate-400 hover:text-[#00288e] transition-all" href="projects.html">Code</a>
 <a class="text-slate-400 hover:text-[#00288e] transition-all" href="members.html">Network</a>
 <a class="text-slate-400 hover:text-[#00288e] transition-all" href="#">Pulse</a>
 </div>
 <div class="text-slate-400 text-[10px] uppercase tracking-widest font-medium">
-&copy; 2024 ktprojects. Engineered for Precision.
-</div>
+                &copy; 2024 ktprojects. Engineered for Precision.
+            </div>
 </div>
 </footer>
 </body>

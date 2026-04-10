@@ -5,127 +5,122 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Project Detail | ktprojects</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script>
-tailwind.config = {
-    darkMode: "class",
-    theme: {
-        extend: {
-            colors: {
-                "on-secondary-fixed-variant": "#38485d",
-                "inverse-primary": "#b8c4ff",
-                "on-secondary-fixed": "#0b1c30",
-                "background": "#f7f9fb",
-                "surface-dim": "#d8dadc",
-                "surface-container-highest": "#e0e3e5",
-                "primary": "#00288e",
-                "surface": "#f7f9fb",
-                "outline": "#757684",
-                "on-tertiary-fixed": "#001e2f",
-                "tertiary-fixed": "#c9e6ff",
-                "surface-variant": "#e0e3e5",
-                "on-secondary-container": "#54647a",
-                "on-surface-variant": "#444653",
-                "on-primary": "#ffffff",
-                "on-primary-fixed": "#001453",
-                "error-container": "#ffdad6",
-                "secondary-container": "#d0e1fb",
-                "on-background": "#191c1e",
-                "on-tertiary-container": "#68c4ff",
-                "on-error": "#ffffff",
-                "primary-fixed-dim": "#b8c4ff",
-                "on-primary-container": "#a8b8ff",
-                "on-surface": "#191c1e",
-                "surface-container": "#eceef0",
-                "surface-bright": "#f7f9fb",
-                "surface-tint": "#3755c3",
-                "surface-container-low": "#f2f4f6",
-                "on-primary-fixed-variant": "#173bab",
-                "inverse-surface": "#2d3133",
-                "surface-container-high": "#e6e8ea",
-                "tertiary-container": "#005074",
-                "inverse-on-surface": "#eff1f3",
-                "secondary-fixed": "#d3e4fe",
-                "secondary": "#505f76",
-                "primary-container": "#1e40af",
-                "primary-fixed": "#dde1ff",
-                "error": "#ba1a1a",
-                "on-tertiary": "#ffffff",
-                "on-error-container": "#93000a",
-                "outline-variant": "#c4c5d5",
-                "tertiary-fixed-dim": "#89ceff",
-                "on-tertiary-fixed-variant": "#004c6e",
-                "on-secondary": "#ffffff",
-                "tertiary": "#003853",
-                "surface-container-lowest": "#ffffff",
-                "secondary-fixed-dim": "#b7c8e1"
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#38485d",
+                    "inverse-primary": "#b8c4ff",
+                    "on-secondary-fixed": "#0b1c30",
+                    "background": "#f7f9fb",
+                    "surface-dim": "#d8dadc",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary": "#00288e",
+                    "surface": "#f7f9fb",
+                    "outline": "#757684",
+                    "on-tertiary-fixed": "#001e2f",
+                    "tertiary-fixed": "#c9e6ff",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary-container": "#54647a",
+                    "on-surface-variant": "#444653",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#001453",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#d0e1fb",
+                    "on-background": "#191c1e",
+                    "on-tertiary-container": "#68c4ff",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#b8c4ff",
+                    "on-primary-container": "#a8b8ff",
+                    "on-surface": "#191c1e",
+                    "surface-container": "#eceef0",
+                    "surface-bright": "#f7f9fb",
+                    "surface-tint": "#3755c3",
+                    "surface-container-low": "#f2f4f6",
+                    "on-primary-fixed-variant": "#173bab",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-high": "#e6e8ea",
+                    "tertiary-container": "#005074",
+                    "inverse-on-surface": "#eff1f3",
+                    "secondary-fixed": "#d3e4fe",
+                    "secondary": "#505f76",
+                    "primary-container": "#1e40af",
+                    "primary-fixed": "#dde1ff",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c4c5d5",
+                    "tertiary-fixed-dim": "#89ceff",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#003853",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#b7c8e1"
             },
-            borderRadius: {
-                DEFAULT: "0.125rem",
-                lg: "0.25rem",
-                xl: "0.5rem",
-                full: "0.75rem"
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
             },
-            fontFamily: {
-                headline: ["Plus Jakarta Sans"],
-                body: ["Plus Jakarta Sans"],
-                label: ["Plus Jakarta Sans"]
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"]
             }
+          },
         },
-    },
-}
-</script>
+      }
+    </script>
 <style>
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-.glass-nav {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-}
-</style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
 </head>
 <body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
-
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-50 glass-nav shadow-[0px_20px_40px_rgba(25,28,30,0.06)]">
 <div class="flex justify-between items-center h-16 px-8 max-w-7xl mx-auto">
 <div class="flex items-center gap-8">
-<a class="text-2xl font-black lowercase text-[#00288e] tracking-tight" href="index.html">kt</a>
+<a class="text-2xl font-black lowercase text-[#00288e] tracking-tight" href="index.html">ktprojects</a>
 <div class="hidden md:flex gap-6 items-center">
 <a class="font-['Plus_Jakarta_Sans'] tracking-[-0.02em] font-medium transition-colors duration-200 text-slate-500 hover:text-[#1E40AF]" href="index.html">Home</a>
-<a class="font-['Plus_Jakarta_Sans'] tracking-[-0.02em] font-medium transition-colors duration-200 text-[#00288e] font-bold border-b-2 border-[#00288e] pb-1" href="projects.html">Projects</a>
+<a class="font-['Plus_Jakarta_Sans'] tracking-[-0.02em] font-bold border-b-2 border-[#00288e] pb-1 text-[#00288e]" href="projects.html">Projects</a>
 <a class="font-['Plus_Jakarta_Sans'] tracking-[-0.02em] font-medium transition-colors duration-200 text-slate-500 hover:text-[#1E40AF]" href="members.html">Members</a>
 </div>
 </div>
 <button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-5 py-2 rounded-lg font-medium text-sm transition-all hover:brightness-110 shadow-sm">
-Join Us
-</button>
+                Join Us
+            </button>
 </div>
 </nav>
-
 <main class="pt-24 pb-20 px-8 max-w-7xl mx-auto space-y-12">
-
 <!-- Header Section -->
 <header class="relative space-y-4">
 <div class="flex items-center gap-3 text-primary font-label text-xs font-bold tracking-[0.1em] uppercase">
 <span class="w-8 h-[2px] bg-primary"></span>
-System Specification / Release 4.2
-</div>
+                System Specification / Release 4.2
+            </div>
 <h1 class="text-5xl md:text-7xl font-headline font-extrabold tracking-[-0.03em] text-on-surface max-w-4xl leading-[1.1]">
-ktprojects: <span class="text-primary-container">Architectural Fluidity.</span>
+                ktprojects: <span class="text-primary-container">Architectural Fluidity.</span>
 </h1>
 <p class="text-on-surface-variant text-lg md:text-xl max-w-2xl leading-relaxed">
-An ultra-precise execution engine for high-performance visual computing. Engineered for low-latency feedback loops and structural transparency.
-</p>
+                An ultra-precise execution engine for high-performance visual computing. Engineered for low-latency feedback loops and structural transparency.
+            </p>
 </header>
-
 <!-- Main Content Split Layout -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-
-<!-- Left Column: Architecture Schema -->
+<!-- Left Column: Architecture Schema (Reactive Infographic) -->
 <section class="lg:col-span-7 space-y-6">
 <div class="bg-surface-container-low rounded-lg p-1 overflow-hidden group">
 <div class="bg-surface-container-lowest p-8 rounded-lg border border-outline-variant/15 transition-all duration-300 group-hover:shadow-[0px_20px_40px_rgba(25,28,30,0.06)]">
@@ -138,10 +133,12 @@ An ultra-precise execution engine for high-performance visual computing. Enginee
 </div>
 <!-- Visual Schema Representation -->
 <div class="relative h-[400px] flex items-center justify-center">
+<!-- SVG Connection Lines (Decorative) -->
 <svg class="absolute inset-0 w-full h-full opacity-20" fill="none" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
 <path d="M100 200 H400 M250 100 V300" stroke="#00288e" stroke-dasharray="4 4" stroke-width="2"></path>
 </svg>
 <div class="grid grid-cols-3 gap-8 relative z-10">
+<!-- Node 1 -->
 <div class="flex flex-col items-center gap-4 group/node">
 <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white shadow-lg transition-transform group-hover/node:scale-110">
 <span class="material-symbols-outlined">hub</span>
@@ -151,6 +148,7 @@ An ultra-precise execution engine for high-performance visual computing. Enginee
 <div class="font-bold text-sm">Telemetry</div>
 </div>
 </div>
+<!-- Node 2 (Center) -->
 <div class="flex flex-col items-center gap-4 group/node">
 <div class="w-20 h-20 rounded-full bg-primary-container flex items-center justify-center text-white shadow-xl ring-4 ring-primary-container/20 transition-transform group-hover/node:scale-110">
 <span class="material-symbols-outlined text-4xl">memory</span>
@@ -160,6 +158,7 @@ An ultra-precise execution engine for high-performance visual computing. Enginee
 <div class="font-bold text-sm">Sapphire V3</div>
 </div>
 </div>
+<!-- Node 3 -->
 <div class="flex flex-col items-center gap-4 group/node">
 <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white shadow-lg transition-transform group-hover/node:scale-110">
 <span class="material-symbols-outlined">data_exploration</span>
@@ -185,7 +184,6 @@ An ultra-precise execution engine for high-performance visual computing. Enginee
 </div>
 </div>
 </section>
-
 <!-- Right Column: Metrics & Members -->
 <aside class="lg:col-span-5 space-y-8">
 <!-- Metrics Card -->
@@ -194,9 +192,10 @@ An ultra-precise execution engine for high-performance visual computing. Enginee
 <h3 class="text-sm font-label font-bold uppercase tracking-widest text-on-surface">Performance Pulse</h3>
 <span class="flex items-center gap-1 text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded">
 <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> LIVE
-</span>
+                        </span>
 </div>
 <div class="space-y-6">
+<!-- Stat Item 1 -->
 <div>
 <div class="flex justify-between items-end mb-1">
 <span class="text-xs text-on-surface-variant font-medium">Processing Latency</span>
@@ -206,6 +205,7 @@ An ultra-precise execution engine for high-performance visual computing. Enginee
 <div class="h-full bg-primary w-[15%]"></div>
 </div>
 </div>
+<!-- Stat Item 2 -->
 <div>
 <div class="flex justify-between items-end mb-1">
 <span class="text-xs text-on-surface-variant font-medium">Throughput Efficiency</span>
@@ -215,6 +215,7 @@ An ultra-precise execution engine for high-performance visual computing. Enginee
 <div class="h-full bg-primary w-[92%]"></div>
 </div>
 </div>
+<!-- Stat Item 3 -->
 <div>
 <div class="flex justify-between items-end mb-1">
 <span class="text-xs text-on-surface-variant font-medium">Memory Footprint</span>
@@ -226,11 +227,11 @@ An ultra-precise execution engine for high-performance visual computing. Enginee
 </div>
 </div>
 </div>
-
 <!-- Builders Section -->
 <div class="bg-surface-container-lowest rounded-lg p-6 shadow-[0px_20px_40px_rgba(25,28,30,0.06)] border border-outline-variant/10">
 <h3 class="text-sm font-label font-bold uppercase tracking-widest text-on-surface mb-6">Builder Unit</h3>
 <div class="space-y-4">
+<!-- Member 1 -->
 <div class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
 <div class="flex items-center gap-4">
 <img class="w-12 h-12 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all" alt="Marcus Vance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2j-y5xA73z7xd3u-X7eWQ6KQJzN2cF95Cnf0giwePW6drM1vwrqqf_i5dAGlzM6R6-cQIwweJIsKwSk5ycWK5U81WqPTYpJR0ryfPtydTgJP4E6YFc-1xX1uAz22rmfl65YPn6BUmoe0Pxj_7ep5te50O9nB2CSUAGPfRsownsa0S-2U1X--69mmjSr7hpRpMzyh8vZTI2cSlYnBy5KWuN_MOdGLLkMgWQ94vXsdVtxeIDkKECTydGJTOlaUlReYNBzHZMuS_itdl"/>
@@ -241,8 +242,9 @@ An ultra-precise execution engine for high-performance visual computing. Enginee
 </div>
 <div class="flex items-center gap-1 text-[10px] font-bold text-on-tertiary-fixed-variant">
 <span class="w-2 h-2 rounded-full bg-primary"></span> Active
+                            </div>
 </div>
-</div>
+<!-- Member 2 -->
 <div class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
 <div class="flex items-center gap-4">
 <img class="w-12 h-12 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all" alt="Elena Rodriguez" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAePbhqLrlKZ2Mbif6fCWypPnm1uKZXJq2UC9C-kegeR1dbVkmqPUsBzQsOp-IRQEg30m1VtPdvtvhCwp1HPN3_idWiIg3-DeHx8ci9Z0gzZhe1R5CTotQqFMZgak1W9DOnxfdDEDA2aVIxmqsEYFaqjcbDZ2w8rec7RrAQkZfnvG2zxYhSuZausyNdAlAPpyVD4O3bGGLp_SVgX4cvds-oN6VrFKVmIJysNcS97grYyZ23Qmnnc3BWTFBIGUiXIgrEsXJoThtLSLyb"/>
@@ -253,8 +255,9 @@ An ultra-precise execution engine for high-performance visual computing. Enginee
 </div>
 <div class="flex items-center gap-1 text-[10px] font-bold text-on-tertiary-fixed-variant">
 <span class="w-2 h-2 rounded-full bg-primary"></span> Active
+                            </div>
 </div>
-</div>
+<!-- Member 3 -->
 <div class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
 <div class="flex items-center gap-4">
 <div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center grayscale">
@@ -267,17 +270,16 @@ An ultra-precise execution engine for high-performance visual computing. Enginee
 </div>
 <div class="flex items-center gap-1 text-[10px] font-bold text-outline">
 <span class="w-2 h-2 rounded-full bg-outline-variant"></span> Idle
-</div>
+                            </div>
 </div>
 </div>
 <a href="members.html" class="block w-full mt-6 py-3 text-primary text-xs font-bold uppercase tracking-widest border border-primary/20 rounded-lg hover:bg-primary hover:text-white transition-all text-center">
-View Full Directory
-</a>
+                        View Full Directory
+                    </a>
 </div>
 </aside>
 </div>
-
-<!-- System Visualizer -->
+<!-- System Visualizer (Bento Section) -->
 <section class="space-y-6">
 <h3 class="text-xs font-label font-bold uppercase tracking-[0.3em] text-outline">Sub-System Insights</h3>
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 h-auto md:h-64">
@@ -287,8 +289,9 @@ View Full Directory
 <div class="text-xs font-bold uppercase tracking-widest opacity-70">Uptime Reliability</div>
 </div>
 <div class="relative z-10 text-sm font-medium leading-relaxed opacity-90 max-w-xs">
-Our distributed edge network ensures that ktprojects remains accessible globally with zero single points of failure.
-</div>
+                        Our distributed edge network ensures that ktprojects remains accessible globally with zero single points of failure.
+                    </div>
+<!-- Decorative Graphic -->
 <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4 group-hover:scale-110 transition-transform duration-700">
 <span class="material-symbols-outlined text-[200px]">verified_user</span>
 </div>
@@ -309,15 +312,14 @@ Our distributed edge network ensures that ktprojects remains accessible globally
 </div>
 </section>
 </main>
-
 <!-- Footer -->
 <footer class="bg-slate-50 dark:bg-slate-950 w-full py-12 border-t border-slate-200/15">
 <div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-6">
 <div class="flex flex-col gap-2">
-<a class="text-xl font-bold lowercase text-[#00288e] dark:text-blue-300" href="index.html">kt</a>
+<a href="index.html" class="text-xl font-bold lowercase text-[#00288e] dark:text-blue-300">ktprojects</a>
 <span class="font-['Plus_Jakarta_Sans'] text-sm uppercase tracking-widest text-slate-400 dark:text-slate-500">
-&copy; 2024 ktprojects. Engineered for Precision.
-</span>
+                    &copy; 2024 ktprojects. Engineered for Precision.
+                </span>
 </div>
 <div class="flex gap-12">
 <a class="font-['Plus_Jakarta_Sans'] text-sm uppercase tracking-widest text-slate-400 hover:text-[#00288e] transition-all" href="projects.html">Code</a>
