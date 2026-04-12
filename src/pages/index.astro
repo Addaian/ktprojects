@@ -236,18 +236,25 @@ await committee.ship();
           class="text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-none text-on-surface mb-8 space-y-4 md:space-y-6"
           aria-label="Projects at the University of Chicago"
         >
-          <!-- Line 1: scramble | projects, split at the center seam -->
-          <span class="grid grid-cols-2 items-center w-full">
-            <span
-              id="scramble-word"
-              class="text-primary text-right pr-3 tabular-nums"
-              aria-hidden="true"
-              data-value="backend">backend</span
-            >
-            <span class="text-left pl-3">projects</span>
+          <!-- Line 1: scramble word stacked over an invisible 'frontend' ghost
+               so the wrapper width is locked. 'projects' sits to the right and
+               never moves regardless of which word is currently scrambling. -->
+          <span class="flex items-baseline justify-center gap-x-3">
+            <span class="inline-grid justify-items-end">
+              <span aria-hidden="true" class="invisible col-start-1 row-start-1"
+                >frontend</span
+              >
+              <span
+                id="scramble-word"
+                class="text-primary col-start-1 row-start-1"
+                aria-hidden="true"
+                data-value="backend">backend</span
+              >
+            </span>
+            <span>projects</span>
           </span>
-          <!-- Line 2: @ + UChicago logo, centered on the same axis -->
-          <span class="flex items-center justify-center gap-x-4 w-full">
+          <!-- Line 2: @ + UChicago logo, centered -->
+          <span class="flex items-center justify-center gap-x-4">
             <span class="text-outline opacity-60">@</span>
             <img
               src={base + '/uchicago_crest.png'}
