@@ -107,6 +107,37 @@ content:
       - name: avatar
         label: Avatar URL
         type: string
+      - name: specialization
+        label: Specialization
+        type: string
+      - name: affiliation
+        label: Affiliation
+        type: string
+      - name: joinDate
+        label: Join Date (e.g. MAR 2023)
+        type: string
+      - name: status
+        label: Status
+        type: select
+        default: Active Deployment
+        options:
+          values:
+            - Active Deployment
+            - On Sabbatical
+            - Alumni
+      - name: featured
+        label: Featured on About Page
+        type: boolean
+        default: false
+      - name: github
+        label: GitHub URL
+        type: string
+      - name: linkedin
+        label: LinkedIn URL
+        type: string
+      - name: website
+        label: Personal Website URL
+        type: string
       - name: skills
         label: Skills
         type: object
@@ -122,7 +153,7 @@ content:
               min: 0
               max: 100
       - name: contributions
-        label: Contributions
+        label: Contributions (project slugs)
         type: string
         list: true
       - name: order
@@ -131,6 +162,56 @@ content:
         default: 0
       - name: body
         label: Bio
+        type: rich-text
+        options:
+          format: markdown
+
+  - name: pulse
+    label: Pulse
+    type: collection
+    path: src/content/pulse
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: category
+        label: Category
+        type: select
+        required: true
+        options:
+          values:
+            - Release
+            - Milestone
+            - Announcement
+            - Award
+            - Patch
+            - System
+      - name: version
+        label: Version (e.g. v2.4.0)
+        type: string
+      - name: image
+        label: Image URL
+        type: string
+      - name: excerpt
+        label: Excerpt (shown on the feed)
+        type: string
+      - name: order
+        label: Display Order
+        type: number
+        default: 0
+      - name: body
+        label: Body
         type: rich-text
         options:
           format: markdown

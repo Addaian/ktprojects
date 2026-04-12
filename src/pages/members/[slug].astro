@@ -1,0 +1,268 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const members = await getCollection('members');
+  return members.map((member) => ({
+    params: { slug: member.slug },
+    props: { member },
+  }));
+}
+
+const { member } = Astro.props;
+const { Content } = await member.render();
+const { data } = member;
+const base = import.meta.env.BASE_URL;
+
+// Look up the project data for each contribution slug
+const contributionEntries = await Promise.all(
+  data.contributions.map((slug) =>
+    getEntry('projects', slug).catch(() => null)
+  )
+);
+const contributions = contributionEntries.filter(
+  (p): p is NonNullable<typeof p> => p !== null
+);
+
+const proficiencyLabel = (level: number) => {
+  if (level >= 95) return 'CRITICAL';
+  if (level >= 85) return 'ELITE';
+  if (level >= 70) return 'ADVANCED';
+  if (level >= 50) return 'PROFICIENT';
+  return 'DEVELOPING';
+};
+---
+
+<Layout
+  title={`${data.name} | ktprojects`}
+  active="members"
+  bodyClass="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed"
+>
+  <main class="pt-24 pb-20 max-w-7xl mx-auto px-6 lg:px-8">
+    <!-- Header -->
+    <section class="relative mb-12">
+      <div
+        class="bg-surface-container-lowest rounded-lg p-1 lg:p-2 shadow-[0px_20px_40px_rgba(25,28,30,0.06)] overflow-hidden"
+      >
+        <div
+          class="flex flex-col md:flex-row items-center md:items-stretch gap-8 p-8 lg:p-12 bg-primary/5 rounded"
+        >
+          <div class="relative group">
+            <div
+              class="absolute -inset-1 bg-gradient-to-tr from-primary to-primary-container rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"
+            >
+            </div>
+            {
+              data.avatar && (
+                <img
+                  alt={data.name}
+                  class="relative w-48 h-48 lg:w-64 lg:h-64 object-cover rounded-lg border-2 border-white shadow-xl"
+                  src={data.avatar}
+                />
+              )
+            }
+          </div>
+          <div class="flex-1 flex flex-col justify-center text-center md:text-left">
+            <div class="mb-2">
+              <span
+                class="inline-block px-3 py-1 bg-primary text-white text-[10px] font-black tracking-[0.2em] uppercase rounded-sm mb-4"
+                >{data.role}</span
+              >
+              <h1
+                class="text-4xl lg:text-7xl font-extrabold tracking-tighter text-primary leading-none"
+              >
+                {data.name}
+              </h1>
+            </div>
+            {
+              data.specialization && (
+                <p class="text-on-surface-variant max-w-2xl font-medium text-lg leading-relaxed mt-4">
+                  {data.specialization}
+                </p>
+              )
+            }
+            <div class="mt-8 flex items-center justify-center md:justify-start gap-6 flex-wrap">
+              {
+                data.github && (
+                  <a
+                    class="flex items-center space-x-2 text-primary hover:opacity-70 transition-all"
+                    href={data.github}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <span class="material-symbols-outlined text-2xl">terminal</span>
+                    <span class="font-bold text-sm tracking-widest uppercase">GitHub</span>
+                  </a>
+                )
+              }
+              {
+                data.linkedin && (
+                  <a
+                    class="flex items-center space-x-2 text-primary hover:opacity-70 transition-all"
+                    href={data.linkedin}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <span class="material-symbols-outlined text-2xl">lan</span>
+                    <span class="font-bold text-sm tracking-widest uppercase">LinkedIn</span>
+                  </a>
+                )
+              }
+              {
+                data.website && (
+                  <a
+                    class="flex items-center space-x-2 text-primary hover:opacity-70 transition-all"
+                    href={data.website}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <span class="material-symbols-outlined text-2xl">language</span>
+                    <span class="font-bold text-sm tracking-widest uppercase">Website</span>
+                  </a>
+                )
+              }
+            </div>
+          </div>
+          <div class="hidden lg:block w-px bg-outline-variant/30 self-stretch mx-4"></div>
+          <div class="hidden lg:flex flex-col justify-between py-4 min-w-[200px]">
+            <div>
+              <p class="text-[10px] text-outline font-bold tracking-widest uppercase mb-1">
+                Status
+              </p>
+              <div class="flex items-center space-x-2">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span class="text-sm font-bold">{data.status}</span>
+              </div>
+            </div>
+            {
+              data.affiliation && (
+                <div>
+                  <p class="text-[10px] text-outline font-bold tracking-widest uppercase mb-1">
+                    Affiliation
+                  </p>
+                  <p class="text-sm font-bold">{data.affiliation}</p>
+                </div>
+              )
+            }
+            {
+              data.joinDate && (
+                <div>
+                  <p class="text-[10px] text-outline font-bold tracking-widest uppercase mb-1">
+                    Join Date
+                  </p>
+                  <p class="text-sm font-bold">{data.joinDate}</p>
+                </div>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bio + Skills -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+      <div class="lg:col-span-4 bg-surface-container-low p-8 rounded-lg flex flex-col">
+        <h3
+          class="text-[10px] text-primary font-black tracking-[0.3em] uppercase mb-6 flex items-center"
+        >
+          <span class="w-8 h-[1px] bg-primary mr-3"></span>
+          Architectural Dossier
+        </h3>
+        <div class="prose prose-sm max-w-none text-on-surface-variant leading-relaxed">
+          <Content />
+        </div>
+      </div>
+
+      <div
+        class="lg:col-span-8 bg-surface-container-lowest p-8 lg:p-12 rounded-lg shadow-[0px_20px_40px_rgba(25,28,30,0.06)] relative overflow-hidden"
+      >
+        <div class="absolute top-0 right-0 p-8 opacity-5">
+          <span class="material-symbols-outlined text-[160px]">analytics</span>
+        </div>
+        <h3
+          class="text-[10px] text-primary font-black tracking-[0.3em] uppercase mb-12 flex items-center"
+        >
+          <span class="w-8 h-[1px] bg-primary mr-3"></span>
+          Domain Proficiency
+        </h3>
+        <div class="space-y-10 relative z-10">
+          {
+            data.skills.map((skill) => (
+              <div class="group">
+                <div class="flex justify-between items-end mb-3">
+                  <span class="text-lg font-bold text-on-surface">{skill.name}</span>
+                  <span class="text-sm font-black text-primary tracking-tighter">
+                    {skill.level}% / {proficiencyLabel(skill.level)}
+                  </span>
+                </div>
+                <div class="h-3 bg-surface-container-high overflow-hidden relative">
+                  <div
+                    class="absolute inset-y-0 left-0 bg-primary group-hover:bg-primary-container transition-all duration-500"
+                    style={`width: ${skill.level}%;`}
+                  />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Contributions -->
+    {
+      contributions.length > 0 && (
+        <section class="mt-16">
+          <div class="flex items-end justify-between mb-10">
+            <div>
+              <h2 class="text-3xl font-extrabold tracking-tighter text-primary">
+                System Contributions
+              </h2>
+              <p class="text-on-surface-variant font-medium">
+                Core components engineered by {data.name}.
+              </p>
+            </div>
+            <div class="h-[2px] flex-1 bg-outline-variant/20 mx-8 mb-3" />
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {contributions.map((project) => (
+              <a
+                href={`${base}/projects/${project.slug}`}
+                class="group bg-surface-container-lowest border border-transparent hover:border-primary/10 rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] shadow-sm hover:shadow-xl block"
+              >
+                {project.data.image && (
+                  <div class="h-48 overflow-hidden">
+                    <img
+                      alt={project.data.title}
+                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      src={project.data.image}
+                    />
+                  </div>
+                )}
+                <div class="p-6">
+                  <div class="flex justify-between items-start mb-4">
+                    <h4 class="text-xl font-bold text-primary">{project.data.title}</h4>
+                    <span class="text-[10px] font-black uppercase text-primary border border-primary px-2 py-0.5">
+                      {project.data.status}
+                    </span>
+                  </div>
+                  <p class="text-on-surface-variant text-sm mb-6 leading-relaxed">
+                    {project.data.subtitle}
+                  </p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-outline">
+                      {project.data.category || project.data.subtitle}
+                    </span>
+                    <span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">
+                      arrow_forward
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </main>
+</Layout>

@@ -1,0 +1,247 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const leadership = (await getCollection('members', ({ data }) => data.featured)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout title="About | ktprojects" active="about" bodyClass="bg-surface font-body text-on-surface">
+  <main class="pt-24 pb-20 max-w-7xl mx-auto px-8">
+    <!-- Origin & Mission -->
+    <section class="py-20 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+      <div class="md:col-span-7">
+        <span
+          class="text-primary font-label text-sm uppercase tracking-widest font-bold"
+          >Origin Analysis</span
+        >
+        <h1
+          class="text-5xl md:text-7xl font-headline font-extrabold tracking-tighter text-on-surface mt-4 mb-8"
+        >
+          Born at <span class="text-primary">UChicago.</span><br />Engineered for Impact.
+        </h1>
+        <div
+          class="space-y-6 text-on-surface-variant text-lg leading-relaxed max-w-2xl"
+        >
+          <p>
+            ktprojects emerged from the rigorous computational landscape of the University of
+            Chicago. What began as a collaborative effort between researchers and developers has
+            evolved into a precision-focused engineering collective.
+          </p>
+          <p>
+            Our mission is to bridge the gap between theoretical computer science and deployable
+            high-performance solutions. We build tools that don't just solve problems — they
+            redefine structural possibilities.
+          </p>
+        </div>
+      </div>
+      <div class="md:col-span-5 relative">
+        <div
+          class="aspect-square bg-surface-container-low rounded-lg overflow-hidden ghost-border shadow-[0px_20px_40px_rgba(25,28,30,0.06)] relative group"
+        >
+          <img
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            alt="Modern architectural detail of University of Chicago campus"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtl8qboNFfQ4uvOhMhx4eTFYo6vrbgkyCSdCQ7O9fBL13LkoCt4o_5GLb6iNvtSbfIwcD9vLFuWaYaPuNlXi7Ss-G8OHuHXXVAGswohRixcSkXeFyLjKVkk-8175EUonINo8653Y8ADwqLG-ncPF9AM2LFPabwfjO1DOFGk-sRldI1htqmCRvmOvYz4GRZKqxS3uxGhAHE-Txdwjq_ZfKlTqRhPHiALHPl4oZVgiT307n0rPzBZpS9qg8ewgjZjAB_KbBfoYG2a6Eq"
+          />
+          <div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+          <div class="absolute bottom-0 left-0 p-8">
+            <div class="text-4xl font-headline font-black text-white">100%</div>
+            <div class="text-white/80 font-label text-xs uppercase tracking-widest">
+              Precision Standard
+            </div>
+          </div>
+        </div>
+        <div
+          class="absolute -bottom-6 -right-6 bg-white p-6 rounded-lg shadow-xl ghost-border max-w-[200px]"
+        >
+          <span class="material-symbols-outlined text-primary text-3xl mb-2">terminal</span>
+          <p class="text-xs font-label uppercase tracking-wider text-outline">
+            System.Initialization
+          </p>
+          <div class="w-full bg-surface-container-high h-1 mt-2">
+            <div class="bg-primary h-1 w-3/4"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Architecture (Values) -->
+    <section class="py-20">
+      <div class="mb-12">
+        <h2 class="text-3xl font-headline font-bold tracking-tight">Core Architecture</h2>
+        <div class="h-1 w-20 bg-primary mt-2"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-0 ghost-border rounded-lg overflow-hidden">
+        <div
+          class="p-10 bg-surface-container-lowest hover:bg-surface-container-low transition-colors"
+        >
+          <span class="material-symbols-outlined text-primary text-4xl mb-6"
+            >precision_manufacturing</span
+          >
+          <h3 class="font-headline font-bold text-xl mb-4">Precision</h3>
+          <p class="text-on-surface-variant text-sm">
+            Every line of code is audited for maximum efficiency and zero-latency performance.
+          </p>
+        </div>
+        <div
+          class="p-10 bg-surface-container-low hover:bg-surface-container-high transition-colors border-l border-outline-variant/10"
+        >
+          <span class="material-symbols-outlined text-primary text-4xl mb-6">code_blocks</span>
+          <h3 class="font-headline font-bold text-xl mb-4">Open Source</h3>
+          <p class="text-on-surface-variant text-sm">
+            Transparency is the bedrock of trust. Our core modules remain accessible to the
+            community.
+          </p>
+        </div>
+        <div
+          class="p-10 bg-surface-container-lowest hover:bg-surface-container-low transition-colors border-l border-outline-variant/10"
+        >
+          <span class="material-symbols-outlined text-primary text-4xl mb-6">schema</span>
+          <h3 class="font-headline font-bold text-xl mb-4">Modular Design</h3>
+          <p class="text-on-surface-variant text-sm">
+            We build ecosystems, not silos. Integrated components that scale infinitely.
+          </p>
+        </div>
+        <div
+          class="p-10 bg-surface-container-low hover:bg-surface-container-high transition-colors border-l border-outline-variant/10"
+        >
+          <span class="material-symbols-outlined text-primary text-4xl mb-6">security</span>
+          <h3 class="font-headline font-bold text-xl mb-4">Integrity</h3>
+          <p class="text-on-surface-variant text-sm">
+            UChicago-level intellectual rigor applied to security and data privacy.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leadership -->
+    <section class="py-20">
+      <div class="flex justify-between items-end mb-16">
+        <div>
+          <span
+            class="text-primary font-label text-sm uppercase tracking-widest font-bold"
+            >System Leads</span
+          >
+          <h2 class="text-4xl font-headline font-bold tracking-tight mt-2">
+            Technical Leadership
+          </h2>
+        </div>
+        <div class="hidden md:block text-right">
+          <p class="text-outline font-label text-xs uppercase tracking-widest">
+            Featured Members: {leadership.length}
+          </p>
+        </div>
+      </div>
+
+      {
+        leadership.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {leadership.map((member, i) => (
+              <a
+                href={`${base}/members/${member.slug}`}
+                class={`space-y-6 group block ${i === 1 ? 'md:translate-y-12' : ''}`}
+              >
+                <div class="aspect-[4/5] bg-surface-container-low rounded-lg overflow-hidden ghost-border relative">
+                  {member.data.avatar && (
+                    <img
+                      class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105"
+                      alt={member.data.name}
+                      src={member.data.avatar}
+                    />
+                  )}
+                  <div class="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-primary/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                    <p class="text-white text-xs font-label uppercase tracking-widest">
+                      {member.data.specialization}
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-2xl font-headline font-bold">{member.data.name}</h4>
+                  <p class="text-primary font-label text-sm uppercase tracking-wider font-semibold">
+                    {member.data.role}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="text-on-surface-variant">
+            No leadership profiles featured yet. Mark a member as{' '}
+            <code class="px-2 py-1 bg-surface-container rounded">featured: true</code> in their
+            markdown file to show them here.
+          </p>
+        )
+      }
+    </section>
+
+    <!-- Timeline -->
+    <section
+      class="py-24 mt-12 bg-surface-container-low rounded-lg p-12 relative overflow-hidden"
+    >
+      <div
+        class="absolute top-0 right-0 p-12 text-outline-variant/20 text-9xl font-black select-none tracking-tighter hidden md:block"
+      >
+        HISTORY
+      </div>
+      <div class="relative z-10 max-w-4xl">
+        <div class="mb-16">
+          <span class="text-primary font-label text-sm uppercase tracking-widest font-bold"
+            >Iterative Progress</span
+          >
+          <h2 class="text-4xl font-headline font-bold tracking-tight mt-2">
+            Evolutionary Milestones
+          </h2>
+        </div>
+        <div class="relative pl-12 border-l-2 border-primary/20 space-y-20">
+          <div class="relative">
+            <div
+              class="absolute -left-[53px] top-1 w-2 h-2 bg-white border-2 border-primary rounded-full"
+            >
+            </div>
+            <div class="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12">
+              <div class="text-primary font-headline font-black text-2xl">2022.09</div>
+              <div>
+                <h4 class="text-xl font-bold mb-2">Alpha Convergence</h4>
+                <p class="text-on-surface-variant max-w-lg">
+                  The initial collective of UChicago students forms. Focus: distributed ledger
+                  optimization and high-performance research infrastructure.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="relative">
+            <div
+              class="absolute -left-[53px] top-1 w-2 h-2 bg-white border-2 border-primary rounded-full"
+            >
+            </div>
+            <div class="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12">
+              <div class="text-primary font-headline font-black text-2xl">2024.01</div>
+              <div>
+                <h4 class="text-xl font-bold mb-2">Sapphire Engine Launch</h4>
+                <p class="text-on-surface-variant max-w-lg">
+                  Migration to dedicated infrastructure. Launch of the core library used by
+                  multiple academic organizations worldwide.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="absolute -left-[53px] top-1 w-4 h-4 bg-primary rounded-full -ml-1"></div>
+            <div class="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12">
+              <div class="text-primary font-headline font-black text-2xl">PRESENT</div>
+              <div>
+                <h4 class="text-xl font-bold mb-2">ktprojects Global</h4>
+                <p class="text-on-surface-variant max-w-lg">
+                  Expanding into high-frequency compute tools and decentralized research networks.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
