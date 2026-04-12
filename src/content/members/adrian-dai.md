@@ -1,7 +1,7 @@
 ---
 name: Adrian Dai
 role: Project Committee Member
-tier: Tier 2
+tier: Member
 specialization: Spring 2026 committee member. Also serves on the KTP exec board as Co-Director of Membership.
 affiliation: Iota Pledge Class · UChicago '28
 featured: false

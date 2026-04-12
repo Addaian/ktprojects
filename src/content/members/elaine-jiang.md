@@ -1,7 +1,7 @@
 ---
 name: Elaine Jiang
 role: Project Committee Pledge
-tier: Tier 2
+tier: Member
 affiliation: Lambda Pledge Class · UChicago '29
 isPledge: true
 featured: false

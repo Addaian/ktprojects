@@ -1,7 +1,7 @@
 ---
 name: Eli Saliman
 role: Project Committee Pledge
-tier: Tier 2
+tier: Member
 affiliation: Lambda Pledge Class · UChicago '28
 isPledge: true
 featured: false

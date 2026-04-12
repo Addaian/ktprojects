@@ -1,7 +1,7 @@
 ---
 name: Aryan Kaushal
 role: Project Committee Member
-tier: Tier 2
+tier: Member
 specialization: Spring 2026 committee member.
 affiliation: Kappa Pledge Class · UChicago '28
 featured: false

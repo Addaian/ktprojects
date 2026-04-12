@@ -45,7 +45,7 @@ const members = defineCollection({
   schema: z.object({
     name: z.string(),
     role: z.string(),
-    tier: z.enum(['Tier 1', 'Tier 2', 'Tier 3']).default('Tier 1'),
+    tier: z.enum(['Lead', 'Member', 'Contributor']).default('Member'),
     avatar: z.string().optional(),
     specialization: z.string().optional(),
     affiliation: z.string().optional(),

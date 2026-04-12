@@ -1,7 +1,7 @@
 ---
 name: Nam Nguyen
 role: Project Committee Lead
-tier: Tier 1
+tier: Lead
 specialization: Leads the KTP Project Committee alongside Enzo, shaping what the committee builds and how brothers ship together.
 affiliation: Iota Pledge Class · UChicago '28
 featured: true

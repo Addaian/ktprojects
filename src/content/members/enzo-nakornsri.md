@@ -1,7 +1,7 @@
 ---
 name: Enzo Nakornsri
 role: Project Committee Lead
-tier: Tier 1
+tier: Lead
 specialization: Leads the KTP Project Committee alongside Nam, shaping what the committee builds and how brothers ship together.
 affiliation: Theta Pledge Class · UChicago '27
 featured: true

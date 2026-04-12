@@ -119,12 +119,12 @@ content:
         label: Tier
         type: select
         required: true
-        default: Tier 1
+        default: Member
         options:
           values:
-            - Tier 1
-            - Tier 2
-            - Tier 3
+            - Lead
+            - Member
+            - Contributor
       - name: avatar
         label: Avatar URL
         type: string
