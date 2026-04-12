@@ -18,26 +18,28 @@ const tierClass =
   href={href}
   class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_20px_40px_rgba(25,28,30,0.06)] hover:scale-[1.02] transition-all duration-300 group block"
 >
-  <div class="flex justify-between items-start mb-6">
-    <div class="flex gap-4">
-      <div class="w-16 h-16 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
-        {
-          data.avatar && (
-            <img alt={data.name} class="w-full h-full object-cover" src={data.avatar} />
-          )
-        }
-      </div>
-      <div>
-        <h3 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
-          {data.name}
-        </h3>
-        <span class="text-xs font-bold text-outline uppercase tracking-widest">{data.role}</span>
-      </div>
+  <div class="relative mb-6">
+    <div class="aspect-square w-full rounded-lg overflow-hidden bg-surface-container-high">
+      {
+        data.avatar && (
+          <img
+            alt={data.name}
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            src={data.avatar}
+          />
+        )
+      }
     </div>
     <span
-      class={`${tierClass} text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter`}
+      class={`${tierClass} absolute top-3 right-3 text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter shadow`}
       >{data.tier}</span
     >
+  </div>
+  <div class="mb-6">
+    <h3 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+      {data.name}
+    </h3>
+    <span class="text-xs font-bold text-outline uppercase tracking-widest">{data.role}</span>
   </div>
   <div class="space-y-3 mb-6">
     {
