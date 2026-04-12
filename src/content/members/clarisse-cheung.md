@@ -9,7 +9,6 @@ status: Active Deployment
 linkedin: "https://www.linkedin.com/in/clarissecheung/"
 avatar: https://uchicagoktp.com/assets/img/members/Clarisse_Cheung.jpg
 skills: []
-contributions: []
 order: 6
 ---
 

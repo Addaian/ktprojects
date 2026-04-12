@@ -9,7 +9,6 @@ status: Active Deployment
 linkedin: "https://www.linkedin.com/in/eric-wong-107282327/"
 avatar: https://uchicagoktp.com/assets/img/members/Eric_Wong.jpg
 skills: []
-contributions: []
 order: 7
 ---
 

@@ -9,7 +9,6 @@ status: Active Deployment
 linkedin: "https://www.linkedin.com/in/abrahamflores29/"
 avatar: https://uchicagoktp.com/assets/img/members/Abraham_Flores.jpg
 skills: []
-contributions: []
 order: 5
 ---
 

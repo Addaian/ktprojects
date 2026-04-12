@@ -9,7 +9,6 @@ status: Active Deployment
 linkedin: "https://www.linkedin.com/in/aryan-kaushal2028/"
 avatar: https://uchicagoktp.com/assets/img/members/Aryan_Kaushal.jpg
 skills: []
-contributions: []
 order: 8
 ---
 

@@ -9,7 +9,6 @@ status: Active Deployment
 linkedin: "https://www.linkedin.com/in/enzo-nakornsri-bcc2004/"
 avatar: https://uchicagoktp.com/assets/img/members/Enzo_Nakornsri.jpg
 skills: []
-contributions: []
 order: 2
 ---
 

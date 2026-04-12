@@ -9,7 +9,6 @@ status: Active Deployment
 linkedin: "https://www.linkedin.com/in/noah-michel1/"
 avatar: https://uchicagoktp.com/assets/img/members/Noah_Michel.jpg
 skills: []
-contributions: []
 order: 4
 ---
 

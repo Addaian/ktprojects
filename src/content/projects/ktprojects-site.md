@@ -9,7 +9,7 @@ languages:
   - Tailwind CSS
   - HTML
 github: "https://github.com/Addaian/ktprojects"
-image: /ktprojects/main_1.jpg
+image: /main_1.jpg
 images: []
 quotes: []
 contributors:

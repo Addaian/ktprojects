@@ -7,7 +7,6 @@ isPledge: true
 featured: false
 status: Active Deployment
 skills: []
-contributions: []
 order: 13
 ---
 

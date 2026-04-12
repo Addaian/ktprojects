@@ -9,7 +9,6 @@ status: Active Deployment
 linkedin: "https://www.linkedin.com/in/nam-nguyen-ab93b6333/"
 avatar: https://uchicagoktp.com/assets/img/members/Nam_Nguyen.jpg
 skills: []
-contributions: []
 order: 1
 ---
 
