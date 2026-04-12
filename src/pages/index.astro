@@ -193,6 +193,41 @@ await committee.ship();
           class="absolute bottom-1/4 left-10 w-96 h-96 border border-outline-variant/15 rounded-full"
         >
         </div>
+
+        <!-- Floating background images -->
+        <div
+          class="absolute top-[8%] left-[4%] hidden md:block"
+          style="transform: rotate(-7deg);"
+          aria-hidden="true"
+        >
+          <div
+            class="w-56 h-56 rounded-xl overflow-hidden shadow-2xl shadow-primary/30 ring-1 ring-white/40 opacity-60 animate-float-slow"
+          >
+            <img src={base + '/main_1.png'} alt="" class="w-full h-full object-cover" />
+          </div>
+        </div>
+        <div
+          class="absolute top-[30%] right-[3%] hidden md:block"
+          style="transform: rotate(5deg);"
+          aria-hidden="true"
+        >
+          <div
+            class="w-64 h-64 rounded-xl overflow-hidden shadow-2xl shadow-primary/30 ring-1 ring-white/40 opacity-60 animate-float-slower"
+          >
+            <img src={base + '/main_2.png'} alt="" class="w-full h-full object-cover" />
+          </div>
+        </div>
+        <div
+          class="absolute bottom-[10%] left-[10%] hidden md:block"
+          style="transform: rotate(4deg);"
+          aria-hidden="true"
+        >
+          <div
+            class="w-48 h-48 rounded-xl overflow-hidden shadow-2xl shadow-primary/30 ring-1 ring-white/40 opacity-60 animate-float-slow"
+          >
+            <img src={base + '/main_3.png'} alt="" class="w-full h-full object-cover" />
+          </div>
+        </div>
       </div>
       <div
         class="relative z-10 max-w-5xl text-center glass-panel p-12 rounded-[2rem] border border-white/20 shadow-2xl shadow-primary/5"
