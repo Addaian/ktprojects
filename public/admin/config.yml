@@ -1,0 +1,64 @@
+backend:
+  name: github
+  repo: Addaian/ktprojects
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/ktprojects/uploads"
+
+collections:
+  - name: "projects"
+    label: "Projects"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+      - { label: "Category", name: "category", widget: "string", required: false }
+      - { label: "Image URL", name: "image", widget: "string", required: false }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["Active Ops", "In Staging", "Archived"]
+        default: "Active Ops"
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Tags", name: "tags", widget: "list", default: [] }
+      - { label: "Tech Stack", name: "tech", widget: "list", default: [] }
+      - label: "Stats"
+        name: "stats"
+        widget: "list"
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Value", name: "value", widget: "string" }
+      - { label: "Complexity Score (0-100)", name: "complexity", widget: "number", default: 50, min: 0, max: 100 }
+      - { label: "Display Order", name: "order", widget: "number", default: 0 }
+      - { label: "Description", name: "body", widget: "markdown" }
+
+  - name: "members"
+    label: "Members"
+    folder: "src/content/members"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Role", name: "role", widget: "string" }
+      - label: "Tier"
+        name: "tier"
+        widget: "select"
+        options: ["Tier 1", "Tier 2", "Tier 3"]
+        default: "Tier 1"
+      - { label: "Avatar URL", name: "avatar", widget: "string", required: false }
+      - label: "Skills"
+        name: "skills"
+        widget: "list"
+        fields:
+          - { label: "Skill Name", name: "name", widget: "string" }
+          - { label: "Level (0-100)", name: "level", widget: "number", min: 0, max: 100 }
+      - { label: "Contributions", name: "contributions", widget: "list", default: [] }
+      - { label: "Display Order", name: "order", widget: "number", default: 0 }
+      - { label: "Body", name: "body", widget: "markdown", required: false }

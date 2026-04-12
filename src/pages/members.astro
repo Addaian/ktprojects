@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MemberCard from '../components/MemberCard.astro';
+import { getCollection } from 'astro:content';
+
+const members = (await getCollection('members')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout title="Members Matrix | ktprojects" active="members" bodyClass="bg-surface text-on-surface antialiased">
+  <main class="pt-32 pb-24 px-8 max-w-7xl mx-auto">
+    <section class="mb-12">
+      <div
+        class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-outline-variant/15 pb-8"
+      >
+        <div>
+          <h1 class="text-4xl font-extrabold text-on-surface tracking-tight mb-2">
+            Operator Directory
+          </h1>
+          <p class="text-on-surface-variant">Access the kinetic matrix of ktprojects talent.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {members.map((member) => <MemberCard member={member} />)}
+    </section>
+  </main>
+</Layout>

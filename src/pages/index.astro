@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout title="ktprojects | Built at UChicago" active="home">
+  <main class="pt-16 overflow-hidden">
+    <!-- Hero Section -->
+    <section class="relative min-h-[921px] flex items-center justify-center px-8">
+      <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] data-orb-glow opacity-20 blur-3xl"
+        >
+        </div>
+        <div
+          class="absolute top-1/4 right-10 w-64 h-64 border border-outline-variant/15 rounded-full"
+        >
+        </div>
+        <div
+          class="absolute bottom-1/4 left-10 w-96 h-96 border border-outline-variant/15 rounded-full"
+        >
+        </div>
+      </div>
+      <div
+        class="relative z-10 max-w-5xl text-center glass-panel p-12 rounded-[2rem] border border-white/20 shadow-2xl shadow-primary/5"
+      >
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container/50 text-on-secondary-container text-xs font-bold tracking-widest uppercase mb-6"
+        >
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          Now live at the university
+        </div>
+        <h1
+          class="text-6xl md:text-8xl font-extrabold tracking-[-0.04em] leading-[0.9] text-on-surface mb-8"
+        >
+          Built at <span class="gradient-text">UChicago</span>
+        </h1>
+        <p
+          class="text-on-surface-variant text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+        >
+          Engineering precision through distributed research and architectural excellence. We turn
+          complex data into kinetic products.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href={base + '/projects'}
+            class="w-full sm:w-auto bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-all shadow-xl shadow-primary/20 text-center"
+          >
+            Explore Repository
+          </a>
+          <a
+            href={base + '/members'}
+            class="w-full sm:w-auto bg-surface-container-lowest text-primary px-8 py-4 rounded-lg font-bold text-lg border border-outline-variant/30 hover:bg-surface-container transition-all text-center"
+          >
+            Meet the Team
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="max-w-7xl mx-auto px-8 py-20 relative">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+        <div
+          class="p-8 bg-surface-container-low/80 backdrop-blur-sm rounded-lg transition-all hover:scale-[1.02] border-b-4 border-primary/20 border border-white/30 shadow-sm"
+        >
+          <div class="text-5xl font-black text-primary tracking-tighter mb-2">
+            {projects.length}+
+          </div>
+          <div class="text-xs font-bold uppercase tracking-widest text-outline">
+            Projects Deployed
+          </div>
+          <div class="mt-4 h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+            <div class="h-full bg-primary w-3/4"></div>
+          </div>
+        </div>
+        <div
+          class="p-8 bg-surface-container-low/80 backdrop-blur-sm rounded-lg transition-all hover:scale-[1.02] border-b-4 border-primary/20 border border-white/30 shadow-sm"
+        >
+          <div class="text-5xl font-black text-primary tracking-tighter mb-2">128</div>
+          <div class="text-xs font-bold uppercase tracking-widest text-outline">
+            Active Members
+          </div>
+          <div class="mt-4 flex -space-x-2">
+            <div class="w-8 h-8 rounded-full border-2 border-surface-container-low bg-slate-300">
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-surface-container-low bg-slate-400">
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-surface-container-low bg-slate-500">
+            </div>
+            <div
+              class="w-8 h-8 rounded-full border-2 border-surface-container-low bg-primary flex items-center justify-center text-[10px] text-white font-bold"
+            >
+              +125
+            </div>
+          </div>
+        </div>
+        <div
+          class="p-8 bg-surface-container-low/80 backdrop-blur-sm rounded-lg transition-all hover:scale-[1.02] border-b-4 border-primary/20 border border-white/30 shadow-sm"
+        >
+          <div class="text-5xl font-black text-primary tracking-tighter mb-2">1.2M</div>
+          <div class="text-xs font-bold uppercase tracking-widest text-outline">Lines of Code</div>
+          <div class="mt-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-sm">terminal</span>
+            <span class="text-xs font-mono text-on-surface-variant">System integrity verified.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="max-w-7xl mx-auto px-8 py-32 text-center">
+      <div
+        class="bg-surface-container rounded-lg p-12 md:p-20 relative overflow-hidden border border-white/40 shadow-2xl"
+      >
+        <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32">
+        </div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-primary/5 rounded-full -ml-24 -mb-24">
+        </div>
+        <h2 class="text-4xl md:text-5xl font-black text-on-surface mb-6">Ready to collaborate?</h2>
+        <p class="text-on-surface-variant text-lg max-w-xl mx-auto mb-10">
+          We are always looking for visionary engineers and researchers to join our ranks at
+          ktprojects.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button
+            class="bg-primary text-on-primary px-10 py-4 rounded-lg font-bold hover:bg-primary-container transition-all"
+            >Submit Portfolio</button
+          >
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

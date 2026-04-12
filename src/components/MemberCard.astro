@@ -1,0 +1,68 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  member: CollectionEntry<'members'>;
+}
+const { member } = Astro.props;
+const { data } = member;
+const tierClass =
+  data.tier === 'Tier 1'
+    ? 'bg-secondary-container text-on-secondary-container'
+    : 'bg-outline-variant text-on-surface-variant';
+---
+
+<div
+  class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_20px_40px_rgba(25,28,30,0.06)] hover:scale-[1.02] transition-all duration-300 group"
+>
+  <div class="flex justify-between items-start mb-6">
+    <div class="flex gap-4">
+      <div class="w-16 h-16 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
+        {
+          data.avatar && (
+            <img alt={data.name} class="w-full h-full object-cover" src={data.avatar} />
+          )
+        }
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors">
+          {data.name}
+        </h3>
+        <span class="text-xs font-bold text-outline uppercase tracking-widest">{data.role}</span>
+      </div>
+    </div>
+    <span
+      class={`${tierClass} text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter`}
+      >{data.tier}</span
+    >
+  </div>
+  <div class="space-y-3 mb-6">
+    {
+      data.skills.map((skill) => (
+        <div>
+          <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1">
+            <span>{skill.name}</span>
+            <span>{skill.level}%</span>
+          </div>
+          <div class="h-1 bg-surface-container-high w-full rounded-full overflow-hidden">
+            <div class="h-full bg-primary" style={`width: ${skill.level}%`} />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <div class="border-t border-outline-variant/10 pt-4">
+    <span class="text-[10px] font-bold text-outline uppercase tracking-widest mb-3 block"
+      >Contributions</span
+    >
+    <div class="flex flex-wrap gap-2">
+      {
+        data.contributions.map((c) => (
+          <span class="text-[11px] font-semibold bg-surface-container-low px-3 py-1 rounded-full text-primary">
+            {c}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { data, slug } = project;
+const base = import.meta.env.BASE_URL;
+const href = `${base}/projects/${slug}`;
+---
+
+<a
+  href={href}
+  class="bg-surface-container-lowest rounded-lg ghost-border overflow-hidden group hover:scale-[1.02] transition-all duration-300 flex flex-col shadow-[0px_20px_40px_rgba(25,28,30,0.06)]"
+>
+  <div class="h-48 relative overflow-hidden bg-surface-container">
+    {
+      data.image && (
+        <img
+          class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+          alt={data.title}
+          src={data.image}
+        />
+      )
+    }
+    <div
+      class={`absolute top-4 left-4 ${data.status === 'Active Ops' ? 'bg-primary text-white' : 'bg-surface-dim text-on-surface-variant'} px-2 py-1 text-[10px] font-bold uppercase tracking-widest`}
+    >
+      {data.status}
+    </div>
+  </div>
+  <div class="p-6 flex-1">
+    <div class="flex justify-between items-start mb-6">
+      <div>
+        <h3 class="text-xl font-bold text-on-surface tracking-tight">{data.title}</h3>
+        <span class="text-xs font-medium text-outline">{data.subtitle}</span>
+      </div>
+      <span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;"
+        >terminal</span
+      >
+    </div>
+    {
+      data.stats.length > 0 && (
+        <div class="grid grid-cols-3 gap-2 mb-8 border-y border-outline-variant/10 py-4">
+          {data.stats.slice(0, 3).map((stat, i) => (
+            <div class={`text-center ${i === 1 ? 'border-x border-outline-variant/10' : ''}`}>
+              <span class="block text-2xl font-black text-primary">{stat.value}</span>
+              <span class="text-[9px] uppercase tracking-widest text-outline font-bold">
+                {stat.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      )
+    }
+    <div class="space-y-4">
+      <div
+        class="flex justify-between text-xs font-bold uppercase tracking-widest text-on-surface-variant"
+      >
+        <span>Complexity Score</span>
+        <span class="text-primary">{data.complexity}/100</span>
+      </div>
+      <div class="w-full h-1 bg-surface-container-low rounded-full">
+        <div class="h-full bg-primary-container" style={`width: ${data.complexity}%`}></div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="w-full py-4 bg-surface-container-low text-xs font-black uppercase tracking-[0.2em] text-primary group-hover:bg-primary group-hover:text-white transition-colors border-t border-outline-variant/10 text-center"
+  >
+    Initialize Full Spec
+  </div>
+</a>
