@@ -267,6 +267,70 @@ await committee.ship();
       </div>
     </section>
 
+    <!-- What we do -->
+    <section class="max-w-7xl mx-auto px-8 py-20">
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <span class="text-primary font-label text-sm uppercase tracking-widest font-bold"
+          >What we do</span
+        >
+        <h2
+          class="text-4xl md:text-5xl font-headline font-black tracking-tight text-on-surface mt-3 mb-6"
+        >
+          We ship real software together.
+        </h2>
+        <p class="text-on-surface-variant text-lg leading-relaxed">
+          The KTP Project Committee is a small group of brothers inside UChicago's Theta chapter
+          who team up to build real software — not classwork, not hypotheticals. Internal tools we
+          use, utilities for the fraternity, portfolio projects worth showing a recruiter. This
+          site is where we document what we're building so prospective members can see the
+          technical side of KTP before they rush.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div
+          class="p-8 bg-surface-container-low rounded-lg ghost-border hover:scale-[1.02] transition-all"
+        >
+          <span class="material-symbols-outlined text-primary text-4xl mb-6">build</span>
+          <h3 class="font-headline font-bold text-xl mb-3">What we build</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">
+            Internal tools, KTP utilities, and portfolio projects. Real repos, real deploys, real
+            users.
+          </p>
+        </div>
+        <div
+          class="p-8 bg-surface-container-low rounded-lg ghost-border hover:scale-[1.02] transition-all"
+        >
+          <span class="material-symbols-outlined text-primary text-4xl mb-6">groups</span>
+          <h3 class="font-headline font-bold text-xl mb-3">Who it's for</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">
+            Prospective KTP members curious about what we build, and current brothers who want to
+            ship together.
+          </p>
+        </div>
+        <div
+          class="p-8 bg-surface-container-low rounded-lg ghost-border hover:scale-[1.02] transition-all"
+        >
+          <span class="material-symbols-outlined text-primary text-4xl mb-6">schema</span>
+          <h3 class="font-headline font-bold text-xl mb-3">How it fits</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">
+            Part of KTP's Technical Advancement pillar. Workshops teach individuals; the committee
+            ships together.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a
+          href={base + '/about'}
+          class="inline-flex items-center gap-2 text-primary font-bold hover:underline"
+        >
+          Read the full story
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+    </section>
+
     <!-- Stats Section -->
     <section class="max-w-7xl mx-auto px-8 py-20 relative">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
@@ -316,7 +380,7 @@ await committee.ship();
         </div>
         <div class="absolute bottom-0 left-0 w-48 h-48 bg-primary/5 rounded-full -ml-24 -mb-24">
         </div>
-        <h2 class="text-4xl md:text-5xl font-black text-on-surface mb-6">Thinking about rushing?</h2>
+        <h2 class="text-4xl md:text-5xl font-black text-on-surface mb-6">Thinking about <span class="gradient-text">rushing</span>?</h2>
         <p class="text-on-surface-variant text-lg max-w-xl mx-auto mb-10">
           KTP is a community of designers, engineers, analysts, and founders united by a love of
           technology. If that sounds like you, head over to <a
