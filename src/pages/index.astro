@@ -255,14 +255,13 @@ await committee.ship();
                   >scramble.sh</span
                 >
               </span>
-              <!-- Prompt + scrambling word — same size as 'projects' -->
-              <span class="flex items-baseline gap-x-4 px-6 py-4 font-mono text-5xl md:text-7xl">
-                <span class="text-emerald-400">$</span>
+              <!-- Scrambling word — same size as 'projects', right-aligned -->
+              <span class="flex justify-end px-6 py-4 font-mono text-5xl md:text-7xl">
                 <span class="relative inline-block">
                   <span aria-hidden="true" class="invisible">frontend</span>
                   <span
                     id="scramble-word"
-                    class="absolute inset-0 block text-blue-300 text-left whitespace-nowrap"
+                    class="absolute inset-0 block text-blue-300 text-right whitespace-nowrap"
                     aria-hidden="true"
                     data-value="backend">backend</span
                   >
