@@ -1,0 +1,136 @@
+media: public/uploads
+
+content:
+  - name: projects
+    label: Projects
+    type: collection
+    path: src/content/projects
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort: order
+      order: asc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: subtitle
+        label: Subtitle
+        type: string
+      - name: category
+        label: Category
+        type: string
+      - name: image
+        label: Image URL
+        type: string
+      - name: status
+        label: Status
+        type: select
+        required: true
+        default: Active Ops
+        options:
+          values:
+            - Active Ops
+            - In Staging
+            - Archived
+      - name: featured
+        label: Featured
+        type: boolean
+        default: false
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: tech
+        label: Tech Stack
+        type: string
+        list: true
+      - name: stats
+        label: Stats
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Label
+            type: string
+          - name: value
+            label: Value
+            type: string
+      - name: complexity
+        label: Complexity Score (0-100)
+        type: number
+        default: 50
+        options:
+          min: 0
+          max: 100
+      - name: order
+        label: Display Order
+        type: number
+        default: 0
+      - name: body
+        label: Description
+        type: rich-text
+        options:
+          format: markdown
+
+  - name: members
+    label: Members
+    type: collection
+    path: src/content/members
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: name
+      sort: order
+      order: asc
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: role
+        label: Role
+        type: string
+        required: true
+      - name: tier
+        label: Tier
+        type: select
+        required: true
+        default: Tier 1
+        options:
+          values:
+            - Tier 1
+            - Tier 2
+            - Tier 3
+      - name: avatar
+        label: Avatar URL
+        type: string
+      - name: skills
+        label: Skills
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Skill Name
+            type: string
+          - name: level
+            label: Level (0-100)
+            type: number
+            options:
+              min: 0
+              max: 100
+      - name: contributions
+        label: Contributions
+        type: string
+        list: true
+      - name: order
+        label: Display Order
+        type: number
+        default: 0
+      - name: body
+        label: Bio
+        type: rich-text
+        options:
+          format: markdown
