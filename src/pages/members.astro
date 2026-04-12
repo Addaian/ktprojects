@@ -1,12 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MemberCard from '../components/MemberCard.astro';
+import PledgeCard from '../components/PledgeCard.astro';
 import { getCollection } from 'astro:content';
 
-const members = (await getCollection('members')).sort((a, b) => a.data.order - b.data.order);
+const all = (await getCollection('members')).sort((a, b) => a.data.order - b.data.order);
+const brothers = all.filter((m) => !m.data.isPledge);
+const pledges = all.filter((m) => m.data.isPledge);
 ---
 
-<Layout title="Members Matrix | ktprojects" active="members" bodyClass="bg-surface text-on-surface antialiased">
+<Layout
+  title="Members | KTP Project Committee"
+  active="members"
+  bodyClass="bg-surface text-on-surface antialiased"
+>
   <main class="pt-32 pb-24 px-8 max-w-7xl mx-auto">
     <section class="mb-12">
       <div
@@ -16,13 +23,51 @@ const members = (await getCollection('members')).sort((a, b) => a.data.order - b
           <h1 class="text-4xl font-extrabold text-on-surface tracking-tight mb-2">
             Operator Directory
           </h1>
-          <p class="text-on-surface-variant">Access the kinetic matrix of ktprojects talent.</p>
+          <p class="text-on-surface-variant">The Spring 2026 KTP Project Committee roster.</p>
         </div>
       </div>
     </section>
 
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {members.map((member) => <MemberCard member={member} />)}
+    <!-- Brothers -->
+    <section class="mb-20">
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <span class="text-primary font-label text-xs uppercase tracking-widest font-bold"
+            >{brothers.length} Active</span
+          >
+          <h2 class="text-2xl font-headline font-bold tracking-tight mt-1">Brothers</h2>
+        </div>
+        <div class="h-[2px] flex-1 bg-outline-variant/20 mx-8 mb-3"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {brothers.map((member) => <MemberCard member={member} />)}
+      </div>
     </section>
+
+    <!-- Pledges -->
+    {
+      pledges.length > 0 && (
+        <section>
+          <div class="flex items-end justify-between mb-8">
+            <div>
+              <span class="text-primary font-label text-xs uppercase tracking-widest font-bold">
+                {pledges.length} In Progress
+              </span>
+              <h2 class="text-2xl font-headline font-bold tracking-tight mt-1">Pledge Class</h2>
+              <p class="text-on-surface-variant text-sm mt-2 max-w-lg">
+                Rushees currently pledging into the committee. Photos and full profiles will be
+                added once they're initiated.
+              </p>
+            </div>
+            <div class="h-[2px] flex-1 bg-outline-variant/20 mx-8 mb-3" />
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {pledges.map((member) => (
+              <PledgeCard member={member} />
+            ))}
+          </div>
+        </section>
+      )
+    }
   </main>
 </Layout>

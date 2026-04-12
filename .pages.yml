@@ -129,6 +129,10 @@ content:
         label: Featured on About Page
         type: boolean
         default: false
+      - name: isPledge
+        label: Is a Pledge (not yet a brother)
+        type: boolean
+        default: false
       - name: github
         label: GitHub URL
         type: string

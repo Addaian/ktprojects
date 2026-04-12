@@ -36,6 +36,7 @@ const members = defineCollection({
     joinDate: z.string().optional(),
     status: z.enum(['Active Deployment', 'On Sabbatical', 'Alumni']).default('Active Deployment'),
     featured: z.boolean().default(false),
+    isPledge: z.boolean().default(false),
     github: z.string().optional(),
     linkedin: z.string().optional(),
     website: z.string().optional(),

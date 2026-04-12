@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  member: CollectionEntry<'members'>;
+}
+const { member } = Astro.props;
+const { data } = member;
+---
+
+<div
+  class="group relative bg-surface-container-lowest border border-outline-variant/15 rounded-lg p-6 hover:border-primary/40 hover:shadow-[0px_8px_24px_rgba(0,40,142,0.08)] transition-all"
+>
+  <div class="flex items-center justify-between mb-4">
+    <span class="material-symbols-outlined text-primary text-2xl opacity-60">person</span>
+    <span
+      class="text-[9px] font-black px-2 py-1 rounded uppercase tracking-tighter bg-primary/10 text-primary"
+      >Pledge</span
+    >
+  </div>
+  <h3 class="text-lg font-bold text-on-surface group-hover:text-primary transition-colors mb-1">
+    {data.name}
+  </h3>
+  {
+    data.affiliation && (
+      <p class="text-xs text-outline uppercase tracking-widest mb-4">{data.affiliation}</p>
+    )
+  }
+  {
+    data.linkedin && (
+      <a
+        href={data.linkedin}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline"
+      >
+        <span class="material-symbols-outlined text-sm">lan</span>
+        LinkedIn
+      </a>
+    )
+  }
+</div>
