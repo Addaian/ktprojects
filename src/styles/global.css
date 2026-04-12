@@ -128,3 +128,9 @@ body {
     transform: none;
   }
 }
+
+/* Scramble effect — random characters that resolve into the
+   target word. Used on the Home hero headline. */
+.dud {
+  color: rgba(117, 118, 132, 0.55);
+}

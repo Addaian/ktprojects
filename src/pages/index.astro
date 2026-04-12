@@ -239,9 +239,25 @@ await committee.ship();
           Theta Chapter · UChicago
         </div>
         <h1
-          class="text-6xl md:text-8xl font-extrabold tracking-[-0.04em] leading-[0.9] text-on-surface mb-8"
+          class="text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-[1.1] text-on-surface mb-8"
+          aria-label="Projects at the University of Chicago"
         >
-          Built at <span class="gradient-text">UChicago</span>
+          <span class="flex items-center gap-x-4 gap-y-2 flex-wrap justify-center">
+            <span
+              id="scramble-word"
+              class="text-primary inline-block min-w-[7ch] md:min-w-[9ch] text-left tabular-nums"
+              aria-hidden="true"
+              data-value="backend">backend</span
+            >
+            <span>projects</span>
+            <span class="text-outline opacity-60">@</span>
+            <img
+              src={base + '/uchicago-crest.png'}
+              alt="University of Chicago"
+              class="h-14 md:h-20 w-auto inline-block"
+              onerror="this.style.display='none';"
+            />
+          </span>
         </h1>
         <p
           class="text-on-surface-variant text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
@@ -358,4 +374,97 @@ await committee.ship();
       </div>
     </section>
   </main>
+
+  <script is:inline>
+    (function () {
+      var el = document.getElementById('scramble-word');
+      if (!el) return;
+      var phrases = [
+        'backend',
+        'frontend',
+        'game',
+        'mobile',
+        'data',
+        'ai',
+        'devtools',
+        'systems',
+      ];
+      var prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) {
+        var i = 0;
+        el.innerText = phrases[0];
+        setInterval(function () {
+          i = (i + 1) % phrases.length;
+          el.innerText = phrases[i];
+        }, 3000);
+        return;
+      }
+
+      function TextScrambler(element) {
+        this.el = element;
+        this.chars = '!<>-_\\/[]{}—=+*^?#________';
+        this.update = this.update.bind(this);
+      }
+      TextScrambler.prototype.setText = function (newText) {
+        var self = this;
+        var oldText = this.el.dataset.value || this.el.innerText || '';
+        var length = Math.max(oldText.length, newText.length);
+        var promise = new Promise(function (resolve) {
+          self.resolve = resolve;
+        });
+        this.queue = [];
+        for (var i = 0; i < length; i++) {
+          var from = oldText[i] || '';
+          var to = newText[i] || '';
+          var start = Math.floor(Math.random() * 40);
+          var end = start + Math.floor(Math.random() * 40);
+          this.queue.push({ from: from, to: to, start: start, end: end });
+        }
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        this.el.dataset.value = newText;
+        return promise;
+      };
+      TextScrambler.prototype.update = function () {
+        var output = '';
+        var complete = 0;
+        for (var i = 0; i < this.queue.length; i++) {
+          var item = this.queue[i];
+          if (this.frame >= item.end) {
+            complete++;
+            output += item.to;
+          } else if (this.frame >= item.start) {
+            if (!item.char || Math.random() < 0.28) {
+              item.char = this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+            output += '<span class="dud">' + item.char + '</span>';
+          } else {
+            output += item.from;
+          }
+        }
+        this.el.innerHTML = output;
+        if (complete === this.queue.length) {
+          this.resolve();
+        } else {
+          this.frameRequest = requestAnimationFrame(this.update);
+          this.frame++;
+        }
+      };
+
+      var fx = new TextScrambler(el);
+      var counter = 1; // start at 1 because 'backend' is already shown
+      function next() {
+        fx.setText(phrases[counter]).then(function () {
+          setTimeout(next, 2500);
+        });
+        counter = (counter + 1) % phrases.length;
+      }
+      // Small initial delay so the page settles before the first scramble
+      setTimeout(next, 1500);
+    })();
+  </script>
 </Layout>
