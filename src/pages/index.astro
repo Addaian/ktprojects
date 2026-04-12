@@ -233,15 +233,12 @@ await committee.ship();
         class="relative z-10 w-full max-w-5xl text-center glass-panel p-12 rounded-[2rem] border border-white/20 shadow-2xl shadow-primary/5"
       >
         <h1
-          class="text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-none text-on-surface mb-8 space-y-4 md:space-y-6"
+          class="text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-none text-on-surface mb-8 grid grid-cols-[auto_auto] items-center justify-center gap-x-3 md:gap-x-4 gap-y-4 md:gap-y-6"
           aria-label="Projects at the University of Chicago"
         >
-          <!-- Line 1: scramble word ABSOLUTELY positioned over an invisible
-               'frontend' ghost. The active span is removed from flow entirely
-               so its width never affects the wrapper, even when the scramble
-               characters happen to be wider than the resolved letters in
-               this proportional font. 'projects' is always anchored. -->
-          <span class="flex items-baseline justify-center gap-x-3">
+          <!-- Row 1, col 1: scramble word (absolute over invisible 'frontend' ghost
+               so its width is locked and 'projects' never moves). -->
+          <span class="justify-self-end">
             <span class="relative inline-block">
               <span aria-hidden="true" class="invisible">frontend</span>
               <span
@@ -251,13 +248,14 @@ await committee.ship();
                 data-value="backend">backend</span
               >
             </span>
-            <span>projects</span>
           </span>
-          <!-- Line 2: @ + UChicago logo, simple centered flex.
-               (Earlier mirror-of-line-1 layout broke because max-w-none let the
-               wide logo+text variant overflow leftward past the @ and the panel.) -->
-          <span class="flex items-center justify-center gap-x-4">
-            <span class="text-outline opacity-60">@</span>
+          <!-- Row 1, col 2: projects -->
+          <span class="justify-self-end">projects</span>
+          <!-- Row 2, col 1: @ (right-aligned in col 1) -->
+          <span class="text-outline opacity-60 justify-self-end">@</span>
+          <!-- Row 2, col 2: UChicago crest, right-aligned in col 2 so its right
+               edge sits directly under the right edge of 'projects' above. -->
+          <span class="justify-self-end">
             <img
               src={base + '/uchicago_crest.png'}
               alt="University of Chicago"
