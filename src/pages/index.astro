@@ -232,20 +232,14 @@ await committee.ship();
       <div
         class="relative z-10 max-w-5xl text-center glass-panel p-12 rounded-[2rem] border border-white/20 shadow-2xl shadow-primary/5"
       >
-        <div
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container/50 text-on-secondary-container text-xs font-bold tracking-widest uppercase mb-6"
-        >
-          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-          Theta Chapter · UChicago
-        </div>
         <h1
           class="text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-[1.1] text-on-surface mb-8"
           aria-label="Projects at the University of Chicago"
         >
-          <span class="flex items-center gap-x-4 gap-y-2 flex-wrap justify-center">
+          <span class="inline-flex items-center gap-x-3 gap-y-2 flex-wrap justify-center">
             <span
               id="scramble-word"
-              class="text-primary inline-block min-w-[7ch] md:min-w-[9ch] text-left tabular-nums"
+              class="text-primary inline-block min-w-[7ch] md:min-w-[9ch] text-right tabular-nums"
               aria-hidden="true"
               data-value="backend">backend</span
             >
@@ -255,7 +249,6 @@ await committee.ship();
               src={base + '/uchicago_crest.png'}
               alt="University of Chicago"
               class="h-14 md:h-20 w-auto inline-block"
-              onerror="this.style.display='none';"
             />
           </span>
         </h1>
