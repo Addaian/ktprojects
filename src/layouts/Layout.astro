@@ -26,6 +26,18 @@ const { title = 'ktprojects | Built at UChicago', active = 'home', bodyClass = '
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', (user) => {
+          if (!user) {
+            window.netlifyIdentity.on('login', () => {
+              document.location.href = '/ktprojects/admin/';
+            });
+          }
+        });
+      }
+    </script>
   </head>
   <body class={bodyClass}>
     <Nav active={active} />

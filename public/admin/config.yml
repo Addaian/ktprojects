@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: Addaian/ktprojects
+  name: git-gateway
   branch: main
 
 media_folder: "public/uploads"
