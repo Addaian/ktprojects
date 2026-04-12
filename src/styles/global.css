@@ -134,3 +134,230 @@ body {
 .dud {
   color: rgba(117, 118, 132, 0.55);
 }
+
+.projects-terminal-hero {
+  position: relative;
+  left: 50%;
+  width: min(calc(100vw - 2rem), 92rem);
+  transform: translateX(-50%);
+}
+
+.projects-terminal-shell {
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: linear-gradient(180deg, #2b2b2b 0%, #1b1e1f 64%, #171919 100%);
+}
+
+.projects-terminal-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: #343434;
+  padding: 0.95rem 1.5rem;
+}
+
+.projects-terminal-lights {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.projects-terminal-light {
+  height: 0.9rem;
+  width: 0.9rem;
+  border-radius: 9999px;
+}
+
+.projects-terminal-light-close {
+  background: #ff5f57;
+}
+
+.projects-terminal-light-minimize {
+  background: #febc2e;
+}
+
+.projects-terminal-light-expand {
+  background: #28c840;
+}
+
+.projects-terminal-title {
+  flex: 1;
+  text-align: center;
+  font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(196, 197, 213, 0.62);
+}
+
+.projects-terminal-body {
+  height: 25rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  cursor: text;
+  padding: 2rem 1.5rem 2rem;
+  font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  color: #f2f3f7;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(143, 150, 255, 0.55) rgba(255, 255, 255, 0.06);
+}
+
+.projects-terminal-ascii-wrap {
+  overflow-x: auto;
+  padding-bottom: 0;
+}
+
+.projects-terminal-ascii {
+  margin: 0;
+  min-width: max-content;
+  color: #b6bcff;
+  font-size: clamp(0.62rem, 0.9vw, 0.96rem);
+  line-height: 1.15;
+}
+
+.projects-terminal-session {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.projects-terminal-output {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 0;
+}
+
+.projects-terminal-history-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  line-height: 1.6;
+}
+
+.projects-terminal-history-prompt,
+.projects-terminal-prompt {
+  flex-shrink: 0;
+  color: #8f96ff;
+  font-weight: 700;
+}
+
+.projects-terminal-history-command {
+  color: #f7f7fb;
+}
+
+.projects-terminal-response {
+  white-space: pre-wrap;
+  color: rgba(232, 235, 255, 0.92);
+  line-height: 1.7;
+}
+
+.projects-terminal-response-muted {
+  color: rgba(194, 198, 230, 0.72);
+}
+
+.projects-terminal-response-command {
+  color: #d9ddff;
+}
+
+.projects-terminal-response-error {
+  color: #ff9f95;
+}
+
+.projects-terminal-project-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+
+.projects-terminal-project-link {
+  color: #dce0ff;
+  text-decoration: none;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.projects-terminal-project-link:hover,
+.projects-terminal-project-link:focus-visible {
+  color: #8f96ff;
+  outline: none;
+  transform: translateX(0.25rem);
+}
+
+.projects-terminal-form {
+  margin: 0;
+}
+
+.projects-terminal-prompt-line {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  line-height: 1.6;
+}
+
+.projects-terminal-input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #f7f7fb;
+  font: inherit;
+  caret-color: #8f96ff;
+  outline: none;
+}
+
+.projects-terminal-input::placeholder {
+  color: rgba(194, 198, 230, 0.36);
+}
+
+.projects-terminal-input:focus-visible {
+  outline: none;
+}
+
+.projects-terminal-body::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+.projects-terminal-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.projects-terminal-body::-webkit-scrollbar-thumb {
+  border: 2px solid rgba(27, 30, 31, 1);
+  border-radius: 9999px;
+  background: rgba(143, 150, 255, 0.48);
+}
+
+@media (max-width: 768px) {
+  .projects-terminal-hero {
+    width: calc(100vw - 1.5rem);
+  }
+
+  .projects-terminal-toolbar {
+    padding: 0.9rem 1rem;
+  }
+
+  .projects-terminal-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+  }
+
+  .projects-terminal-body {
+    height: 22rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .projects-terminal-prompt-line {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .projects-terminal-input {
+    width: 100%;
+  }
+}

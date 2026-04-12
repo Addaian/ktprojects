@@ -1,0 +1,283 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { projects } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+
+const terminalProjects = projects.map((project) => ({
+  title: project.data.title,
+  slug: project.slug,
+  href: `${baseUrl}/projects/${project.slug}`,
+}));
+
+const asciiTitle = String.raw`  _  _________ _____           _           _
+ | |/ /__   __|  __ \         (_)         | |
+ | ' /   | |  | |__) | __ ___  _  ___  ___| |_ ___
+ |  <    | |  |  ___/ '__/ _ \| |/ _ \/ __| __/ __|
+ | . \   | |  | |   | | | (_) | |  __/ (__| |_\__ \
+ |_|\_\  |_|  |_|   |_|  \___/| |\___|\___|\__|___/
+                             _/ |
+                            |__/`;
+---
+
+<section class="projects-terminal-hero mb-16">
+  <div class="projects-terminal-shell ghost-border shadow-[0px_24px_60px_rgba(25,28,30,0.18)]">
+    <div class="projects-terminal-toolbar">
+      <div class="projects-terminal-lights" aria-hidden="true">
+        <span class="projects-terminal-light projects-terminal-light-close"></span>
+        <span class="projects-terminal-light projects-terminal-light-minimize"></span>
+        <span class="projects-terminal-light projects-terminal-light-expand"></span>
+      </div>
+      <div class="projects-terminal-title">zsh - ktprojects - 80x24</div>
+    </div>
+
+    <div class="projects-terminal-body" data-projects-terminal>
+      <div class="projects-terminal-ascii-wrap">
+        <pre class="projects-terminal-ascii" aria-label="KTProjects ASCII art">{asciiTitle}</pre>
+      </div>
+
+      <div class="projects-terminal-session">
+        <div class="projects-terminal-output" data-terminal-output></div>
+
+        <form class="projects-terminal-form" data-terminal-form autocomplete="off">
+          <label class="projects-terminal-prompt-line">
+            <span class="projects-terminal-prompt">KTProjects ~ %</span>
+            <input
+              class="projects-terminal-input"
+              data-terminal-input
+              type="text"
+              name="command"
+              placeholder="help"
+              autocapitalize="off"
+              autocomplete="off"
+              autocorrect="off"
+              spellcheck="false"
+              aria-label="Terminal command input"
+            />
+          </label>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="application/json" id="projects-terminal-data">
+  {JSON.stringify(terminalProjects)}
+</script>
+
+<script is:inline>
+  (function () {
+    var terminalRoot = document.querySelector('[data-projects-terminal]');
+    var terminalForm = document.querySelector('[data-terminal-form]');
+    var terminalInput = document.querySelector('[data-terminal-input]');
+    var terminalOutput = document.querySelector('[data-terminal-output]');
+    var terminalDataElement = document.getElementById('projects-terminal-data');
+    var terminalCommandSuggestions = ['help', 'ls', 'clear', 'print("")'];
+
+    if (
+      !terminalRoot ||
+      !terminalForm ||
+      !terminalInput ||
+      !terminalOutput ||
+      !terminalDataElement
+    ) {
+      return;
+    }
+
+    var projectEntries = [];
+
+    try {
+      projectEntries = JSON.parse(terminalDataElement.textContent || '[]');
+    } catch (error) {
+      projectEntries = [];
+    }
+
+    function scrollTerminalToBottom() {
+      terminalRoot.scrollTop = terminalRoot.scrollHeight;
+    }
+
+    function findAutocompleteValue(commandPrefix) {
+      if (commandPrefix.length === 0) {
+        return '';
+      }
+
+      var matchingCommands = terminalCommandSuggestions.filter(function (commandSuggestion) {
+        return commandSuggestion.startsWith(commandPrefix);
+      });
+
+      if (matchingCommands.length === 0) {
+        return '';
+      }
+
+      if (matchingCommands.length === 1) {
+        return matchingCommands[0];
+      }
+
+      var sharedPrefix = matchingCommands[0];
+
+      for (var i = 1; i < matchingCommands.length; i++) {
+        while (
+          sharedPrefix.length > 0 &&
+          !matchingCommands[i].startsWith(sharedPrefix)
+        ) {
+          sharedPrefix = sharedPrefix.slice(0, -1);
+        }
+      }
+
+      if (sharedPrefix.length > commandPrefix.length) {
+        return sharedPrefix;
+      }
+
+      return '';
+    }
+
+    function applyAutocomplete(commandValue) {
+      terminalInput.value = commandValue;
+
+      if (commandValue === 'print("")') {
+        terminalInput.setSelectionRange(7, 7);
+      } else {
+        terminalInput.setSelectionRange(commandValue.length, commandValue.length);
+      }
+    }
+
+    function appendCommandLine(commandText) {
+      var line = document.createElement('div');
+      line.className = 'projects-terminal-history-line';
+
+      var prompt = document.createElement('span');
+      prompt.className = 'projects-terminal-history-prompt';
+      prompt.textContent = 'KTProjects ~ %';
+
+      var command = document.createElement('span');
+      command.className = 'projects-terminal-history-command';
+      command.textContent = commandText;
+
+      line.appendChild(prompt);
+      line.appendChild(command);
+      terminalOutput.appendChild(line);
+    }
+
+    function appendTextOutput(textValue, modifierClassName) {
+      var line = document.createElement('div');
+      line.className = 'projects-terminal-response';
+
+      if (modifierClassName) {
+        line.classList.add(modifierClassName);
+      }
+
+      line.textContent = textValue;
+      terminalOutput.appendChild(line);
+    }
+
+    function appendProjectsOutput() {
+      if (projectEntries.length === 0) {
+        appendTextOutput('No projects found.', 'projects-terminal-response-muted');
+        return;
+      }
+
+      var list = document.createElement('div');
+      list.className = 'projects-terminal-project-list';
+
+      for (var i = 0; i < projectEntries.length; i++) {
+        var projectEntry = projectEntries[i];
+        var link = document.createElement('a');
+        link.className = 'projects-terminal-project-link';
+        link.href = projectEntry.href;
+        link.textContent = projectEntry.title;
+        list.appendChild(link);
+      }
+
+      terminalOutput.appendChild(list);
+    }
+
+    function appendHelpOutput() {
+      appendTextOutput('Available commands:', 'projects-terminal-response-muted');
+      appendTextOutput('help', 'projects-terminal-response-command');
+      appendTextOutput('ls', 'projects-terminal-response-command');
+      appendTextOutput('clear', 'projects-terminal-response-command');
+      appendTextOutput('print("text")', 'projects-terminal-response-command');
+    }
+
+    function handleCommand(commandText) {
+      if (commandText === 'clear') {
+        terminalOutput.innerHTML = '';
+        scrollTerminalToBottom();
+        return;
+      }
+
+      appendCommandLine(commandText);
+
+      if (commandText === 'help') {
+        appendHelpOutput();
+        scrollTerminalToBottom();
+        return;
+      }
+
+      if (commandText === 'ls') {
+        appendProjectsOutput();
+        scrollTerminalToBottom();
+        return;
+      }
+
+      var printMatch = commandText.match(/^print\(\s*(["'])([\s\S]*)\1\s*\)$/);
+
+      if (printMatch) {
+        var printedText = printMatch[2];
+        var normalizedPrintedText = printedText.toLowerCase().replace(/[^a-z]/g, '');
+
+        if (normalizedPrintedText === 'easteregg') {
+          appendTextOutput('there are no easter eggs here, go away');
+        } else {
+          appendTextOutput(printedText);
+        }
+
+        scrollTerminalToBottom();
+        return;
+      }
+
+      appendTextOutput('zsh: command not found: ' + commandText, 'projects-terminal-response-error');
+      scrollTerminalToBottom();
+    }
+
+    terminalForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      var rawCommandText = terminalInput.value;
+      var commandText = rawCommandText.trim();
+
+      if (commandText.length === 0) {
+        return;
+      }
+
+      handleCommand(commandText);
+      terminalInput.value = '';
+    });
+
+    terminalInput.addEventListener('keydown', function (event) {
+      if (event.key !== 'Tab') {
+        return;
+      }
+
+      event.preventDefault();
+
+      var autocompleteValue = findAutocompleteValue(terminalInput.value);
+
+      if (autocompleteValue.length === 0) {
+        return;
+      }
+
+      applyAutocomplete(autocompleteValue);
+    });
+
+    terminalRoot.addEventListener('click', function () {
+      terminalInput.focus();
+    });
+
+    terminalInput.focus();
+  })();
+</script>
