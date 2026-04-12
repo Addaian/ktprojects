@@ -34,6 +34,7 @@ const projects = defineCollection({
         })
       )
       .default([]),
+    contributors: z.array(z.string()).default([]),
     status: z.enum(['Active', 'Shipped', 'Archived']).default('Active'),
     featured: z.boolean().default(false),
     order: z.number().default(0),
@@ -64,7 +65,6 @@ const members = defineCollection({
         })
       )
       .default([]),
-    contributions: z.array(z.string()).default([]),
     order: z.number().default(0),
   }),
 });

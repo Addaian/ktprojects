@@ -15,6 +15,12 @@ const { Content } = await project.render();
 const { data } = project;
 const base = import.meta.env.BASE_URL;
 
+// Resolve contributor slugs to full member entries
+const allMembers = await getCollection('members');
+const contributors = data.contributors
+  .map((slug) => allMembers.find((m) => m.slug === slug))
+  .filter((m): m is NonNullable<typeof m> => m !== undefined);
+
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -198,6 +204,46 @@ const statusClass =
         </div>
       </aside>
     </section>
+
+    <!-- Contributors -->
+    {
+      contributors.length > 0 && (
+        <section class="space-y-6">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary">group</span>
+            <h2 class="text-xs font-label font-bold uppercase tracking-[0.3em] text-outline">
+              Contributors
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {contributors.map((m) => (
+              <a
+                href={`${base}/members/${m.slug}`}
+                class="group flex items-center gap-4 p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/15 hover:border-primary/40 hover:shadow-[0px_8px_24px_rgba(0,40,142,0.08)] transition-all"
+              >
+                <div class="w-14 h-14 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
+                  {m.data.avatar && (
+                    <img
+                      alt={m.data.name}
+                      src={m.data.avatar}
+                      class="w-full h-full object-cover"
+                    />
+                  )}
+                </div>
+                <div class="min-w-0">
+                  <div class="font-bold text-on-surface group-hover:text-primary transition-colors truncate">
+                    {m.data.name}
+                  </div>
+                  <div class="text-[10px] font-bold text-outline uppercase tracking-widest truncate">
+                    {m.data.role}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
 
     <!-- Quotes -->
     {

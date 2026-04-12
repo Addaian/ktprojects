@@ -72,6 +72,10 @@ content:
           - name: role
             label: Role on Project
             type: string
+      - name: contributors
+        label: Contributors (member slugs, e.g. adrian-dai)
+        type: string
+        list: true
       - name: status
         label: Status
         type: select
@@ -177,10 +181,6 @@ content:
             options:
               min: 0
               max: 100
-      - name: contributions
-        label: Contributions (project slugs)
-        type: string
-        list: true
       - name: order
         label: Display Order
         type: number

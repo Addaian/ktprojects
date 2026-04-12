@@ -41,33 +41,21 @@ const tierClass =
     </h3>
     <span class="text-xs font-bold text-outline uppercase tracking-widest">{data.role}</span>
   </div>
-  <div class="space-y-3 mb-6">
-    {
-      data.skills.map((skill) => (
-        <div>
-          <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1">
-            <span>{skill.name}</span>
-            <span>{skill.level}%</span>
+  {
+    data.skills.length > 0 && (
+      <div class="space-y-3">
+        {data.skills.map((skill) => (
+          <div>
+            <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1">
+              <span>{skill.name}</span>
+              <span>{skill.level}%</span>
+            </div>
+            <div class="h-1 bg-surface-container-high w-full rounded-full overflow-hidden">
+              <div class="h-full bg-primary" style={`width: ${skill.level}%`} />
+            </div>
           </div>
-          <div class="h-1 bg-surface-container-high w-full rounded-full overflow-hidden">
-            <div class="h-full bg-primary" style={`width: ${skill.level}%`} />
-          </div>
-        </div>
-      ))
-    }
-  </div>
-  <div class="border-t border-outline-variant/10 pt-4">
-    <span class="text-[10px] font-bold text-outline uppercase tracking-widest mb-3 block"
-      >Contributions</span
-    >
-    <div class="flex flex-wrap gap-2">
-      {
-        data.contributions.map((c) => (
-          <span class="text-[11px] font-semibold bg-surface-container-low px-3 py-1 rounded-full text-primary">
-            {c}
-          </span>
-        ))
-      }
-    </div>
-  </div>
+        ))}
+      </div>
+    )
+  }
 </a>

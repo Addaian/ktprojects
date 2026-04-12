@@ -12,6 +12,8 @@ github: "https://github.com/Addaian/ktprojects"
 image: /ktprojects/main_1.jpg
 images: []
 quotes: []
+contributors:
+  - adrian-dai
 status: Active
 featured: true
 order: 1

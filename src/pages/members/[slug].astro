@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const members = await getCollection('members');
@@ -15,15 +15,12 @@ const { Content } = await member.render();
 const { data } = member;
 const base = import.meta.env.BASE_URL;
 
-// Look up the project data for each contribution slug
-const contributionEntries = await Promise.all(
-  data.contributions.map((slug) =>
-    getEntry('projects', slug).catch(() => null)
-  )
-);
-const contributions = contributionEntries.filter(
-  (p): p is NonNullable<typeof p> => p !== null
-);
+// Find all projects whose contributors array includes this member's slug.
+// Source of truth lives on the project side now, so we derive the inverse here.
+const allProjects = await getCollection('projects');
+const contributions = allProjects
+  .filter((p) => p.data.contributors.includes(member.slug))
+  .sort((a, b) => a.data.order - b.data.order);
 
 const proficiencyLabel = (level: number) => {
   if (level >= 95) return 'CRITICAL';
@@ -247,11 +244,11 @@ const proficiencyLabel = (level: number) => {
                     </span>
                   </div>
                   <p class="text-on-surface-variant text-sm mb-6 leading-relaxed">
-                    {project.data.subtitle}
+                    {project.data.description}
                   </p>
                   <div class="flex items-center justify-between">
                     <span class="text-[10px] font-bold tracking-widest uppercase text-outline">
-                      {project.data.category || project.data.subtitle}
+                      {project.data.category}
                     </span>
                     <span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">
                       arrow_forward
