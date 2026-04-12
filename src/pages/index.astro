@@ -237,26 +237,26 @@ await committee.ship();
           aria-label="Projects at the University of Chicago"
         >
           <!-- Line 1: mini-terminal containing the scramble word, then 'projects'.
-               Terminal has a fixed width (locked to the 'frontend' ghost) so it
-               keeps a constant footprint even when the scramble lands on short
-               words like 'ai'. -->
-          <span class="flex items-center justify-center gap-x-4">
+               Terminal text is sized to MATCH 'projects' so they read as one
+               line. Terminal width is locked to the 'frontend' ghost so the
+               box keeps a constant footprint regardless of the active word. -->
+          <span class="flex items-center justify-center gap-x-5">
             <!-- Mini terminal -->
             <span
               class="inline-flex flex-col bg-slate-900 rounded-lg overflow-hidden shadow-2xl border border-slate-700/60 text-left"
             >
               <!-- Title bar with macOS traffic-light dots -->
-              <span class="flex items-center gap-1.5 px-3 py-2 bg-slate-800/90">
-                <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+              <span class="flex items-center gap-2 px-4 py-2.5 bg-slate-800/90">
+                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                <span class="w-3 h-3 rounded-full bg-green-500"></span>
                 <span
-                  class="ml-2 text-[10px] md:text-xs text-slate-400 font-mono normal-case tracking-normal lowercase"
+                  class="ml-2 text-xs md:text-sm text-slate-400 font-mono normal-case tracking-normal lowercase"
                   >scramble.sh</span
                 >
               </span>
-              <!-- Prompt + scrambling word -->
-              <span class="flex items-baseline gap-x-3 px-5 py-3 font-mono text-2xl md:text-4xl">
+              <!-- Prompt + scrambling word — same size as 'projects' -->
+              <span class="flex items-baseline gap-x-4 px-6 py-4 font-mono text-5xl md:text-7xl">
                 <span class="text-emerald-400">$</span>
                 <span class="relative inline-block">
                   <span aria-hidden="true" class="invisible">frontend</span>
