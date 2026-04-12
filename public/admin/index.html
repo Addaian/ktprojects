@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager | ktprojects</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      // Initialize the Identity widget BEFORE Decap loads so Decap can
+      // read the configured API URL from window.netlifyIdentity.
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.init({
+          APIUrl: 'https://ktprojects.netlify.app/.netlify/identity',
+        });
+      }
+    </script>
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.init({
-          APIUrl: 'https://ktprojects.netlify.app/.netlify/identity',
-        });
         window.netlifyIdentity.on('init', (user) => {
           if (!user) {
             window.netlifyIdentity.on('login', () => {
