@@ -244,7 +244,7 @@ await committee.ship();
           <span class="flex items-baseline justify-center gap-x-5">
             <!-- Mini terminal -->
             <span
-              class="relative inline-block bg-slate-900 rounded-lg overflow-hidden shadow-2xl border border-slate-700/60 pt-16 md:pt-20 px-6 pb-4 font-mono text-5xl md:text-7xl text-left"
+              class="relative inline-block bg-slate-900 rounded-lg overflow-hidden shadow-2xl border border-slate-700/60 pt-12 md:pt-14 px-6 pb-4 font-mono text-5xl md:text-7xl text-left"
             >
               <!-- Title bar (absolutely positioned so it doesn't affect baseline) -->
               <span
@@ -271,16 +271,18 @@ await committee.ship();
             </span>
             <span>projects</span>
           </span>
-          <!-- Line 2: @ + UChicago logo, simple centered flex.
-               (Earlier mirror-of-line-1 layout broke because max-w-none let the
-               wide logo+text variant overflow leftward past the @ and the panel.) -->
-          <span class="flex items-center justify-center gap-x-4">
+          <!-- Line 2: @ + UChicago logo in a card matching the terminal's shadow -->
+          <span class="flex items-center justify-center gap-x-5">
             <span class="text-outline opacity-60">@</span>
-            <img
-              src={base + '/uchicago_crest.png'}
-              alt="University of Chicago"
-              class="h-20 md:h-32 w-auto object-contain"
-            />
+            <span
+              class="inline-block bg-white rounded-lg shadow-2xl border border-slate-200/80 px-6 py-4"
+            >
+              <img
+                src={base + '/uchicago_crest.png'}
+                alt="University of Chicago"
+                class="h-16 md:h-24 w-auto object-contain block"
+              />
+            </span>
           </span>
         </h1>
         <p
