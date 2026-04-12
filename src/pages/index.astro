@@ -236,17 +236,17 @@ await committee.ship();
           class="text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-none text-on-surface mb-8 space-y-4 md:space-y-6"
           aria-label="Projects at the University of Chicago"
         >
-          <!-- Line 1: scramble word stacked over an invisible 'frontend' ghost
-               so the wrapper width is locked. 'projects' sits to the right and
-               never moves regardless of which word is currently scrambling. -->
+          <!-- Line 1: scramble word ABSOLUTELY positioned over an invisible
+               'frontend' ghost. The active span is removed from flow entirely
+               so its width never affects the wrapper, even when the scramble
+               characters happen to be wider than the resolved letters in
+               this proportional font. 'projects' is always anchored. -->
           <span class="flex items-baseline justify-center gap-x-3">
-            <span class="inline-grid justify-items-end">
-              <span aria-hidden="true" class="invisible col-start-1 row-start-1"
-                >frontend</span
-              >
+            <span class="relative inline-block">
+              <span aria-hidden="true" class="invisible">frontend</span>
               <span
                 id="scramble-word"
-                class="text-primary col-start-1 row-start-1"
+                class="absolute inset-0 block text-primary text-right whitespace-nowrap"
                 aria-hidden="true"
                 data-value="backend">backend</span
               >
