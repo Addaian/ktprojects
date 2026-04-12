@@ -15,10 +15,9 @@ const linkClass = (key: string) =>
   class="fixed top-0 w-full z-50 bg-white/70 dark:bg-slate-900/70 backdrop-blur-[24px] shadow-[0px_20px_40px_rgba(25,28,30,0.06)]"
 >
   <div class="flex justify-between items-center h-16 px-8 max-w-7xl mx-auto">
-    <a
-      class="text-2xl font-black lowercase text-primary dark:text-blue-300 font-['Plus_Jakarta_Sans'] tracking-[-0.02em]"
-      href={base + '/'}>ktprojects</a
-    >
+    <a href={base + '/'} class="flex items-center" aria-label="ktprojects home">
+      <img src={base + '/logo.png'} alt="ktprojects" class="h-9 w-auto" />
+    </a>
     <div class="hidden md:flex items-center gap-6">
       <a class={linkClass('home')} href={base + '/'}>Home</a>
       <a class={linkClass('projects')} href={base + '/projects'}>Projects</a>
