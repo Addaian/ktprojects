@@ -3,7 +3,7 @@ name: Abraham Flores
 role: Project Committee Member
 tier: Tier 2
 specialization: Spring 2026 committee member.
-affiliation: Kappa Pledge Class &middot; UChicago '29
+affiliation: Kappa Pledge Class · UChicago '29
 featured: false
 status: Active Deployment
 linkedin: "https://www.linkedin.com/in/abrahamflores29/"

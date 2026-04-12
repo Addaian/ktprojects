@@ -3,7 +3,7 @@ name: Noah Michel
 role: Project Committee Member
 tier: Tier 2
 specialization: Spring 2026 committee member.
-affiliation: Iota Pledge Class &middot; UChicago '28
+affiliation: Iota Pledge Class · UChicago '28
 featured: false
 status: Active Deployment
 linkedin: "https://www.linkedin.com/in/noah-michel1/"

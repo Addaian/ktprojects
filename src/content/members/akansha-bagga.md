@@ -2,7 +2,7 @@
 name: Akansha Bagga
 role: Project Committee Pledge
 tier: Tier 2
-affiliation: Lambda Pledge Class &middot; UChicago '29
+affiliation: Lambda Pledge Class · UChicago '29
 isPledge: true
 featured: false
 status: Active Deployment

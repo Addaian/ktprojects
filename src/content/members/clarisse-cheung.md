@@ -3,7 +3,7 @@ name: Clarisse Cheung
 role: Project Committee Member
 tier: Tier 2
 specialization: Spring 2026 committee member.
-affiliation: Theta Pledge Class &middot; UChicago '28
+affiliation: Theta Pledge Class · UChicago '28
 featured: false
 status: Active Deployment
 linkedin: "https://www.linkedin.com/in/clarissecheung/"
