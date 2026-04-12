@@ -13,81 +13,226 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await project.render();
 const { data } = project;
+const base = import.meta.env.BASE_URL;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+const durationDays = data.endDate
+  ? Math.max(1, Math.ceil((data.endDate.valueOf() - data.startDate.valueOf()) / 86400000))
+  : null;
+
+const statusClass =
+  data.status === 'Active'
+    ? 'bg-primary text-white'
+    : data.status === 'Shipped'
+      ? 'bg-secondary-container text-on-secondary-container'
+      : 'bg-surface-dim text-on-surface-variant';
 ---
 
 <Layout title={`${data.title} | ktprojects`} active="projects">
-  <main class="pt-24 pb-20 px-8 max-w-7xl mx-auto space-y-12">
-    <header class="relative space-y-4">
-      <div
-        class="flex items-center gap-3 text-primary font-label text-xs font-bold tracking-[0.1em] uppercase"
-      >
-        <span class="w-8 h-[2px] bg-primary"></span>
-        System Specification / {data.category}
+  <main class="pt-24 pb-20 max-w-7xl mx-auto px-8 space-y-16">
+    <!-- Back link -->
+    <a
+      href={base + '/projects'}
+      class="inline-flex items-center gap-1 text-sm font-bold text-outline hover:text-primary transition-colors uppercase tracking-widest"
+    >
+      <span class="material-symbols-outlined text-sm">arrow_back</span>
+      All Projects
+    </a>
+
+    <!-- Header -->
+    <header class="space-y-6">
+      <div class="flex flex-wrap items-center gap-2">
+        <span
+          class={`${statusClass} px-2 py-1 text-[10px] font-bold uppercase tracking-widest rounded`}
+          >{data.status}</span
+        >
+        <span
+          class="bg-surface-container-high text-primary px-2 py-1 text-[10px] font-bold uppercase tracking-widest rounded"
+          >{data.category}</span
+        >
       </div>
       <h1
-        class="text-5xl md:text-7xl font-headline font-extrabold tracking-[-0.03em] text-on-surface max-w-4xl leading-[1.1]"
+        class="text-5xl md:text-7xl font-headline font-extrabold tracking-[-0.03em] text-on-surface max-w-4xl leading-[1.05]"
       >
-        {data.title}: <span class="text-primary-container">{data.subtitle}</span>
+        {data.title}
       </h1>
-      <div class="text-on-surface-variant text-lg md:text-xl max-w-2xl leading-relaxed prose">
-        <Content />
+      <p class="text-on-surface-variant text-lg md:text-xl max-w-3xl leading-relaxed">
+        {data.description}
+      </p>
+      <div class="flex flex-wrap items-center gap-4 pt-2">
+        {
+          data.github && (
+            <a
+              href={data.github}
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-3 rounded-lg font-bold text-sm hover:bg-primary-container transition-all"
+            >
+              <span class="material-symbols-outlined text-base">code</span>
+              View on GitHub
+            </a>
+          )
+        }
       </div>
     </header>
 
-    {
-      data.image && (
-        <div class="rounded-lg overflow-hidden h-96">
-          <img class="w-full h-full object-cover" src={data.image} alt={data.title} />
+    <!-- Meta row: dates, duration, languages -->
+    <section
+      class="grid grid-cols-1 md:grid-cols-4 gap-6 py-8 border-y border-outline-variant/15"
+    >
+      <div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-outline mb-1">
+          Start Date
         </div>
+        <div class="text-on-surface font-bold">{fmt(data.startDate)}</div>
+      </div>
+      <div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-outline mb-1">
+          End Date
+        </div>
+        <div class="text-on-surface font-bold">
+          {data.endDate ? fmt(data.endDate) : 'In progress'}
+        </div>
+      </div>
+      <div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-outline mb-1">
+          Duration
+        </div>
+        <div class="text-on-surface font-bold">
+          {durationDays ? `${durationDays} days` : 'Ongoing'}
+        </div>
+      </div>
+      <div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-outline mb-1">
+          Languages
+        </div>
+        <div class="flex flex-wrap gap-1 mt-1">
+          {
+            data.languages.length === 0 ? (
+              <span class="text-on-surface-variant text-sm">—</span>
+            ) : (
+              data.languages.map((lang) => (
+                <span class="text-[10px] font-semibold bg-secondary-container text-on-secondary-container px-2 py-1 rounded">
+                  {lang}
+                </span>
+              ))
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Image gallery -->
+    {
+      (data.image || data.images.length > 0) && (
+        <section class="space-y-4">
+          <h2 class="text-xs font-label font-bold uppercase tracking-[0.3em] text-outline">
+            Gallery
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {data.image && (
+              <div class="md:col-span-2 rounded-lg overflow-hidden bg-surface-container-low aspect-[21/9]">
+                <img
+                  src={data.image}
+                  alt={`${data.title} cover`}
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            )}
+            {data.images.map((url) => (
+              <div class="rounded-lg overflow-hidden bg-surface-container-low aspect-video">
+                <img src={url} alt={data.title} class="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+        </section>
       )
     }
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      <section class="lg:col-span-7 space-y-6">
-        <div class="bg-surface-container-lowest p-8 rounded-lg border border-outline-variant/15">
-          <h4 class="text-xs font-label font-bold uppercase tracking-[0.2em] text-outline mb-4">
-            Integrated Stack
-          </h4>
-          <div class="flex flex-wrap gap-2">
-            {
-              data.tech.map((t) => (
-                <span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-lg text-xs font-bold uppercase tracking-tighter">
-                  {t}
-                </span>
-              ))
-            }
-          </div>
+    <!-- README body -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-8">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="material-symbols-outlined text-primary">description</span>
+          <h2 class="text-xs font-label font-bold uppercase tracking-[0.3em] text-outline">
+            README
+          </h2>
         </div>
-      </section>
+        <article
+          class="prose prose-slate max-w-none prose-headings:font-headline prose-headings:text-on-surface prose-p:text-on-surface-variant prose-a:text-primary prose-code:text-primary prose-code:bg-surface-container-low prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-surface-container-low prose-pre:text-on-surface"
+        >
+          <Content />
+        </article>
+      </div>
 
-      <aside class="lg:col-span-5 space-y-8">
-        <div class="bg-surface-container-high rounded-lg p-6">
-          <div class="flex items-center justify-between mb-8">
-            <h3 class="text-sm font-label font-bold uppercase tracking-widest text-on-surface">
-              Performance Pulse
-            </h3>
-            <span
-              class="flex items-center gap-1 text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded"
-            >
-              <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> LIVE
-            </span>
-          </div>
-          <div class="space-y-6">
+      <!-- Side info -->
+      <aside class="lg:col-span-4 space-y-6">
+        <div class="bg-surface-container-low rounded-lg p-6 border border-outline-variant/10">
+          <h3 class="text-xs font-label font-bold uppercase tracking-widest text-outline mb-4">
+            Project Info
+          </h3>
+          <dl class="space-y-3 text-sm">
+            <div class="flex justify-between">
+              <dt class="text-on-surface-variant">Category</dt>
+              <dd class="font-bold text-on-surface">{data.category}</dd>
+            </div>
+            <div class="flex justify-between">
+              <dt class="text-on-surface-variant">Status</dt>
+              <dd class="font-bold text-on-surface">{data.status}</dd>
+            </div>
             {
-              data.stats.map((stat) => (
-                <div>
-                  <div class="flex justify-between items-end mb-1">
-                    <span class="text-xs text-on-surface-variant font-medium">{stat.label}</span>
-                    <span class="text-primary font-headline text-3xl font-extrabold">
-                      {stat.value}
-                    </span>
-                  </div>
+              data.github && (
+                <div class="flex justify-between gap-4">
+                  <dt class="text-on-surface-variant">Repo</dt>
+                  <dd class="font-bold text-primary truncate">
+                    <a href={data.github} target="_blank" rel="noopener" class="hover:underline">
+                      GitHub ↗
+                    </a>
+                  </dd>
                 </div>
-              ))
+              )
             }
-          </div>
+          </dl>
         </div>
       </aside>
-    </div>
+    </section>
+
+    <!-- Quotes -->
+    {
+      data.quotes.length > 0 && (
+        <section class="space-y-6">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary">format_quote</span>
+            <h2 class="text-xs font-label font-bold uppercase tracking-[0.3em] text-outline">
+              From the Brothers
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {data.quotes.map((q) => (
+              <figure class="bg-surface-container-lowest border border-outline-variant/15 rounded-lg p-8 shadow-sm">
+                <span class="material-symbols-outlined text-primary/20 text-5xl leading-none mb-2">
+                  format_quote
+                </span>
+                <blockquote class="text-on-surface text-lg leading-relaxed mb-6">
+                  "{q.quote}"
+                </blockquote>
+                <figcaption class="flex items-center gap-3 pt-4 border-t border-outline-variant/10">
+                  <div>
+                    <div class="font-bold text-on-surface text-sm">{q.author}</div>
+                    {q.role && (
+                      <div class="text-[10px] text-outline uppercase tracking-widest">
+                        {q.role}
+                      </div>
+                    )}
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )
+    }
   </main>
 </Layout>

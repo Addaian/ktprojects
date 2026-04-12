@@ -4,22 +4,38 @@ const projects = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    subtitle: z.string().optional(),
-    category: z.string().optional(),
+    description: z.string(),
+    category: z
+      .enum([
+        'Backend',
+        'Frontend',
+        'Full-Stack',
+        'Distributed Systems',
+        'AI / ML',
+        'Mobile',
+        'Infrastructure',
+        'DevTools',
+        'Data',
+        'Other',
+      ])
+      .default('Other'),
+    startDate: z.date(),
+    endDate: z.date().optional(),
+    languages: z.array(z.string()).default([]),
+    github: z.string().optional(),
     image: z.string().optional(),
-    status: z.enum(['Active Ops', 'In Staging', 'Archived']).default('Active Ops'),
-    featured: z.boolean().default(false),
-    tags: z.array(z.string()).default([]),
-    tech: z.array(z.string()).default([]),
-    stats: z
+    images: z.array(z.string()).default([]),
+    quotes: z
       .array(
         z.object({
-          label: z.string(),
-          value: z.string(),
+          quote: z.string(),
+          author: z.string(),
+          role: z.string().optional(),
         })
       )
       .default([]),
-    complexity: z.number().min(0).max(100).default(50),
+    status: z.enum(['Active', 'Shipped', 'Archived']).default('Active'),
+    featured: z.boolean().default(false),
     order: z.number().default(0),
   }),
 });

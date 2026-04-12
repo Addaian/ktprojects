@@ -8,6 +8,21 @@ const { project } = Astro.props;
 const { data, slug } = project;
 const base = import.meta.env.BASE_URL;
 const href = `${base}/projects/${slug}`;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+const dateRange =
+  data.endDate
+    ? `${fmt(data.startDate)} → ${fmt(data.endDate)}`
+    : `${fmt(data.startDate)} → Present`;
+
+const statusClass =
+  data.status === 'Active'
+    ? 'bg-primary text-white'
+    : data.status === 'Shipped'
+      ? 'bg-secondary-container text-on-secondary-container'
+      : 'bg-surface-dim text-on-surface-variant';
 ---
 
 <a
@@ -16,59 +31,64 @@ const href = `${base}/projects/${slug}`;
 >
   <div class="h-48 relative overflow-hidden bg-surface-container">
     {
-      data.image && (
+      data.image ? (
         <img
-          class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+          class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
           alt={data.title}
           src={data.image}
         />
-      )
-    }
-    <div
-      class={`absolute top-4 left-4 ${data.status === 'Active Ops' ? 'bg-primary text-white' : 'bg-surface-dim text-on-surface-variant'} px-2 py-1 text-[10px] font-bold uppercase tracking-widest`}
-    >
-      {data.status}
-    </div>
-  </div>
-  <div class="p-6 flex-1">
-    <div class="flex justify-between items-start mb-6">
-      <div>
-        <h3 class="text-xl font-bold text-on-surface tracking-tight">{data.title}</h3>
-        <span class="text-xs font-medium text-outline">{data.subtitle}</span>
-      </div>
-      <span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;"
-        >terminal</span
-      >
-    </div>
-    {
-      data.stats.length > 0 && (
-        <div class="grid grid-cols-3 gap-2 mb-8 border-y border-outline-variant/10 py-4">
-          {data.stats.slice(0, 3).map((stat, i) => (
-            <div class={`text-center ${i === 1 ? 'border-x border-outline-variant/10' : ''}`}>
-              <span class="block text-2xl font-black text-primary">{stat.value}</span>
-              <span class="text-[9px] uppercase tracking-widest text-outline font-bold">
-                {stat.label}
-              </span>
-            </div>
-          ))}
+      ) : (
+        <div class="w-full h-full flex items-center justify-center bg-surface-container-high">
+          <span class="material-symbols-outlined text-primary/20 text-6xl">image</span>
         </div>
       )
     }
-    <div class="space-y-4">
-      <div
-        class="flex justify-between text-xs font-bold uppercase tracking-widest text-on-surface-variant"
+    <div class="absolute top-4 left-4 flex gap-2">
+      <span
+        class={`${statusClass} px-2 py-1 text-[10px] font-bold uppercase tracking-widest rounded`}
+        >{data.status}</span
       >
-        <span>Complexity Score</span>
-        <span class="text-primary">{data.complexity}/100</span>
-      </div>
-      <div class="w-full h-1 bg-surface-container-low rounded-full">
-        <div class="h-full bg-primary-container" style={`width: ${data.complexity}%`}></div>
-      </div>
+      <span
+        class="bg-white/80 backdrop-blur-md text-primary px-2 py-1 text-[10px] font-bold uppercase tracking-widest rounded"
+        >{data.category}</span
+      >
     </div>
   </div>
-  <div
-    class="w-full py-4 bg-surface-container-low text-xs font-black uppercase tracking-[0.2em] text-primary group-hover:bg-primary group-hover:text-white transition-colors border-t border-outline-variant/10 text-center"
-  >
-    Initialize Full Spec
+
+  <div class="p-6 flex-1 flex flex-col">
+    <h3 class="text-xl font-bold text-on-surface tracking-tight mb-2">
+      {data.title}
+    </h3>
+    <p class="text-sm text-on-surface-variant leading-relaxed mb-4 line-clamp-3">
+      {data.description}
+    </p>
+
+    {
+      data.languages.length > 0 && (
+        <div class="flex flex-wrap gap-1 mb-4">
+          {data.languages.slice(0, 4).map((lang) => (
+            <span class="text-[10px] font-semibold bg-surface-container-low text-on-surface-variant px-2 py-1 rounded">
+              {lang}
+            </span>
+          ))}
+          {data.languages.length > 4 && (
+            <span class="text-[10px] font-semibold text-outline px-2 py-1">
+              +{data.languages.length - 4}
+            </span>
+          )}
+        </div>
+      )
+    }
+
+    <div
+      class="mt-auto pt-4 border-t border-outline-variant/10 flex items-center justify-between"
+    >
+      <span class="text-[10px] font-mono text-outline uppercase tracking-widest">
+        {dateRange}
+      </span>
+      <span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform text-sm"
+        >arrow_forward</span
+      >
+    </div>
   </div>
 </a>

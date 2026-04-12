@@ -16,61 +16,82 @@ content:
         label: Title
         type: string
         required: true
-      - name: subtitle
-        label: Subtitle
+      - name: description
+        label: Short Description
         type: string
+        required: true
       - name: category
         label: Category
+        type: select
+        required: true
+        default: Other
+        options:
+          values:
+            - Backend
+            - Frontend
+            - Full-Stack
+            - Distributed Systems
+            - AI / ML
+            - Mobile
+            - Infrastructure
+            - DevTools
+            - Data
+            - Other
+      - name: startDate
+        label: Start Date
+        type: date
+        required: true
+      - name: endDate
+        label: End Date (leave empty if in progress)
+        type: date
+      - name: languages
+        label: Languages / Tech
+        type: string
+        list: true
+      - name: github
+        label: GitHub URL
         type: string
       - name: image
-        label: Image URL
+        label: Cover Image URL
         type: string
+      - name: images
+        label: Additional Image URLs
+        type: string
+        list: true
+      - name: quotes
+        label: Brother Quotes
+        type: object
+        list: true
+        fields:
+          - name: quote
+            label: Quote
+            type: text
+          - name: author
+            label: Author Name
+            type: string
+          - name: role
+            label: Role on Project
+            type: string
       - name: status
         label: Status
         type: select
         required: true
-        default: Active Ops
+        default: Active
         options:
           values:
-            - Active Ops
-            - In Staging
+            - Active
+            - Shipped
             - Archived
       - name: featured
         label: Featured
         type: boolean
         default: false
-      - name: tags
-        label: Tags
-        type: string
-        list: true
-      - name: tech
-        label: Tech Stack
-        type: string
-        list: true
-      - name: stats
-        label: Stats
-        type: object
-        list: true
-        fields:
-          - name: label
-            label: Label
-            type: string
-          - name: value
-            label: Value
-            type: string
-      - name: complexity
-        label: Complexity Score (0-100)
-        type: number
-        default: 50
-        options:
-          min: 0
-          max: 100
       - name: order
         label: Display Order
         type: number
         default: 0
       - name: body
-        label: Description
+        label: README
         type: rich-text
         options:
           format: markdown
