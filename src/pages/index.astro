@@ -253,24 +253,16 @@ await committee.ship();
             </span>
             <span>projects</span>
           </span>
-          <!-- Line 2: @ + UChicago logo, mirrors line 1 so the crest right-aligns
-               to the end of "projects" and the "@" right-aligns to the end of the
-               scramble word (a perpendicular line cleanly cuts both lines). -->
-          <span class="flex items-center justify-center gap-x-3">
-            <span class="inline-grid justify-items-end">
-              <span aria-hidden="true" class="invisible col-start-1 row-start-1"
-                >frontend</span
-              >
-              <span class="text-outline opacity-60 col-start-1 row-start-1">@</span>
-            </span>
-            <span class="relative inline-block">
-              <span aria-hidden="true" class="invisible">projects</span>
-              <img
-                src={base + '/uchicago_crest.png'}
-                alt="University of Chicago"
-                class="absolute right-0 top-1/2 -translate-y-1/2 h-24 md:h-40 w-auto max-w-none object-contain"
-              />
-            </span>
+          <!-- Line 2: @ + UChicago logo, simple centered flex.
+               (Earlier mirror-of-line-1 layout broke because max-w-none let the
+               wide logo+text variant overflow leftward past the @ and the panel.) -->
+          <span class="flex items-center justify-center gap-x-4">
+            <span class="text-outline opacity-60">@</span>
+            <img
+              src={base + '/uchicago_crest.png'}
+              alt="University of Chicago"
+              class="h-20 md:h-32 w-auto object-contain"
+            />
           </span>
         </h1>
         <p
