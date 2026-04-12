@@ -11,6 +11,176 @@ const base = import.meta.env.BASE_URL;
     <!-- Hero Section -->
     <section class="relative min-h-[921px] flex items-center justify-center px-8">
       <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <!-- Scrolling terminal background -->
+        <div
+          class="absolute inset-0 flex items-start justify-center terminal-mask opacity-[0.18]"
+          aria-hidden="true"
+        >
+          <pre
+            class="terminal-scroll font-mono text-[11px] md:text-xs leading-relaxed text-primary whitespace-pre text-left">{`$ git log --oneline
+ea332af Add Aryan Kaushal to Spring 2026 Project Committee
+a26b51a Remove cycle-specific rush language
+1afb157 Add Spring 2026 Project Committee pledges
+50009dd Add Spring 2026 Project Committee members
+8875d73 Replace placeholders with real Project Committee leads
+a8a8d19 Rewrite copy for KTP Project Committee positioning
+18a8453 Add About, Join, Pulse, and Member Detail pages
+9b31ea6 Switch from Decap+Netlify to Pages CMS
+7735e57 Migrate to Astro + content collections + Decap CMS
+ac294f3 Initial site: static HTML pages
+
+$ cd src/content/members
+$ ls
+nam-nguyen.md      noah-michel.md     aryan-kaushal.md
+enzo-nakornsri.md  abraham-flores.md  eli-saliman.md
+adrian-dai.md      clarisse-cheung.md akansha-bagga.md
+eric-wong.md       aine-zhang.md      elaine-jiang.md
+
+$ npm run build
+
+> ktprojects@0.1.0 build
+> astro build
+
+[types] Generated 176ms
+[build] output: "static"
+[build] Collecting build info...
+[build] ✓ Completed in 211ms
+[build] Building static entrypoints...
+[vite] ✓ built in 740ms
+[build] ✓ Completed in 759ms
+
+generating static routes
+  ▶ src/pages/members.astro
+    └─ /members/index.html (+5ms)
+  ▶ src/pages/members/[slug].astro
+    ├─ /members/nam-nguyen/index.html
+    ├─ /members/enzo-nakornsri/index.html
+    ├─ /members/adrian-dai/index.html
+    ├─ /members/noah-michel/index.html
+    └─ ...
+  ▶ src/pages/projects.astro
+    └─ /projects/index.html (+1ms)
+  ▶ src/pages/pulse.astro
+    └─ /pulse/index.html (+2ms)
+  ▶ src/pages/index.astro
+    └─ /index.html (+1ms)
+  ✓ Completed in 40ms
+
+[build] 22 page(s) built in 1.18s
+[build] Complete!
+
+$ git push origin main
+Enumerating objects: 14, done.
+Counting objects: 100% (14/14), done.
+Delta compression using up to 10 threads
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (9/9), 1.42 KiB | 1.42 MiB/s, done.
+To github.com:Addaian/ktprojects.git
+   a26b51a..ea332af  main -> main
+
+$ echo "Deploy complete. Visit https://addaian.github.io/ktprojects/"
+Deploy complete. Visit https://addaian.github.io/ktprojects/
+
+$ _
+
+// Θ Theta Chapter · UChicago
+// Project Committee · Spring 2026
+// Build. Ship. Iterate.
+
+import { KTP } from '@uchicago/ktp';
+import { ProjectCommittee } from './committee';
+
+const committee = new ProjectCommittee({
+  chapter: KTP.Theta,
+  cycle: 'spring-2026',
+  leads: ['Nam Nguyen', 'Enzo Nakornsri'],
+});
+
+await committee.ship();
+
+$ git log --oneline
+ea332af Add Aryan Kaushal to Spring 2026 Project Committee
+a26b51a Remove cycle-specific rush language
+1afb157 Add Spring 2026 Project Committee pledges
+50009dd Add Spring 2026 Project Committee members
+8875d73 Replace placeholders with real Project Committee leads
+a8a8d19 Rewrite copy for KTP Project Committee positioning
+18a8453 Add About, Join, Pulse, and Member Detail pages
+9b31ea6 Switch from Decap+Netlify to Pages CMS
+7735e57 Migrate to Astro + content collections + Decap CMS
+ac294f3 Initial site: static HTML pages
+
+$ cd src/content/members
+$ ls
+nam-nguyen.md      noah-michel.md     aryan-kaushal.md
+enzo-nakornsri.md  abraham-flores.md  eli-saliman.md
+adrian-dai.md      clarisse-cheung.md akansha-bagga.md
+eric-wong.md       aine-zhang.md      elaine-jiang.md
+
+$ npm run build
+
+> ktprojects@0.1.0 build
+> astro build
+
+[types] Generated 176ms
+[build] output: "static"
+[build] Collecting build info...
+[build] ✓ Completed in 211ms
+[build] Building static entrypoints...
+[vite] ✓ built in 740ms
+[build] ✓ Completed in 759ms
+
+generating static routes
+  ▶ src/pages/members.astro
+    └─ /members/index.html (+5ms)
+  ▶ src/pages/members/[slug].astro
+    ├─ /members/nam-nguyen/index.html
+    ├─ /members/enzo-nakornsri/index.html
+    ├─ /members/adrian-dai/index.html
+    ├─ /members/noah-michel/index.html
+    └─ ...
+  ▶ src/pages/projects.astro
+    └─ /projects/index.html (+1ms)
+  ▶ src/pages/pulse.astro
+    └─ /pulse/index.html (+2ms)
+  ▶ src/pages/index.astro
+    └─ /index.html (+1ms)
+  ✓ Completed in 40ms
+
+[build] 22 page(s) built in 1.18s
+[build] Complete!
+
+$ git push origin main
+Enumerating objects: 14, done.
+Counting objects: 100% (14/14), done.
+Delta compression using up to 10 threads
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (9/9), 1.42 KiB | 1.42 MiB/s, done.
+To github.com:Addaian/ktprojects.git
+   a26b51a..ea332af  main -> main
+
+$ echo "Deploy complete. Visit https://addaian.github.io/ktprojects/"
+Deploy complete. Visit https://addaian.github.io/ktprojects/
+
+$ _
+
+// Θ Theta Chapter · UChicago
+// Project Committee · Spring 2026
+// Build. Ship. Iterate.
+
+import { KTP } from '@uchicago/ktp';
+import { ProjectCommittee } from './committee';
+
+const committee = new ProjectCommittee({
+  chapter: KTP.Theta,
+  cycle: 'spring-2026',
+  leads: ['Nam Nguyen', 'Enzo Nakornsri'],
+});
+
+await committee.ship();
+`}</pre>
+        </div>
+
         <div
           class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] data-orb-glow opacity-20 blur-3xl"
         >

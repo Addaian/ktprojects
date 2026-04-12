@@ -63,3 +63,39 @@ body {
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
+
+/* Terminal background scroll — renders a long monospaced block that
+   loops upward. Content is duplicated in the markup so translating -50%
+   seams perfectly. */
+@keyframes terminal-scroll {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, -50%, 0); }
+}
+
+.terminal-scroll {
+  animation: terminal-scroll 90s linear infinite;
+  will-change: transform;
+}
+
+.terminal-mask {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.9) 15%,
+    rgba(0, 0, 0, 0.9) 85%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.9) 15%,
+    rgba(0, 0, 0, 0.9) 85%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-scroll {
+    animation: none;
+  }
+}
