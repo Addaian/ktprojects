@@ -1,9 +1,8 @@
 ---
 title: ktprojects.com
-description: The site you're currently reading — a portfolio and living archive for the KTP Project Committee at UChicago, built as a collaborative student project.
+description: The site you're currently reading — a portfolio and living archive for the KTP Project Committee at UChicago, built by Adrian Dai with the help of Claude.
 category: Frontend
 startDate: 2026-04-10
-endDate: 2026-04-12
 languages:
   - TypeScript
   - Astro
@@ -13,7 +12,7 @@ github: "https://github.com/Addaian/ktprojects"
 image: /ktprojects/main_1.jpg
 images: []
 quotes: []
-status: Shipped
+status: Active
 featured: true
 order: 1
 ---
@@ -22,11 +21,13 @@ order: 1
 
 This is the meta project — the site you're currently reading is itself a Project Committee entry. It serves as a portfolio and ongoing archive of the software KTP brothers have built together at UChicago's Theta chapter.
 
+Adrian Dai is the sole builder and maintainer of the site.
+
 ## Goals
 
 - Give visitors a clear picture of what the Project Committee actually builds
 - Make it easy to add new projects, members, and updates via a content-managed flow (no code edits required)
-- Look sharp at every screen size
+- Match the visual language of UChicago and KTP without being a clone of the parent fraternity site
 - Deploy automatically on every push to `main`
 
 ## Stack

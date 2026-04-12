@@ -9,7 +9,8 @@ status: Active Deployment
 linkedin: "https://www.linkedin.com/in/adriandai/"
 avatar: https://uchicagoktp.com/assets/img/members/Adrian_Dai.jpg
 skills: []
-contributions: []
+contributions:
+  - ktprojects-site
 order: 3
 ---
 
