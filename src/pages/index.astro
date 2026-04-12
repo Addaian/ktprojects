@@ -233,24 +233,26 @@ await committee.ship();
         class="relative z-10 max-w-5xl text-center glass-panel p-12 rounded-[2rem] border border-white/20 shadow-2xl shadow-primary/5"
       >
         <h1
-          class="text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-none text-on-surface mb-8 space-y-3 md:space-y-4"
+          class="text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-none text-on-surface mb-8 space-y-4 md:space-y-6"
           aria-label="Projects at the University of Chicago"
         >
-          <span class="inline-flex items-center gap-x-3 justify-center w-full">
+          <!-- Line 1: scramble | projects, split at the center seam -->
+          <span class="grid grid-cols-2 items-center w-full">
             <span
               id="scramble-word"
-              class="text-primary inline-block min-w-[7ch] md:min-w-[9ch] text-right tabular-nums"
+              class="text-primary text-right pr-3 tabular-nums"
               aria-hidden="true"
               data-value="backend">backend</span
             >
-            <span>projects</span>
+            <span class="text-left pl-3">projects</span>
           </span>
-          <span class="inline-flex items-center gap-x-4 justify-center w-full">
+          <!-- Line 2: @ + UChicago logo, centered on the same axis -->
+          <span class="flex items-center justify-center gap-x-4 w-full">
             <span class="text-outline opacity-60">@</span>
             <img
               src={base + '/uchicago_crest.png'}
               alt="University of Chicago"
-              class="h-16 md:h-24 w-auto object-contain inline-block"
+              class="h-12 md:h-20 w-auto object-contain"
             />
           </span>
         </h1>
