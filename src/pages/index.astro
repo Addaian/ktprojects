@@ -237,16 +237,19 @@ await committee.ship();
           aria-label="Projects at the University of Chicago"
         >
           <!-- Line 1: mini-terminal containing the scramble word, then 'projects'.
-               Terminal text is sized to MATCH 'projects' so they read as one
-               line. Terminal width is locked to the 'frontend' ghost so the
-               box keeps a constant footprint regardless of the active word. -->
-          <span class="flex items-center justify-center gap-x-5">
+               The terminal is structured as an inline-block where the title bar
+               is absolutely positioned (decoration only), so the inline-block's
+               baseline is the scramble word's text baseline. With items-baseline
+               on the parent flex, 'projects' lines up exactly on that baseline. -->
+          <span class="flex items-baseline justify-center gap-x-5">
             <!-- Mini terminal -->
             <span
-              class="inline-flex flex-col bg-slate-900 rounded-lg overflow-hidden shadow-2xl border border-slate-700/60 text-left"
+              class="relative inline-block bg-slate-900 rounded-lg overflow-hidden shadow-2xl border border-slate-700/60 pt-16 md:pt-20 px-6 pb-4 font-mono text-5xl md:text-7xl text-left"
             >
-              <!-- Title bar with macOS traffic-light dots -->
-              <span class="flex items-center gap-2 px-4 py-2.5 bg-slate-800/90">
+              <!-- Title bar (absolutely positioned so it doesn't affect baseline) -->
+              <span
+                class="absolute top-0 inset-x-0 flex items-center gap-2 px-4 py-3 bg-slate-800/90 border-b border-slate-700/60"
+              >
                 <span class="w-3 h-3 rounded-full bg-red-500"></span>
                 <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
                 <span class="w-3 h-3 rounded-full bg-green-500"></span>
@@ -255,17 +258,15 @@ await committee.ship();
                   >scramble.sh</span
                 >
               </span>
-              <!-- Scrambling word — same size as 'projects', right-aligned -->
-              <span class="flex justify-end px-6 py-4 font-mono text-5xl md:text-7xl">
-                <span class="relative inline-block">
-                  <span aria-hidden="true" class="invisible">frontend</span>
-                  <span
-                    id="scramble-word"
-                    class="absolute inset-0 block text-blue-300 text-right whitespace-nowrap"
-                    aria-hidden="true"
-                    data-value="backend">backend</span
-                  >
-                </span>
+              <!-- Scramble word in normal flow → defines the inline-block baseline -->
+              <span class="relative inline-block">
+                <span aria-hidden="true" class="invisible">frontend</span>
+                <span
+                  id="scramble-word"
+                  class="absolute inset-0 block text-blue-300 text-right whitespace-nowrap"
+                  aria-hidden="true"
+                  data-value="backend">backend</span
+                >
               </span>
             </span>
             <span>projects</span>
