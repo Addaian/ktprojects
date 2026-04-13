@@ -62,7 +62,9 @@ const usedCategories = Array.from(new Set(projects.map((p) => p.data.category)))
         Project Repository
       </h1>
       <p class="text-on-surface-variant max-w-xl text-lg">
-        Every project the KTP Project Committee has built — past, shipped, and in progress.
+        Every project the KTP Project Committee has built — past, shipped, and in progress. Add a
+        GitHub repository URL when creating a project to sync its public commits and pull requests
+        into Pulse.
       </p>
     </header>
 
@@ -101,6 +103,7 @@ const usedCategories = Array.from(new Set(projects.map((p) => p.data.category)))
             The archive is empty. Add your first project via Pages CMS or by creating a markdown
             file in{' '}
             <code class="px-2 py-1 bg-surface-container rounded">src/content/projects/</code>.
+            Include a GitHub repository URL to enable Pulse syncing.
           </p>
         </div>
       ) : (

@@ -57,4 +57,4 @@ Adrian Dai is the sole builder and maintainer of the site.
 
 ## How to add a new project
 
-Open [app.pagescms.org](https://app.pagescms.org), sign in with the `Addaian` GitHub account, pick the `ktprojects` repo, and add an entry to the **Projects** collection. Fill in the form, hit save — a new markdown file gets committed, the GitHub Action rebuilds, and the project is live in about a minute.
+Open [app.pagescms.org](https://app.pagescms.org), sign in with the `Addaian` GitHub account, pick the `ktprojects` repo, and add an entry to the **Projects** collection. Fill in the form, paste the repository into **GitHub Repository URL (powers Pulse sync)** if the project has a public repo, and hit save. The new markdown file gets committed, the GitHub Action rebuilds, the project appears in the archive and terminal `ls`, and linked repos begin feeding commits and pull requests into Pulse.

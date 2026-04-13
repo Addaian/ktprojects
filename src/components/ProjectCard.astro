@@ -86,6 +86,15 @@ const roleLetter: Record<string, string> = {
         class="bg-white/80 backdrop-blur-md text-primary px-2 py-1 text-[10px] font-bold uppercase tracking-widest rounded"
         >{data.category}</span
       >
+      {
+        data.github && (
+          <span
+            class="bg-slate-900/80 backdrop-blur-md text-white px-2 py-1 text-[10px] font-bold uppercase tracking-widest rounded"
+          >
+            GitHub linked
+          </span>
+        )
+      }
     </div>
   </div>
 

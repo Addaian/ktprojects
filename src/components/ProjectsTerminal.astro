@@ -65,9 +65,11 @@ const asciiTitle = String.raw`  _  _________ _____           _           _
   </div>
 </section>
 
-<script type="application/json" id="projects-terminal-data">
-  {JSON.stringify(terminalProjects)}
-</script>
+<script
+  type="application/json"
+  id="projects-terminal-data"
+  set:html={JSON.stringify(terminalProjects)}
+></script>
 
 <script is:inline>
   (function () {
