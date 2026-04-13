@@ -11,9 +11,25 @@ languages:
 github: "https://github.com/Addaian/ktprojects"
 image: /main_1.jpg
 images: []
+features:
+  - Content-managed project archive with no code edits required — add a project via Pages CMS, push, done.
+  - Terminal-themed hero with a draggable IDE window and live text scrambler so the home page feels like a dev surface, not a brochure.
+  - Per-project detail pages with frontmatter-as-terminal metadata, feature list, architecture slot, README, and retrospective.
+  - Contributor avatars tagged by project role (Head / Member / Contributor) on both the project grid and detail views.
+  - Static build deploys on every push to `main` via GitHub Pages + GitHub Actions.
+retrospective: |
+  ## what went well
+  Content collections + Pages CMS was the right call — adding a project is a 30-second form fill instead of a PR. The terminal motif ended up tying everything together more than expected once it bled into both the home page and the project detail pages.
+
+  ## what was hard
+  Getting the scramble word to sit on the same baseline as the static "projects" text took a mini-terminal inside an h1 and a baseline hack. Worth it, but I lost an afternoon to it. The draggable IDE window also needed a boundary clamp so you can't lose it below the fold.
+
+  ## what I'd do differently
+  Start from the content schema first next time. A couple of sections were rebuilt because the schema wasn't rich enough (e.g., contributors was a flat string list before roles got added).
 quotes: []
 contributors:
-  - adrian-dai
+  - slug: adrian-dai
+    role: Project Head
 status: Active
 featured: true
 order: 1

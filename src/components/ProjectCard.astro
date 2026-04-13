@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -23,6 +23,40 @@ const statusClass =
     : data.status === 'Shipped'
       ? 'bg-secondary-container text-on-secondary-container'
       : 'bg-surface-dim text-on-surface-variant';
+
+// Resolve project contributors to { member, role } pairs, sorted so Heads render first.
+const allMembers = await getCollection('members');
+const roleOrder: Record<string, number> = {
+  'Project Head': 0,
+  'Project Member': 1,
+  'Project Contributor': 2,
+};
+const contributors = data.contributors
+  .map(({ slug: memberSlug, role }) => {
+    const member = allMembers.find((m) => m.slug === memberSlug);
+    return member ? { member, role } : null;
+  })
+  .filter(
+    (c): c is { member: (typeof allMembers)[number]; role: 'Project Head' | 'Project Member' | 'Project Contributor' } =>
+      c !== null
+  )
+  .sort((a, b) => roleOrder[a.role] - roleOrder[b.role]);
+
+const roleRingClass: Record<string, string> = {
+  'Project Head': 'ring-amber-400',
+  'Project Member': 'ring-primary',
+  'Project Contributor': 'ring-slate-300',
+};
+const roleBadgeClass: Record<string, string> = {
+  'Project Head': 'bg-amber-400 text-slate-900',
+  'Project Member': 'bg-primary text-white',
+  'Project Contributor': 'bg-slate-300 text-slate-800',
+};
+const roleLetter: Record<string, string> = {
+  'Project Head': 'H',
+  'Project Member': 'M',
+  'Project Contributor': 'C',
+};
 ---
 
 <a
@@ -99,5 +133,65 @@ const statusClass =
         >arrow_forward</span
       >
     </div>
+
+    {
+      contributors.length > 0 && (
+        <div class="mt-4 pt-4 border-t border-outline-variant/10">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex -space-x-2">
+              {contributors.slice(0, 6).map(({ member: m, role }) => (
+                <div
+                  class="relative"
+                  title={`${m.data.name} — ${role}`}
+                >
+                  <div
+                    class={`w-9 h-9 rounded-full overflow-hidden bg-surface-container-high ring-2 ring-offset-2 ring-offset-surface-container-lowest ${roleRingClass[role]}`}
+                  >
+                    {m.data.avatar ? (
+                      <img
+                        alt={m.data.name}
+                        src={m.data.avatar}
+                        class="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div class="w-full h-full flex items-center justify-center text-[10px] font-bold text-on-surface-variant">
+                        {m.data.name
+                          .split(' ')
+                          .map((part) => part[0])
+                          .join('')
+                          .slice(0, 2)
+                          .toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+                  <span
+                    class={`absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-black leading-none border border-white ${roleBadgeClass[role]}`}
+                    aria-label={role}
+                  >
+                    {roleLetter[role]}
+                  </span>
+                </div>
+              ))}
+              {contributors.length > 6 && (
+                <div class="w-9 h-9 rounded-full bg-surface-container-high ring-2 ring-offset-2 ring-offset-surface-container-lowest ring-outline-variant/30 flex items-center justify-center text-[10px] font-bold text-on-surface-variant">
+                  +{contributors.length - 6}
+                </div>
+              )}
+            </div>
+            <div class="flex items-center gap-2 text-[9px] font-mono font-bold uppercase tracking-widest text-outline">
+              <span class="inline-flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-amber-400" /> H
+              </span>
+              <span class="inline-flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-primary" /> M
+              </span>
+              <span class="inline-flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-slate-300" /> C
+              </span>
+            </div>
+          </div>
+        </div>
+      )
+    }
   </div>
 </a>

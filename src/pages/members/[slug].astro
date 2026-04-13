@@ -19,7 +19,7 @@ const base = import.meta.env.BASE_URL;
 // Source of truth lives on the project side now, so we derive the inverse here.
 const allProjects = await getCollection('projects');
 const contributions = allProjects
-  .filter((p) => p.data.contributors.includes(member.slug))
+  .filter((p) => p.data.contributors.some((c) => c.slug === member.slug))
   .sort((a, b) => a.data.order - b.data.order);
 
 const proficiencyLabel = (level: number) => {

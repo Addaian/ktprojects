@@ -58,6 +58,16 @@ content:
         label: Additional Image URLs
         type: string
         list: true
+      - name: architecture
+        label: Architecture Diagram URL (single image)
+        type: string
+      - name: features
+        label: Feature List (one bullet per line)
+        type: string
+        list: true
+      - name: retrospective
+        label: Retrospective (what went well / what was hard / what you'd do differently)
+        type: text
       - name: quotes
         label: Brother Quotes
         type: object
@@ -73,9 +83,24 @@ content:
             label: Role on Project
             type: string
       - name: contributors
-        label: Contributors (member slugs, e.g. adrian-dai)
-        type: string
+        label: Contributors
+        type: object
         list: true
+        fields:
+          - name: slug
+            label: Member Slug (e.g. adrian-dai)
+            type: string
+            required: true
+          - name: role
+            label: Role on Project
+            type: select
+            required: true
+            default: Project Member
+            options:
+              values:
+                - Project Head
+                - Project Member
+                - Project Contributor
       - name: status
         label: Status
         type: select
