@@ -242,9 +242,9 @@ await committee.ship();
                baseline is the scramble word's text baseline. With items-baseline
                on the parent flex, 'projects' lines up exactly on that baseline. -->
           <span class="flex items-baseline justify-center gap-x-5">
-            <!-- Mini terminal -->
+            <!-- Mini terminal (hidden on mobile so the headline reads "projects @ [crest]") -->
             <span
-              class="relative inline-block bg-slate-900 rounded-lg overflow-hidden shadow-2xl border border-slate-700/60 pt-12 md:pt-14 px-6 pb-4 font-mono text-5xl md:text-7xl text-left"
+              class="relative hidden md:inline-block bg-slate-900 rounded-lg overflow-hidden shadow-2xl border border-slate-700/60 pt-12 md:pt-14 px-6 pb-4 font-mono text-5xl md:text-7xl text-left"
             >
               <!-- Title bar (absolutely positioned so it doesn't affect baseline) -->
               <span
@@ -401,6 +401,8 @@ await committee.ship();
     (function () {
       var el = document.getElementById('scramble-word');
       if (!el) return;
+      // Skip the scramble entirely on mobile — the terminal is display:none there.
+      if (el.offsetParent === null) return;
       var phrases = [
         'backend',
         'frontend',
