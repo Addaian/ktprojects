@@ -145,52 +145,52 @@ body {
 .projects-terminal-shell {
   overflow: hidden;
   border-radius: 1.5rem;
-  background: linear-gradient(180deg, #2b2b2b 0%, #1b1e1f 64%, #171919 100%);
+  background: #0f172a;
+  border: 1px solid rgba(51, 65, 85, 0.6);
 }
 
 .projects-terminal-toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  background: #343434;
-  padding: 0.95rem 1.5rem;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+  background: rgba(30, 41, 59, 0.9);
+  padding: 0.75rem 1rem;
 }
 
 .projects-terminal-lights {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.5rem;
 }
 
 .projects-terminal-light {
-  height: 0.9rem;
-  width: 0.9rem;
+  height: 0.75rem;
+  width: 0.75rem;
   border-radius: 9999px;
 }
 
 .projects-terminal-light-close {
-  background: #ff5f57;
+  background: #ef4444;
 }
 
 .projects-terminal-light-minimize {
-  background: #febc2e;
+  background: #eab308;
 }
 
 .projects-terminal-light-expand {
-  background: #28c840;
+  background: #22c55e;
 }
 
 .projects-terminal-title {
-  flex: 1;
-  text-align: center;
+  margin-left: 0.5rem;
   font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(196, 197, 213, 0.62);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: lowercase;
+  color: #94a3b8;
 }
 
 .projects-terminal-body {
@@ -338,12 +338,11 @@ body {
   }
 
   .projects-terminal-toolbar {
-    padding: 0.9rem 1rem;
+    padding: 0.65rem 0.85rem;
   }
 
   .projects-terminal-title {
-    font-size: 0.65rem;
-    letter-spacing: 0.16em;
+    font-size: 0.7rem;
   }
 
   .projects-terminal-body {
