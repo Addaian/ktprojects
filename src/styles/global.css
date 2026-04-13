@@ -144,7 +144,7 @@ body {
 
 .projects-terminal-shell {
   overflow: hidden;
-  border-radius: 1.5rem;
+  border-radius: 0.5rem;
   background: #0f172a;
   border: 1px solid rgba(51, 65, 85, 0.6);
 }
