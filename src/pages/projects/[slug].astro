@@ -190,6 +190,14 @@ const statusClass =
             </div>
             {
               data.github && (
+                <div class="flex justify-between">
+                  <dt class="text-on-surface-variant">Pulse Sync</dt>
+                  <dd class="font-bold text-emerald-700">Enabled</dd>
+                </div>
+              )
+            }
+            {
+              data.github && (
                 <div class="flex justify-between gap-4">
                   <dt class="text-on-surface-variant">Repo</dt>
                   <dd class="font-bold text-primary truncate">

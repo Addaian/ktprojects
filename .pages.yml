@@ -49,7 +49,7 @@ content:
         type: string
         list: true
       - name: github
-        label: GitHub URL
+        label: GitHub Repository URL (powers Pulse sync)
         type: string
       - name: image
         label: Cover Image URL

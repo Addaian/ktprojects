@@ -1,13 +1,48 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import {
+  getCombinedPulseEvents,
+  hasLinkedGitHubRepository,
+  type PulseEvent,
+} from '../lib/pulseEvents';
 
-const entries = (await getCollection('pulse')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+const MAXIMUM_DISPLAYED_EVENTS = 40;
+
+const projects = await getCollection('projects');
+const allPulseEvents = (await getCombinedPulseEvents()).sort(
+  (leftEvent, rightEvent) => rightEvent.timestamp.valueOf() - leftEvent.timestamp.valueOf()
 );
+const displayedPulseEvents = allPulseEvents.slice(0, MAXIMUM_DISPLAYED_EVENTS);
 
-const categoryBadgeClass = (category: string) => {
-  switch (category) {
+const trackedRepositoryCount = projects.filter((project) => hasLinkedGitHubRepository(project)).length;
+const editorialEventCount = allPulseEvents.filter((pulseEvent) => pulseEvent.source === 'editorial').length;
+const commitEventCount = allPulseEvents.filter((pulseEvent) => pulseEvent.source === 'commit').length;
+const pullRequestEventCount = allPulseEvents.filter(
+  (pulseEvent) => pulseEvent.source === 'pull_request'
+).length;
+const base = import.meta.env.BASE_URL;
+
+const formatDate = (dateValue: Date) =>
+  dateValue
+    .toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+    .toUpperCase();
+
+const formatTime = (dateValue: Date) =>
+  dateValue
+    .toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+    .toUpperCase();
+
+const getCategoryBadgeClassName = (pulseEvent: PulseEvent) => {
+  if (pulseEvent.source === 'commit') {
+    return 'bg-secondary-container text-on-secondary-container';
+  }
+
+  if (pulseEvent.source === 'pull_request') {
+    return 'bg-primary text-white';
+  }
+
+  switch (pulseEvent.categoryLabel) {
     case 'Release':
       return 'bg-primary-container text-white';
     case 'Milestone':
@@ -23,10 +58,17 @@ const categoryBadgeClass = (category: string) => {
   }
 };
 
-const formatDate = (d: Date) =>
-  d
-    .toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
-    .toUpperCase();
+const getStatusBadgeClassName = (statusLabel: string) => {
+  switch (statusLabel) {
+    case 'Merged':
+      return 'bg-emerald-100 text-emerald-800';
+    case 'Closed':
+      return 'bg-slate-200 text-slate-700';
+    case 'Open':
+    default:
+      return 'bg-sky-100 text-sky-800';
+  }
+};
 ---
 
 <Layout title="Pulse | ktprojects" active="pulse">
@@ -40,55 +82,103 @@ const formatDate = (d: Date) =>
           <h1 class="text-5xl md:text-6xl font-extrabold tracking-tighter text-on-surface">
             Pulse Feed
           </h1>
-          <p class="text-on-surface-variant max-w-xl mt-4 text-lg">
-            Real-time architectural logs and precision engineering updates from the ktprojects
-            ecosystem.
+          <p class="text-on-surface-variant max-w-2xl mt-4 text-lg">
+            Live build-time activity from linked GitHub repositories, combined with the editorial
+            updates already tracked by the committee.
           </p>
         </div>
       </div>
     </header>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      <!-- Feed -->
       <section class="lg:col-span-8 space-y-6">
         {
-          entries.length === 0 && (
-            <p class="text-on-surface-variant">No pulse entries yet.</p>
+          displayedPulseEvents.length === 0 && (
+            <p class="text-on-surface-variant">
+              No pulse entries yet. Add editorial entries or link a project to GitHub to start the
+              feed.
+            </p>
           )
         }
         {
-          entries.map((entry, i) => (
+          displayedPulseEvents.map((pulseEvent, index) => (
             <article class="group relative bg-surface-container-lowest rounded-lg p-1 border border-outline-variant/15 transition-all hover:scale-[1.01] hover:shadow-[0px_20px_40px_rgba(25,28,30,0.06)]">
               <div class="bg-white p-6 rounded-[7px] flex gap-6">
                 <div class="hidden md:flex flex-col items-center pt-2">
                   <span class="text-xs font-black text-primary/30 font-mono">
-                    {String(i + 1).padStart(2, '0')}
+                    {String(index + 1).padStart(2, '0')}
                   </span>
                   <div class="w-px h-full bg-surface-container-high my-2" />
                 </div>
                 <div class="flex-1">
-                  <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center justify-between mb-3 gap-4">
                     <div class="flex items-center gap-3 flex-wrap">
                       <span
-                        class={`text-[10px] font-bold tracking-widest uppercase px-2 py-1 rounded ${categoryBadgeClass(entry.data.category)}`}
+                        class={`text-[10px] font-bold tracking-widest uppercase px-2 py-1 rounded ${getCategoryBadgeClassName(pulseEvent)}`}
                       >
-                        {entry.data.category}
-                        {entry.data.version && ` ${entry.data.version}`}
+                        {pulseEvent.categoryLabel}
+                        {
+                          pulseEvent.source === 'editorial' &&
+                            pulseEvent.versionLabel &&
+                            ` ${pulseEvent.versionLabel}`
+                        }
                       </span>
+                      {
+                        pulseEvent.source === 'pull_request' && (
+                          <span
+                            class={`text-[10px] font-bold tracking-widest uppercase px-2 py-1 rounded ${getStatusBadgeClassName(pulseEvent.statusLabel)}`}
+                          >
+                            {pulseEvent.statusLabel}
+                          </span>
+                        )
+                      }
                       <span class="text-xs font-medium text-outline">
-                        {formatDate(entry.data.date)}
+                        {formatDate(pulseEvent.timestamp)} · {formatTime(pulseEvent.timestamp)}
                       </span>
                     </div>
-                    <span class="material-symbols-outlined text-primary group-hover:rotate-45 transition-transform">
-                      arrow_outward
-                    </span>
+                    {
+                      pulseEvent.url ? (
+                        <a
+                          href={pulseEvent.url}
+                          target="_blank"
+                          rel="noopener"
+                          class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+                        >
+                          View
+                          <span class="material-symbols-outlined text-base">arrow_outward</span>
+                        </a>
+                      ) : (
+                        <span class="material-symbols-outlined text-primary group-hover:rotate-45 transition-transform">
+                          arrow_outward
+                        </span>
+                      )
+                    }
                   </div>
+
                   <h3 class="text-2xl font-bold tracking-tight text-on-surface mb-2">
-                    {entry.data.title}
+                    {pulseEvent.title}
                   </h3>
                   <p class="text-on-surface-variant font-normal leading-relaxed mb-4">
-                    {entry.data.excerpt}
+                    {pulseEvent.summary}
                   </p>
+
+                  {
+                    pulseEvent.projectSlug && pulseEvent.projectTitle && pulseEvent.repositoryName && (
+                      <div class="flex flex-wrap items-center gap-3 text-xs font-semibold">
+                        <a
+                          href={`${base}/projects/${pulseEvent.projectSlug}`}
+                          class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container text-on-surface hover:text-primary transition-colors"
+                        >
+                          <span class="material-symbols-outlined text-sm">folder_open</span>
+                          {pulseEvent.projectTitle}
+                        </a>
+                        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant">
+                          <span class="material-symbols-outlined text-sm">data_object</span>
+                          {pulseEvent.repositoryName}
+                        </span>
+                      </div>
+                    )
+                  }
                 </div>
               </div>
             </article>
@@ -96,7 +186,6 @@ const formatDate = (d: Date) =>
         }
       </section>
 
-      <!-- Sidebar: Stats -->
       <aside class="lg:col-span-4 space-y-6">
         <div class="bg-surface-container-low rounded-lg p-8 relative overflow-hidden group">
           <div class="relative z-10">
@@ -105,12 +194,13 @@ const formatDate = (d: Date) =>
             >
             <div class="flex items-baseline gap-2 mb-2">
               <span class="text-6xl font-black tracking-tighter text-primary">
-                {entries.length}
+                {allPulseEvents.length}
               </span>
-              <span class="text-primary-container font-bold">ENTRIES</span>
+              <span class="text-primary-container font-bold">EVENTS</span>
             </div>
             <p class="text-sm text-on-surface-variant font-medium">
-              Total pulse entries published since the feed launched.
+              Showing the latest {displayedPulseEvents.length} entries across editorial updates,
+              commits, and pull requests.
             </p>
           </div>
           <div
@@ -122,21 +212,20 @@ const formatDate = (d: Date) =>
 
         <div class="bg-primary text-white rounded-lg p-8">
           <span class="text-xs font-bold tracking-[0.2em] uppercase opacity-70 mb-6 block"
-            >System Integrity</span
+            >Activity Split</span
           >
-          <div class="space-y-6">
-            <div class="flex justify-between items-end">
-              <div>
-                <h4 class="text-4xl font-bold tracking-tighter">99.9%</h4>
-                <span class="text-[10px] font-bold opacity-60 uppercase">Uptime Global</span>
-              </div>
-              <div class="flex items-end gap-1 h-12">
-                <div class="w-1 bg-white/20 h-1/2"></div>
-                <div class="w-1 bg-white/40 h-3/4"></div>
-                <div class="w-1 bg-white/60 h-2/3"></div>
-                <div class="w-1 bg-white h-full"></div>
-                <div class="w-1 bg-white/80 h-5/6"></div>
-              </div>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-semibold uppercase tracking-widest opacity-80">Commits</span>
+              <span class="text-3xl font-black tracking-tighter">{commitEventCount}</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-semibold uppercase tracking-widest opacity-80">Pull Requests</span>
+              <span class="text-3xl font-black tracking-tighter">{pullRequestEventCount}</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-semibold uppercase tracking-widest opacity-80">Editorial</span>
+              <span class="text-3xl font-black tracking-tighter">{editorialEventCount}</span>
             </div>
           </div>
         </div>
@@ -144,25 +233,25 @@ const formatDate = (d: Date) =>
         <div class="bg-surface-container-highest rounded-lg p-1">
           <div class="bg-surface-container-lowest p-6 rounded-[7px]">
             <h4 class="text-sm font-black tracking-widest uppercase text-on-surface mb-4">
-              Tech Stack Pulse
+              Repo Linkage
             </h4>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-3 py-1 bg-secondary-container text-on-secondary-fixed text-[10px] font-bold rounded-full"
-                >RUST_ENGINE</span
-              >
-              <span
-                class="px-3 py-1 bg-secondary-container text-on-secondary-fixed text-[10px] font-bold rounded-full"
-                >ASTRO</span
-              >
-              <span
-                class="px-3 py-1 bg-secondary-container text-on-secondary-fixed text-[10px] font-bold rounded-full"
-                >TYPESCRIPT</span
-              >
-              <span
-                class="px-3 py-1 bg-secondary-container text-on-secondary-fixed text-[10px] font-bold rounded-full"
-                >TAILWIND</span
-              >
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-on-surface-variant">Tracked repositories</span>
+                <span class="text-2xl font-black tracking-tighter text-primary">
+                  {trackedRepositoryCount}
+                </span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-on-surface-variant">Projects in archive</span>
+                <span class="text-2xl font-black tracking-tighter text-primary">
+                  {projects.length}
+                </span>
+              </div>
+              <p class="text-sm text-on-surface-variant leading-relaxed">
+                Link a GitHub repository when adding a project in Pages CMS to include its public
+                commits and pull requests here.
+              </p>
             </div>
           </div>
         </div>
