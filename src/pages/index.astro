@@ -237,24 +237,24 @@ await committee.ship();
           aria-label="Projects at the University of Chicago"
         >
           <!-- Line 1: mini-terminal containing the scramble word, then 'projects'.
-               The terminal is structured as an inline-block where the title bar
-               is absolutely positioned (decoration only), so the inline-block's
-               baseline is the scramble word's text baseline. With items-baseline
-               on the parent flex, 'projects' lines up exactly on that baseline. -->
-          <span class="flex items-baseline justify-center gap-x-5">
-            <!-- Mini terminal (hidden on mobile so the headline reads "projects @ [crest]") -->
+               On mobile, the terminal stacks above the word "projects" so the
+               animated terminal remains visible. On desktop, the inline terminal
+               keeps the scramble word aligned to the same baseline as "projects". -->
+          <span
+            class="flex flex-col items-center justify-center gap-y-4 md:flex-row md:items-baseline md:gap-x-5"
+          >
             <span
-              class="relative hidden md:inline-block bg-slate-900 rounded-lg overflow-hidden shadow-2xl border border-slate-700/60 pt-12 md:pt-14 px-6 pb-4 font-mono text-5xl md:text-7xl text-left"
+              class="relative block w-full max-w-[10rem] sm:max-w-[12rem] md:w-auto md:max-w-none bg-slate-900 rounded-lg overflow-hidden shadow-2xl border border-slate-700/60 pt-9 sm:pt-10 md:pt-14 px-4 sm:px-5 md:px-6 pb-3 md:pb-4 font-mono text-3xl sm:text-4xl md:text-7xl leading-none text-left"
             >
               <!-- Title bar (absolutely positioned so it doesn't affect baseline) -->
               <span
-                class="absolute top-0 inset-x-0 flex items-center gap-2 px-4 py-3 bg-slate-800/90 border-b border-slate-700/60"
+                class="absolute top-0 inset-x-0 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 bg-slate-800/90 border-b border-slate-700/60"
               >
-                <span class="w-3 h-3 rounded-full bg-red-500"></span>
-                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
-                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                <span class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-500"></span>
+                <span class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500"></span>
+                <span class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-500"></span>
                 <span
-                  class="ml-2 text-xs md:text-sm text-slate-400 font-mono normal-case tracking-normal lowercase"
+                  class="ml-1.5 sm:ml-2 text-[10px] sm:text-xs md:text-sm text-slate-400 font-mono normal-case tracking-normal lowercase"
                   >scramble.sh</span
                 >
               </span>
@@ -269,9 +269,9 @@ await committee.ship();
                 >
               </span>
             </span>
-            <span>projects</span>
+            <span class="block">projects</span>
           </span>
-          <!-- Line 2: @ + UChicago logo, simple centered flex -->
+          <!-- Line 2: @ + UChicago crest -->
           <span class="flex items-center justify-center gap-x-4">
             <span class="text-outline opacity-60">@</span>
             <img
@@ -401,7 +401,7 @@ await committee.ship();
     (function () {
       var el = document.getElementById('scramble-word');
       if (!el) return;
-      // Skip the scramble entirely on mobile — the terminal is display:none there.
+      // Skip the scramble if the terminal is not rendered.
       if (el.offsetParent === null) return;
       var phrases = [
         'backend',
