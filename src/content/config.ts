@@ -25,6 +25,9 @@ const projects = defineCollection({
     github: z.string().optional(),
     image: z.string().optional(),
     images: z.array(z.string()).default([]),
+    architecture: z.string().optional(),
+    features: z.array(z.string()).default([]),
+    retrospective: z.string().optional(),
     quotes: z
       .array(
         z.object({
@@ -34,7 +37,16 @@ const projects = defineCollection({
         })
       )
       .default([]),
-    contributors: z.array(z.string()).default([]),
+    contributors: z
+      .array(
+        z.object({
+          slug: z.string(),
+          role: z
+            .enum(['Project Head', 'Project Member', 'Project Contributor'])
+            .default('Project Member'),
+        })
+      )
+      .default([]),
     status: z.enum(['Active', 'Shipped', 'Archived']).default('Active'),
     featured: z.boolean().default(false),
     order: z.number().default(0),

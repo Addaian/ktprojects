@@ -12,69 +12,169 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await project.render();
-const { data } = project;
+const { data, slug } = project;
 const base = import.meta.env.BASE_URL;
 
-// Resolve contributor slugs to full member entries
+// Resolve contributor entries to { member, role } pairs, preserving project role.
 const allMembers = await getCollection('members');
+const roleOrder: Record<string, number> = {
+  'Project Head': 0,
+  'Project Member': 1,
+  'Project Contributor': 2,
+};
 const contributors = data.contributors
-  .map((slug) => allMembers.find((m) => m.slug === slug))
-  .filter((m): m is NonNullable<typeof m> => m !== undefined);
+  .map(({ slug: memberSlug, role }) => {
+    const member = allMembers.find((m) => m.slug === memberSlug);
+    return member ? { member, role } : null;
+  })
+  .filter(
+    (c): c is { member: (typeof allMembers)[number]; role: 'Project Head' | 'Project Member' | 'Project Contributor' } =>
+      c !== null
+  )
+  .sort((a, b) => roleOrder[a.role] - roleOrder[b.role]);
+
+const roleRingClass: Record<string, string> = {
+  'Project Head': 'ring-amber-400',
+  'Project Member': 'ring-primary',
+  'Project Contributor': 'ring-slate-300',
+};
+
+const roleBadgeClass: Record<string, string> = {
+  'Project Head': 'bg-amber-400 text-slate-900',
+  'Project Member': 'bg-primary text-on-primary',
+  'Project Contributor': 'bg-slate-300 text-slate-800',
+};
 
 const fmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
 const durationDays = data.endDate
   ? Math.max(1, Math.ceil((data.endDate.valueOf() - data.startDate.valueOf()) / 86400000))
   : null;
+const durationLabel = durationDays ? `${durationDays} days` : 'ongoing';
 
-const statusClass =
+const statusMonoClass =
   data.status === 'Active'
-    ? 'bg-primary text-white'
+    ? 'text-emerald-400'
     : data.status === 'Shipped'
-      ? 'bg-secondary-container text-on-secondary-container'
-      : 'bg-surface-dim text-on-surface-variant';
+      ? 'text-sky-300'
+      : 'text-slate-500';
+
+const filename = `${slug}.md`;
 ---
 
 <Layout title={`${data.title} | ktprojects`} active="projects">
-  <main class="pt-24 pb-20 max-w-7xl mx-auto px-8 space-y-16">
+  <main class="pt-20 pb-16 max-w-6xl mx-auto px-6 space-y-10">
     <!-- Back link -->
     <a
       href={base + '/projects'}
-      class="inline-flex items-center gap-1 text-sm font-bold text-outline hover:text-primary transition-colors uppercase tracking-widest"
+      class="inline-flex items-center gap-2 text-xs font-mono font-bold text-outline hover:text-primary transition-colors"
     >
-      <span class="material-symbols-outlined text-sm">arrow_back</span>
-      All Projects
+      <span class="text-primary">$</span>
+      <span>cd ../</span>
+      <span class="opacity-60">(all projects)</span>
     </a>
 
-    <!-- Header -->
-    <header class="space-y-6">
-      <div class="flex flex-wrap items-center gap-2">
+    <!-- Terminal hero: project metadata as frontmatter -->
+    <section
+      class="bg-slate-900 rounded-lg border border-slate-700/60 overflow-hidden shadow-2xl shadow-primary/5"
+    >
+      <!-- Title bar -->
+      <div
+        class="flex items-center gap-2 bg-slate-800/90 border-b border-slate-700/60 px-4 py-2"
+      >
+        <span class="w-3 h-3 rounded-full bg-red-500"></span>
+        <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+        <span class="w-3 h-3 rounded-full bg-green-500"></span>
         <span
-          class={`${statusClass} px-2 py-1 text-[10px] font-bold uppercase tracking-widest rounded`}
-          >{data.status}</span
-        >
-        <span
-          class="bg-surface-container-high text-primary px-2 py-1 text-[10px] font-bold uppercase tracking-widest rounded"
-          >{data.category}</span
+          class="ml-2 text-xs text-slate-400 font-mono lowercase tracking-normal"
+          >{filename}</span
         >
       </div>
-      <h1
-        class="text-5xl md:text-7xl font-headline font-extrabold tracking-[-0.03em] text-on-surface max-w-4xl leading-[1.05]"
-      >
-        {data.title}
-      </h1>
-      <p class="text-on-surface-variant text-lg md:text-xl max-w-3xl leading-relaxed">
-        {data.description}
-      </p>
-      <div class="flex flex-wrap items-center gap-4 pt-2">
+      <!-- Body -->
+      <div class="p-6 md:p-8">
+        <!-- Frontmatter block -->
+        <div
+          class="font-mono text-[11px] md:text-xs leading-relaxed text-slate-300 mb-6"
+        >
+          <div>
+            <span class="text-slate-500">$</span>
+            <span class="text-emerald-400">cat</span>
+            <span class="text-slate-200">{filename}</span>
+          </div>
+          <div class="text-slate-600">---</div>
+          <div>
+            <span class="text-sky-300">title</span><span class="text-slate-500">:</span>
+            <span class="text-slate-100">{data.title}</span>
+          </div>
+          <div>
+            <span class="text-sky-300">status</span><span class="text-slate-500">:</span>
+            <span class={statusMonoClass}>{data.status}</span>
+          </div>
+          <div>
+            <span class="text-sky-300">category</span><span class="text-slate-500">:</span>
+            <span class="text-slate-100">{data.category}</span>
+          </div>
+          <div>
+            <span class="text-sky-300">startDate</span><span class="text-slate-500">:</span>
+            <span class="text-slate-100">{fmt(data.startDate)}</span>
+          </div>
+          <div>
+            <span class="text-sky-300">endDate</span><span class="text-slate-500">:</span>
+            <span class="text-slate-100">
+              {data.endDate ? fmt(data.endDate) : <span class="text-slate-500">null</span>}
+            </span>
+          </div>
+          <div>
+            <span class="text-sky-300">duration</span><span class="text-slate-500">:</span>
+            <span class="text-slate-100">{durationLabel}</span>
+          </div>
+          <div>
+            <span class="text-sky-300">languages</span><span class="text-slate-500">:</span>
+            {
+              data.languages.length === 0 ? (
+                <span class="text-slate-500">[]</span>
+              ) : (
+                <span class="text-amber-300">
+                  [{data.languages.join(', ')}]
+                </span>
+              )
+            }
+          </div>
+          {
+            data.github && (
+              <div>
+                <span class="text-sky-300">github</span>
+                <span class="text-slate-500">:</span>{' '}
+                <a
+                  href={data.github}
+                  target="_blank"
+                  rel="noopener"
+                  class="text-blue-300 hover:underline break-all"
+                >
+                  {data.github}
+                </a>
+              </div>
+            )
+          }
+          <div class="text-slate-600">---</div>
+        </div>
+
+        <h1
+          class="font-mono text-4xl md:text-6xl font-extrabold tracking-[-0.03em] text-white leading-[1.05] mb-3"
+        >
+          {data.title}
+        </h1>
+        <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-3xl mb-5">
+          {data.description}
+        </p>
         {
           data.github && (
             <a
               href={data.github}
               target="_blank"
               rel="noopener"
-              class="inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-3 rounded-lg font-bold text-sm hover:bg-primary-container transition-all"
+              class="inline-flex items-center gap-2 bg-white text-slate-900 px-4 py-2 rounded-md font-bold text-sm hover:bg-slate-100 transition-all"
             >
               <span class="material-symbols-outlined text-base">code</span>
               View on GitHub
@@ -82,64 +182,18 @@ const statusClass =
           )
         }
       </div>
-    </header>
-
-    <!-- Meta row: dates, duration, languages -->
-    <section
-      class="grid grid-cols-1 md:grid-cols-4 gap-6 py-8 border-y border-outline-variant/15"
-    >
-      <div>
-        <div class="text-[10px] font-bold uppercase tracking-widest text-outline mb-1">
-          Start Date
-        </div>
-        <div class="text-on-surface font-bold">{fmt(data.startDate)}</div>
-      </div>
-      <div>
-        <div class="text-[10px] font-bold uppercase tracking-widest text-outline mb-1">
-          End Date
-        </div>
-        <div class="text-on-surface font-bold">
-          {data.endDate ? fmt(data.endDate) : 'In progress'}
-        </div>
-      </div>
-      <div>
-        <div class="text-[10px] font-bold uppercase tracking-widest text-outline mb-1">
-          Duration
-        </div>
-        <div class="text-on-surface font-bold">
-          {durationDays ? `${durationDays} days` : 'Ongoing'}
-        </div>
-      </div>
-      <div>
-        <div class="text-[10px] font-bold uppercase tracking-widest text-outline mb-1">
-          Languages
-        </div>
-        <div class="flex flex-wrap gap-1 mt-1">
-          {
-            data.languages.length === 0 ? (
-              <span class="text-on-surface-variant text-sm">—</span>
-            ) : (
-              data.languages.map((lang) => (
-                <span class="text-[10px] font-semibold bg-secondary-container text-on-secondary-container px-2 py-1 rounded">
-                  {lang}
-                </span>
-              ))
-            )
-          }
-        </div>
-      </div>
     </section>
 
     <!-- Image gallery -->
     {
       (data.image || data.images.length > 0) && (
-        <section class="space-y-4">
-          <h2 class="text-xs font-label font-bold uppercase tracking-[0.3em] text-outline">
-            Gallery
+        <section class="space-y-3">
+          <h2 class="font-mono text-xs text-outline">
+            <span class="text-primary">$</span> ls ./gallery
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             {data.image && (
-              <div class="md:col-span-2 rounded-lg overflow-hidden bg-surface-container-low aspect-[21/9]">
+              <div class="md:col-span-2 rounded-lg overflow-hidden bg-surface-container-low aspect-[21/9] border border-outline-variant/15">
                 <img
                   src={base + data.image}
                   alt={`${data.title} cover`}
@@ -148,7 +202,7 @@ const statusClass =
               </div>
             )}
             {data.images.map((url) => (
-              <div class="rounded-lg overflow-hidden bg-surface-container-low aspect-video">
+              <div class="rounded-lg overflow-hidden bg-surface-container-low aspect-video border border-outline-variant/15">
                 <img src={url} alt={data.title} class="w-full h-full object-cover" />
               </div>
             ))}
@@ -157,71 +211,104 @@ const statusClass =
       )
     }
 
-    <!-- README body -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-      <div class="lg:col-span-8">
-        <div class="flex items-center gap-3 mb-6">
-          <span class="material-symbols-outlined text-primary">description</span>
-          <h2 class="text-xs font-label font-bold uppercase tracking-[0.3em] text-outline">
-            README
+    <!-- Feature list -->
+    {
+      data.features.length > 0 && (
+        <section class="space-y-3">
+          <h2 class="font-mono text-xs text-outline">
+            <span class="text-primary">$</span> cat FEATURES.md
           </h2>
+          <ul class="bg-slate-900 rounded-lg border border-slate-700/60 p-5 md:p-6 font-mono text-sm text-slate-200 space-y-1.5">
+            {data.features.map((feature) => (
+              <li class="flex items-start gap-3">
+                <span class="text-emerald-400 shrink-0">[x]</span>
+                <span class="leading-relaxed">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <!-- Architecture diagram -->
+    {
+      data.architecture && (
+        <section class="space-y-3">
+          <h2 class="font-mono text-xs text-outline">
+            <span class="text-primary">$</span> open architecture.png
+          </h2>
+          <figure class="rounded-lg overflow-hidden bg-slate-900 border border-slate-700/60">
+            <img
+              src={data.architecture.startsWith('http') ? data.architecture : base + data.architecture}
+              alt={`${data.title} architecture diagram`}
+              class="w-full h-auto object-contain"
+            />
+            <figcaption class="px-4 py-2 border-t border-slate-700/60 font-mono text-[11px] text-slate-400 lowercase">
+              architecture.png — {data.title}
+            </figcaption>
+          </figure>
+        </section>
+      )
+    }
+
+    <!-- README -->
+    <section class="space-y-3">
+      <h2 class="font-mono text-xs text-outline">
+        <span class="text-primary">$</span> cat README.md
+      </h2>
+      <div class="bg-slate-900 rounded-lg border border-slate-700/60 overflow-hidden">
+        <div class="flex items-center gap-2 bg-slate-800/90 border-b border-slate-700/60 px-4 py-2">
+          <span class="w-3 h-3 rounded-full bg-red-500"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500"></span>
+          <span class="ml-2 text-xs text-slate-400 font-mono lowercase">readme.md</span>
         </div>
         <article
-          class="prose prose-slate max-w-none prose-headings:font-headline prose-headings:text-on-surface prose-p:text-on-surface-variant prose-a:text-primary prose-code:text-primary prose-code:bg-surface-container-low prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-surface-container-low prose-pre:text-on-surface"
+          class="p-5 md:p-8 font-mono text-sm prose prose-invert prose-sm max-w-none prose-headings:font-mono prose-headings:text-white prose-p:font-mono prose-p:text-slate-300 prose-a:text-blue-300 prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-code:text-blue-200 prose-code:bg-slate-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-700/60 prose-li:font-mono prose-li:text-slate-300 prose-hr:border-slate-700/60"
         >
           <Content />
         </article>
       </div>
-
-      <!-- Side info -->
-      <aside class="lg:col-span-4 space-y-6">
-        <div class="bg-surface-container-low rounded-lg p-6 border border-outline-variant/10">
-          <h3 class="text-xs font-label font-bold uppercase tracking-widest text-outline mb-4">
-            Project Info
-          </h3>
-          <dl class="space-y-3 text-sm">
-            <div class="flex justify-between">
-              <dt class="text-on-surface-variant">Category</dt>
-              <dd class="font-bold text-on-surface">{data.category}</dd>
-            </div>
-            <div class="flex justify-between">
-              <dt class="text-on-surface-variant">Status</dt>
-              <dd class="font-bold text-on-surface">{data.status}</dd>
-            </div>
-            {
-              data.github && (
-                <div class="flex justify-between gap-4">
-                  <dt class="text-on-surface-variant">Repo</dt>
-                  <dd class="font-bold text-primary truncate">
-                    <a href={data.github} target="_blank" rel="noopener" class="hover:underline">
-                      GitHub ↗
-                    </a>
-                  </dd>
-                </div>
-              )
-            }
-          </dl>
-        </div>
-      </aside>
     </section>
+
+    <!-- Retrospective -->
+    {
+      data.retrospective && (
+        <section class="space-y-3">
+          <h2 class="font-mono text-xs text-outline">
+            <span class="text-primary">$</span> cat POSTMORTEM.md
+          </h2>
+          <div class="bg-slate-900 rounded-lg border border-slate-700/60 overflow-hidden">
+            <div class="flex items-center gap-2 bg-slate-800/90 border-b border-slate-700/60 px-4 py-2">
+              <span class="w-3 h-3 rounded-full bg-red-500" />
+              <span class="w-3 h-3 rounded-full bg-yellow-500" />
+              <span class="w-3 h-3 rounded-full bg-green-500" />
+              <span class="ml-2 text-xs text-slate-400 font-mono lowercase">
+                postmortem.md
+              </span>
+            </div>
+            <pre class="p-5 md:p-6 font-mono text-sm text-slate-200 leading-relaxed whitespace-pre-wrap max-w-none overflow-x-auto">{data.retrospective}</pre>
+          </div>
+        </section>
+      )
+    }
 
     <!-- Contributors -->
     {
       contributors.length > 0 && (
-        <section class="space-y-6">
-          <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary">group</span>
-            <h2 class="text-xs font-label font-bold uppercase tracking-[0.3em] text-outline">
-              Contributors
-            </h2>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {contributors.map((m) => (
+        <section class="space-y-4">
+          <h2 class="font-mono text-xs text-outline">
+            <span class="text-primary">$</span> git shortlog --contributors
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {contributors.map(({ member: m, role }) => (
               <a
                 href={`${base}/members/${m.slug}`}
-                class="group flex items-center gap-4 p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/15 hover:border-primary/40 hover:shadow-[0px_8px_24px_rgba(0,40,142,0.08)] transition-all"
+                class="group flex items-center gap-3 p-3 bg-surface-container-lowest rounded-lg border border-outline-variant/15 hover:border-primary/40 hover:shadow-[0px_6px_20px_rgba(0,40,142,0.08)] transition-all"
               >
-                <div class="w-14 h-14 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
+                <div
+                  class={`w-11 h-11 rounded-lg overflow-hidden bg-surface-container-high shrink-0 ring-2 ring-offset-2 ring-offset-surface ${roleRingClass[role]}`}
+                >
                   {m.data.avatar && (
                     <img
                       alt={m.data.name}
@@ -231,12 +318,14 @@ const statusClass =
                   )}
                 </div>
                 <div class="min-w-0">
-                  <div class="font-bold text-on-surface group-hover:text-primary transition-colors truncate">
+                  <div class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors truncate">
                     {m.data.name}
                   </div>
-                  <div class="text-[10px] font-bold text-outline uppercase tracking-widest truncate">
-                    {m.data.role}
-                  </div>
+                  <span
+                    class={`inline-block mt-0.5 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-widest ${roleBadgeClass[role]}`}
+                  >
+                    {role}
+                  </span>
                 </div>
               </a>
             ))}
@@ -248,23 +337,20 @@ const statusClass =
     <!-- Quotes -->
     {
       data.quotes.length > 0 && (
-        <section class="space-y-6">
-          <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary">format_quote</span>
-            <h2 class="text-xs font-label font-bold uppercase tracking-[0.3em] text-outline">
-              From the Brothers
-            </h2>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section class="space-y-4">
+          <h2 class="font-mono text-xs text-outline">
+            <span class="text-primary">$</span> cat QUOTES.md
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             {data.quotes.map((q) => (
-              <figure class="bg-surface-container-lowest border border-outline-variant/15 rounded-lg p-8 shadow-sm">
-                <span class="material-symbols-outlined text-primary/20 text-5xl leading-none mb-2">
+              <figure class="bg-surface-container-lowest border border-outline-variant/15 rounded-lg p-5 shadow-sm">
+                <span class="material-symbols-outlined text-primary/20 text-4xl leading-none mb-1">
                   format_quote
                 </span>
-                <blockquote class="text-on-surface text-lg leading-relaxed mb-6">
+                <blockquote class="text-on-surface text-base leading-relaxed mb-4">
                   "{q.quote}"
                 </blockquote>
-                <figcaption class="flex items-center gap-3 pt-4 border-t border-outline-variant/10">
+                <figcaption class="flex items-center gap-3 pt-3 border-t border-outline-variant/10">
                   <div>
                     <div class="font-bold text-on-surface text-sm">{q.author}</div>
                     {q.role && (
