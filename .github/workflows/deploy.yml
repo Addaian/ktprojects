@@ -8,7 +8,7 @@ on:
     - cron: '0 * * * *'
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -31,6 +33,24 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Sync project contributors
+        run: npm run sync:contributors
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit synced contributors
+        run: |
+          if git diff --quiet -- src/content/projects; then
+            echo "No contributor changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/projects
+          git commit -m "Sync project contributors [skip ci]"
+          git push origin HEAD:${GITHUB_REF_NAME}
 
       - name: Build site
         run: npm run build
