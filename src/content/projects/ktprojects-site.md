@@ -30,6 +30,8 @@ quotes: []
 contributors:
   - slug: adrian-dai
     role: Project Head
+  - slug: enzo-nakornsri
+    role: Project Contributor
 status: Active
 featured: true
 order: 1
