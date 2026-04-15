@@ -4,6 +4,48 @@ import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const base = import.meta.env.BASE_URL;
+
+// Live stats derived from the project collection.
+const statsTotal = projects.length;
+const statsActive = projects.filter((p) => p.data.status === 'Active').length;
+const statsShipped = projects.filter((p) => p.data.status === 'Shipped').length;
+const statsArchived = projects.filter((p) => p.data.status === 'Archived').length;
+
+const uniqueContributors = new Set<string>();
+for (const project of projects) {
+  for (const contributor of project.data.contributors) {
+    uniqueContributors.add(contributor.slug);
+  }
+}
+const statsBuilders = uniqueContributors.size;
+
+const uniqueLanguages = new Set<string>();
+for (const project of projects) {
+  for (const language of project.data.languages) {
+    uniqueLanguages.add(language);
+  }
+}
+const languagesList = Array.from(uniqueLanguages);
+const statsLanguagesCount = languagesList.length;
+const languagesPreview = languagesList.slice(0, 5).join(', ');
+const languagesExtra = languagesList.length > 5 ? ` (+${languagesList.length - 5} more)` : '';
+
+const latestProject = projects.reduce<(typeof projects)[number] | null>((acc, p) => {
+  if (!acc) return p;
+  return p.data.startDate.valueOf() > acc.data.startDate.valueOf() ? p : acc;
+}, null);
+const oldestProject = projects.reduce<(typeof projects)[number] | null>((acc, p) => {
+  if (!acc) return p;
+  return p.data.startDate.valueOf() < acc.data.startDate.valueOf() ? p : acc;
+}, null);
+
+const fmtIsoDay = (d: Date) => d.toISOString().slice(0, 10);
+const latestLine = latestProject
+  ? `${fmtIsoDay(latestProject.data.startDate)}  ${latestProject.data.title}`
+  : '—';
+const oldestLine = oldestProject
+  ? `${fmtIsoDay(oldestProject.data.startDate)}  ${oldestProject.data.title}`
+  : '—';
 ---
 
 <Layout title="ktprojects | Built at UChicago" active="home">
@@ -389,41 +431,173 @@ await committee.ship();
       </p>
     </section>
 
-    <!-- Stats Section -->
-    <section class="max-w-7xl mx-auto px-8 py-20 relative">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+    <!-- Stats Section: live terminal derived from the projects collection -->
+    <section class="relative max-w-6xl mx-auto px-8 py-20">
+      <!-- Decorative background windows — staged like real desktop apps -->
+      <div
+        class="absolute inset-0 pointer-events-none hidden md:block"
+        aria-hidden="true"
+      >
+        <!-- 1. Finder — small, top-left -->
         <div
-          class="p-8 bg-surface-container-low/80 backdrop-blur-sm rounded-lg transition-all hover:scale-[1.02] border-b-4 border-primary/20 border border-white/30 shadow-sm"
+          class="absolute top-2 left-2 w-56 bg-slate-900 border border-slate-700/80 rounded-lg overflow-hidden shadow-2xl"
         >
-          <div class="text-5xl font-black text-primary tracking-tighter mb-2">
-            {projects.length}
+          <div class="flex items-center gap-1.5 bg-slate-800 border-b border-slate-700/80 px-3 py-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+            <span class="ml-1.5 text-[10px] text-slate-400 font-mono lowercase">~/ktprojects</span>
           </div>
-          <div class="text-xs font-bold uppercase tracking-widest text-outline">
-            Projects Shipped
-          </div>
-          <div class="mt-4 h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
-            <div class="h-full bg-primary w-3/4"></div>
+          <div class="p-3 font-mono text-[10px] leading-relaxed text-slate-300 space-y-0.5">
+            <div>📁 src</div>
+            <div class="pl-3 text-slate-400">├─ components</div>
+            <div class="pl-3 text-slate-400">├─ pages</div>
+            <div class="pl-3 text-slate-400">└─ content</div>
+            <div>📁 public</div>
+            <div>📄 astro.config.mjs</div>
+            <div>📄 package.json</div>
+            <div>📄 tsconfig.json</div>
           </div>
         </div>
+
+        <!-- 2. VS Code — largest, top-right, extends past section edge -->
         <div
-          class="p-8 bg-surface-container-low/80 backdrop-blur-sm rounded-lg transition-all hover:scale-[1.02] border-b-4 border-primary/20 border border-white/30 shadow-sm"
+          class="absolute top-6 -right-8 w-96 bg-slate-900 border border-slate-700/80 rounded-lg overflow-hidden shadow-2xl"
         >
-          <div class="text-5xl font-black text-primary tracking-tighter mb-2">Θ</div>
-          <div class="text-xs font-bold uppercase tracking-widest text-outline">
-            Theta Chapter
+          <div class="flex items-end gap-0 bg-slate-800 border-b border-slate-700/80 px-2 pt-1.5">
+            <div class="flex items-center gap-1.5 pb-1.5 pr-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+            </div>
+            <div class="flex items-center gap-1.5 px-3 py-1 -mb-[1px] rounded-t-md bg-slate-900 border border-slate-700/80 border-b-transparent text-slate-200 font-mono text-[10px]">
+              <span class="w-2 h-2 rounded-sm bg-blue-500/80"></span>
+              <span>ProjectCard.tsx</span>
+            </div>
+            <div class="flex items-center gap-1.5 px-3 py-1 pb-1.5 text-slate-500 font-mono text-[10px]">
+              <span class="w-2 h-2 rounded-sm bg-slate-500/60"></span>
+              <span>config.ts</span>
+            </div>
           </div>
-          <div class="mt-4 text-xs font-mono text-on-surface-variant">
-            First professional technology fraternity in the country.
+          <div class="p-4 font-mono text-[11px] leading-6">
+            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">1</span><span class="text-purple-300">import</span> <span class="text-slate-100">Card</span> <span class="text-purple-300">from</span> <span class="text-emerald-300">'@ui/card'</span></div>
+            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">2</span><span class="text-purple-300">import</span> <span class="text-slate-100">{'{ Project }'}</span> <span class="text-purple-300">from</span> <span class="text-emerald-300">'../types'</span></div>
+            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">3</span></div>
+            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">4</span><span class="text-purple-300">export default function</span> <span class="text-amber-300">ProjectCard</span><span class="text-slate-300">(</span><span class="text-sky-300">p</span><span class="text-slate-400">:</span> <span class="text-amber-300">Project</span><span class="text-slate-300">) {'{'}</span></div>
+            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">5</span>  <span class="text-purple-300">return</span> <span class="text-slate-300">{'<'}</span><span class="text-sky-300">Card</span> <span class="text-amber-300">href</span><span class="text-slate-400">=</span><span class="text-emerald-300">{'{p.href}'}</span><span class="text-slate-300">{'>'}</span></div>
+            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">6</span>    <span class="text-slate-300">{'<'}</span><span class="text-sky-300">h3</span><span class="text-slate-300">{'>'}</span><span class="text-slate-100">{'{p.title}'}</span><span class="text-slate-300">{'</'}</span><span class="text-sky-300">h3</span><span class="text-slate-300">{'>'}</span></div>
+            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">7</span>  <span class="text-slate-300">{'</'}</span><span class="text-sky-300">Card</span><span class="text-slate-300">{'>'}</span></div>
+            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">8</span><span class="text-slate-300">{'}'}</span></div>
           </div>
         </div>
+
+        <!-- 3. Build log — medium, bottom-left -->
         <div
-          class="p-8 bg-surface-container-low/80 backdrop-blur-sm rounded-lg transition-all hover:scale-[1.02] border-b-4 border-primary/20 border border-white/30 shadow-sm"
+          class="absolute bottom-2 left-6 w-72 bg-slate-900 border border-slate-700/80 rounded-lg overflow-hidden shadow-2xl"
         >
-          <div class="text-5xl font-black text-primary tracking-tighter mb-2">2012</div>
-          <div class="text-xs font-bold uppercase tracking-widest text-outline">KTP Founded</div>
+          <div class="flex items-center gap-1.5 bg-slate-800 border-b border-slate-700/80 px-3 py-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+            <span class="ml-1.5 text-[10px] text-slate-400 font-mono lowercase">zsh — astro build</span>
+          </div>
+          <div class="p-3 font-mono text-[10px] leading-relaxed space-y-0.5">
+            <div class="text-slate-500">$ npm run build</div>
+            <div class="text-slate-400">[types] Generated 176ms</div>
+            <div class="text-slate-400">[build] output: "static"</div>
+            <div class="text-slate-400">[vite] <span class="text-emerald-400">✓</span> built in 740ms</div>
+            <div class="text-slate-400">[build] <span class="text-emerald-400">✓</span> 22 pages built</div>
+            <div class="text-emerald-400">✓ deployed to main</div>
+            <div class="text-slate-500">$ <span class="nav-join-cursor w-1.5 h-2.5 bg-slate-300 inline-block align-middle"></span></div>
+          </div>
+        </div>
+
+        <!-- 4. Messages / Slack — small, bottom-right -->
+        <div
+          class="absolute bottom-4 right-2 w-60 bg-slate-900 border border-slate-700/80 rounded-lg overflow-hidden shadow-2xl"
+        >
+          <div class="flex items-center gap-1.5 bg-slate-800 border-b border-slate-700/80 px-3 py-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+            <span class="ml-1.5 text-[10px] text-slate-400 font-mono lowercase">#project-committee</span>
+          </div>
+          <div class="p-3 text-[10px] leading-relaxed space-y-1.5">
+            <div>
+              <div class="text-emerald-400 font-bold text-[9px]">nam · 9:12</div>
+              <div class="text-slate-300">shipped the pulse sync 🎉</div>
+            </div>
+            <div>
+              <div class="text-sky-300 font-bold text-[9px]">enzo · 9:14</div>
+              <div class="text-slate-300">pushing the terminal theme now</div>
+            </div>
+            <div>
+              <div class="text-amber-300 font-bold text-[9px]">adrian · 9:17</div>
+              <div class="text-slate-300">stats page is looking clean</div>
+            </div>
+            <div class="pt-1 border-t border-slate-700/60 text-slate-500 text-[9px]">
+              <span class="nav-join-cursor w-1 h-2 bg-slate-300 inline-block align-middle mr-1"></span>
+              type a message…
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="relative z-10 max-w-4xl mx-auto bg-slate-900 rounded-lg border border-slate-700/60 overflow-hidden shadow-2xl shadow-primary/5"
+      >
+        <!-- Title bar -->
+        <div
+          class="flex items-center gap-2 bg-slate-800/90 border-b border-slate-700/60 px-4 py-2"
+        >
+          <span class="w-3 h-3 rounded-full bg-red-500"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500"></span>
+          <span
+            class="ml-2 text-xs text-slate-400 font-mono lowercase tracking-normal"
+            >ktprojects --stats</span
+          >
+        </div>
+        <!-- Body -->
+        <div class="p-5 md:p-7 font-mono text-[12px] md:text-sm text-slate-200 leading-relaxed">
+          <div class="mb-3">
+            <span class="text-slate-500">$</span>
+            <span class="text-emerald-400">ktprojects</span>
+            <span class="text-slate-100">--stats</span>
+          </div>
+          <div class="space-y-1">
+            <div>
+              <span class="text-sky-300">projects </span><span class="text-slate-500">:</span>
+              <span class="text-white font-bold">{statsTotal}</span> total
+              <span class="text-slate-500">·</span>
+              <span class="text-emerald-400">{statsActive}</span> active
+              <span class="text-slate-500">·</span>
+              <span class="text-blue-300">{statsShipped}</span> shipped
+              <span class="text-slate-500">·</span>
+              <span class="text-slate-400">{statsArchived}</span> archived
+            </div>
+            <div>
+              <span class="text-sky-300">builders </span><span class="text-slate-500">:</span>
+              <span class="text-white font-bold">{statsBuilders}</span>
+              <span class="text-slate-500">unique contributors across the archive</span>
+            </div>
+            <div>
+              <span class="text-sky-300">languages</span><span class="text-slate-500">:</span>
+              <span class="text-white font-bold">{statsLanguagesCount}</span>
+              <span class="text-amber-300">[{languagesPreview}{languagesExtra}]</span>
+            </div>
+            <div>
+              <span class="text-sky-300">latest   </span><span class="text-slate-500">:</span>
+              <span class="text-slate-100">{latestLine}</span>
+            </div>
+            <div>
+              <span class="text-sky-300">oldest   </span><span class="text-slate-500">:</span>
+              <span class="text-slate-100">{oldestLine}</span>
+            </div>
+          </div>
           <div class="mt-4 flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary text-sm">event</span>
-            <span class="text-xs font-mono text-on-surface-variant">Jan 10, 2012.</span>
+            <span class="text-slate-500">$</span>
+            <span class="w-2 h-4 bg-slate-200 inline-block nav-join-cursor" aria-hidden="true"></span>
           </div>
         </div>
       </div>
