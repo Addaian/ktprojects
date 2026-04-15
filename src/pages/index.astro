@@ -51,7 +51,7 @@ const oldestLine = oldestProject
 <Layout title="ktprojects | Built at UChicago" active="home">
   <main class="pt-16 overflow-hidden">
     <!-- Hero Section -->
-    <section class="relative min-h-[921px] flex items-center justify-center px-8">
+    <section class="relative min-h-[720px] flex items-center justify-center px-8 pt-8 pb-16">
       <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <!-- Scrolling terminal background -->
         <div
@@ -413,7 +413,7 @@ await committee.ship();
     </div>
 
     <!-- What we do -->
-    <section class="max-w-3xl mx-auto px-8 py-24 text-center">
+    <section class="max-w-3xl mx-auto px-8 pt-14 pb-6 text-center">
       <span class="text-primary font-label text-sm uppercase tracking-widest font-bold"
         >What we do</span
       >
@@ -431,122 +431,12 @@ await committee.ship();
       </p>
     </section>
 
-    <!-- Stats Section: live terminal derived from the projects collection -->
-    <section class="relative max-w-6xl mx-auto px-8 py-20">
-      <!-- Decorative background windows — staged like real desktop apps -->
+    <!-- Stats Section: tmux session with a stats pane and an ascii.js pane -->
+    <section class="max-w-6xl mx-auto px-8 pt-6 pb-10">
       <div
-        class="absolute inset-0 pointer-events-none hidden md:block"
-        aria-hidden="true"
+        class="bg-slate-900 rounded-lg border border-slate-700/60 overflow-hidden shadow-2xl shadow-primary/5"
       >
-        <!-- 1. Finder — small, top-left -->
-        <div
-          class="absolute top-2 left-2 w-56 bg-slate-900 border border-slate-700/80 rounded-lg overflow-hidden shadow-2xl"
-        >
-          <div class="flex items-center gap-1.5 bg-slate-800 border-b border-slate-700/80 px-3 py-1.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-            <span class="ml-1.5 text-[10px] text-slate-400 font-mono lowercase">~/ktprojects</span>
-          </div>
-          <div class="p-3 font-mono text-[10px] leading-relaxed text-slate-300 space-y-0.5">
-            <div>📁 src</div>
-            <div class="pl-3 text-slate-400">├─ components</div>
-            <div class="pl-3 text-slate-400">├─ pages</div>
-            <div class="pl-3 text-slate-400">└─ content</div>
-            <div>📁 public</div>
-            <div>📄 astro.config.mjs</div>
-            <div>📄 package.json</div>
-            <div>📄 tsconfig.json</div>
-          </div>
-        </div>
-
-        <!-- 2. VS Code — largest, top-right, extends past section edge -->
-        <div
-          class="absolute top-6 -right-8 w-96 bg-slate-900 border border-slate-700/80 rounded-lg overflow-hidden shadow-2xl"
-        >
-          <div class="flex items-end gap-0 bg-slate-800 border-b border-slate-700/80 px-2 pt-1.5">
-            <div class="flex items-center gap-1.5 pb-1.5 pr-3">
-              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-            </div>
-            <div class="flex items-center gap-1.5 px-3 py-1 -mb-[1px] rounded-t-md bg-slate-900 border border-slate-700/80 border-b-transparent text-slate-200 font-mono text-[10px]">
-              <span class="w-2 h-2 rounded-sm bg-blue-500/80"></span>
-              <span>ProjectCard.tsx</span>
-            </div>
-            <div class="flex items-center gap-1.5 px-3 py-1 pb-1.5 text-slate-500 font-mono text-[10px]">
-              <span class="w-2 h-2 rounded-sm bg-slate-500/60"></span>
-              <span>config.ts</span>
-            </div>
-          </div>
-          <div class="p-4 font-mono text-[11px] leading-6">
-            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">1</span><span class="text-purple-300">import</span> <span class="text-slate-100">Card</span> <span class="text-purple-300">from</span> <span class="text-emerald-300">'@ui/card'</span></div>
-            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">2</span><span class="text-purple-300">import</span> <span class="text-slate-100">{'{ Project }'}</span> <span class="text-purple-300">from</span> <span class="text-emerald-300">'../types'</span></div>
-            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">3</span></div>
-            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">4</span><span class="text-purple-300">export default function</span> <span class="text-amber-300">ProjectCard</span><span class="text-slate-300">(</span><span class="text-sky-300">p</span><span class="text-slate-400">:</span> <span class="text-amber-300">Project</span><span class="text-slate-300">) {'{'}</span></div>
-            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">5</span>  <span class="text-purple-300">return</span> <span class="text-slate-300">{'<'}</span><span class="text-sky-300">Card</span> <span class="text-amber-300">href</span><span class="text-slate-400">=</span><span class="text-emerald-300">{'{p.href}'}</span><span class="text-slate-300">{'>'}</span></div>
-            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">6</span>    <span class="text-slate-300">{'<'}</span><span class="text-sky-300">h3</span><span class="text-slate-300">{'>'}</span><span class="text-slate-100">{'{p.title}'}</span><span class="text-slate-300">{'</'}</span><span class="text-sky-300">h3</span><span class="text-slate-300">{'>'}</span></div>
-            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">7</span>  <span class="text-slate-300">{'</'}</span><span class="text-sky-300">Card</span><span class="text-slate-300">{'>'}</span></div>
-            <div><span class="text-slate-600 inline-block w-5 text-right pr-2">8</span><span class="text-slate-300">{'}'}</span></div>
-          </div>
-        </div>
-
-        <!-- 3. Build log — medium, bottom-left -->
-        <div
-          class="absolute bottom-2 left-6 w-72 bg-slate-900 border border-slate-700/80 rounded-lg overflow-hidden shadow-2xl"
-        >
-          <div class="flex items-center gap-1.5 bg-slate-800 border-b border-slate-700/80 px-3 py-1.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-            <span class="ml-1.5 text-[10px] text-slate-400 font-mono lowercase">zsh — astro build</span>
-          </div>
-          <div class="p-3 font-mono text-[10px] leading-relaxed space-y-0.5">
-            <div class="text-slate-500">$ npm run build</div>
-            <div class="text-slate-400">[types] Generated 176ms</div>
-            <div class="text-slate-400">[build] output: "static"</div>
-            <div class="text-slate-400">[vite] <span class="text-emerald-400">✓</span> built in 740ms</div>
-            <div class="text-slate-400">[build] <span class="text-emerald-400">✓</span> 22 pages built</div>
-            <div class="text-emerald-400">✓ deployed to main</div>
-            <div class="text-slate-500">$ <span class="nav-join-cursor w-1.5 h-2.5 bg-slate-300 inline-block align-middle"></span></div>
-          </div>
-        </div>
-
-        <!-- 4. Messages / Slack — small, bottom-right -->
-        <div
-          class="absolute bottom-4 right-2 w-60 bg-slate-900 border border-slate-700/80 rounded-lg overflow-hidden shadow-2xl"
-        >
-          <div class="flex items-center gap-1.5 bg-slate-800 border-b border-slate-700/80 px-3 py-1.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-            <span class="ml-1.5 text-[10px] text-slate-400 font-mono lowercase">#project-committee</span>
-          </div>
-          <div class="p-3 text-[10px] leading-relaxed space-y-1.5">
-            <div>
-              <div class="text-emerald-400 font-bold text-[9px]">nam · 9:12</div>
-              <div class="text-slate-300">shipped the pulse sync 🎉</div>
-            </div>
-            <div>
-              <div class="text-sky-300 font-bold text-[9px]">enzo · 9:14</div>
-              <div class="text-slate-300">pushing the terminal theme now</div>
-            </div>
-            <div>
-              <div class="text-amber-300 font-bold text-[9px]">adrian · 9:17</div>
-              <div class="text-slate-300">stats page is looking clean</div>
-            </div>
-            <div class="pt-1 border-t border-slate-700/60 text-slate-500 text-[9px]">
-              <span class="nav-join-cursor w-1 h-2 bg-slate-300 inline-block align-middle mr-1"></span>
-              type a message…
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="relative z-10 max-w-4xl mx-auto bg-slate-900 rounded-lg border border-slate-700/60 overflow-hidden shadow-2xl shadow-primary/5"
-      >
-        <!-- Title bar -->
+        <!-- Outer title bar: single tmux session -->
         <div
           class="flex items-center gap-2 bg-slate-800/90 border-b border-slate-700/60 px-4 py-2"
         >
@@ -555,56 +445,113 @@ await committee.ship();
           <span class="w-3 h-3 rounded-full bg-green-500"></span>
           <span
             class="ml-2 text-xs text-slate-400 font-mono lowercase tracking-normal"
-            >ktprojects --stats</span
+            >tmux — ktprojects [0]</span
           >
         </div>
-        <!-- Body -->
-        <div class="p-5 md:p-7 font-mono text-[12px] md:text-sm text-slate-200 leading-relaxed">
-          <div class="mb-3">
-            <span class="text-slate-500">$</span>
-            <span class="text-emerald-400">ktprojects</span>
-            <span class="text-slate-100">--stats</span>
+
+        <!-- Split panes -->
+        <div class="flex flex-col lg:flex-row">
+          <!-- Pane 0.0: stats -->
+          <div
+            class="flex-1 lg:w-1/2 border-b lg:border-b-0 lg:border-r border-slate-700/60 flex flex-col"
+          >
+            <div
+              class="flex items-center justify-between gap-2 bg-slate-800/60 border-b border-slate-700/60 px-4 py-1.5 font-mono text-[10px] text-slate-400"
+            >
+              <div class="flex items-center gap-2">
+                <span class="text-emerald-400">●</span>
+                <span>pane 0.0</span>
+                <span class="text-slate-600">·</span>
+                <span>ktprojects --stats</span>
+              </div>
+              <span class="text-slate-600">zsh</span>
+            </div>
+            <div class="p-5 md:p-6 font-mono text-[12px] md:text-sm text-slate-200 leading-relaxed flex-1">
+              <div class="mb-3">
+                <span class="text-slate-500">$</span>
+                <span class="text-emerald-400">ktprojects</span>
+                <span class="text-slate-100">--stats</span>
+              </div>
+              <div class="space-y-1">
+                <div>
+                  <span class="text-sky-300">projects </span><span class="text-slate-500">:</span>
+                  <span class="text-white font-bold">{statsTotal}</span> total
+                  <span class="text-slate-500">·</span>
+                  <span class="text-emerald-400">{statsActive}</span> active
+                  <span class="text-slate-500">·</span>
+                  <span class="text-blue-300">{statsShipped}</span> shipped
+                  <span class="text-slate-500">·</span>
+                  <span class="text-slate-400">{statsArchived}</span> archived
+                </div>
+                <div>
+                  <span class="text-sky-300">builders </span><span class="text-slate-500">:</span>
+                  <span class="text-white font-bold">{statsBuilders}</span>
+                  <span class="text-slate-500">unique contributors across the archive</span>
+                </div>
+                <div>
+                  <span class="text-sky-300">languages</span><span class="text-slate-500">:</span>
+                  <span class="text-white font-bold">{statsLanguagesCount}</span>
+                  <span class="text-amber-300">[{languagesPreview}{languagesExtra}]</span>
+                </div>
+                <div>
+                  <span class="text-sky-300">latest   </span><span class="text-slate-500">:</span>
+                  <span class="text-slate-100">{latestLine}</span>
+                </div>
+                <div>
+                  <span class="text-sky-300">oldest   </span><span class="text-slate-500">:</span>
+                  <span class="text-slate-100">{oldestLine}</span>
+                </div>
+              </div>
+              <div class="mt-4 flex items-center gap-2">
+                <span class="text-slate-500">$</span>
+                <span class="w-2 h-4 bg-slate-200 inline-block nav-join-cursor" aria-hidden="true"></span>
+              </div>
+            </div>
           </div>
-          <div class="space-y-1">
-            <div>
-              <span class="text-sky-300">projects </span><span class="text-slate-500">:</span>
-              <span class="text-white font-bold">{statsTotal}</span> total
-              <span class="text-slate-500">·</span>
-              <span class="text-emerald-400">{statsActive}</span> active
-              <span class="text-slate-500">·</span>
-              <span class="text-blue-300">{statsShipped}</span> shipped
-              <span class="text-slate-500">·</span>
-              <span class="text-slate-400">{statsArchived}</span> archived
+
+          <!-- Pane 0.1: ascii.js -->
+          <div class="flex-1 lg:w-1/2 flex flex-col">
+            <div
+              class="flex items-center justify-between gap-2 bg-slate-800/60 border-b border-slate-700/60 px-4 py-1.5 font-mono text-[10px] text-slate-400"
+            >
+              <div class="flex items-center gap-2">
+                <span class="text-slate-500">○</span>
+                <span>pane 0.1</span>
+                <span class="text-slate-600">·</span>
+                <span>node ascii.js</span>
+              </div>
+              <span class="text-slate-600">node</span>
             </div>
-            <div>
-              <span class="text-sky-300">builders </span><span class="text-slate-500">:</span>
-              <span class="text-white font-bold">{statsBuilders}</span>
-              <span class="text-slate-500">unique contributors across the archive</span>
-            </div>
-            <div>
-              <span class="text-sky-300">languages</span><span class="text-slate-500">:</span>
-              <span class="text-white font-bold">{statsLanguagesCount}</span>
-              <span class="text-amber-300">[{languagesPreview}{languagesExtra}]</span>
-            </div>
-            <div>
-              <span class="text-sky-300">latest   </span><span class="text-slate-500">:</span>
-              <span class="text-slate-100">{latestLine}</span>
-            </div>
-            <div>
-              <span class="text-sky-300">oldest   </span><span class="text-slate-500">:</span>
-              <span class="text-slate-100">{oldestLine}</span>
+            <div class="p-4 md:p-5 flex-1 flex items-center justify-center">
+              <pre
+                id="ascii-art"
+                class="font-mono text-[9px] md:text-[10px] leading-[1.1] text-blue-300 whitespace-pre text-center select-none"
+                aria-hidden="true"
+              ></pre>
             </div>
           </div>
-          <div class="mt-4 flex items-center gap-2">
-            <span class="text-slate-500">$</span>
-            <span class="w-2 h-4 bg-slate-200 inline-block nav-join-cursor" aria-hidden="true"></span>
+        </div>
+
+        <!-- tmux status bar -->
+        <div
+          class="flex items-center justify-between gap-4 bg-slate-800/90 border-t border-slate-700/60 px-4 py-1 font-mono text-[10px] text-slate-400"
+        >
+          <div class="flex items-center gap-3">
+            <span class="text-emerald-400 font-bold">[ktprojects]</span>
+            <span>0:zsh*</span>
+            <span>1:node</span>
+          </div>
+          <div class="hidden md:flex items-center gap-3">
+            <span>"adrian@ktprojects"</span>
+            <span class="text-slate-600">·</span>
+            <span>{latestLine.slice(0, 10)}</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="max-w-7xl mx-auto px-8 py-32 text-center">
+    <section class="max-w-7xl mx-auto px-8 pt-10 pb-20 text-center">
       <div
         class="bg-surface-container rounded-lg p-12 md:p-20 relative overflow-hidden border border-white/40 shadow-2xl"
       >
@@ -794,6 +741,349 @@ await committee.ship();
       window.addEventListener('touchmove', onMove, { passive: false });
       window.addEventListener('touchend', onUp);
       window.addEventListener('touchcancel', onUp);
+    })();
+  </script>
+
+  <script is:inline>
+    (function () {
+      var el = document.getElementById('ascii-art');
+      if (!el) return;
+
+      var COLS = 40;
+      var ROWS = 18;
+      var LUMINANCE = '.,-~:;=!*#$@';
+      var SCRAMBLE_CHARS = '!<>-_\\/[]{}=+*^?#@$&';
+
+      function emptyCanvas() {
+        var c = [];
+        for (var r = 0; r < ROWS; r++) {
+          c.push(new Array(COLS).fill(' '));
+        }
+        return c;
+      }
+
+      function canvasToString(canvas) {
+        var lines = [];
+        for (var r = 0; r < ROWS; r++) {
+          lines.push(canvas[r].join(''));
+        }
+        return lines.join('\n');
+      }
+
+      function blit(canvas, glyph, startCol, startRow) {
+        for (var r = 0; r < glyph.length; r++) {
+          var row = glyph[r];
+          for (var c = 0; c < row.length; c++) {
+            var ch = row[c];
+            if (ch === ' ') continue;
+            var x = startCol + c;
+            var y = startRow + r;
+            if (x >= 0 && x < COLS && y >= 0 && y < ROWS) {
+              canvas[y][x] = ch;
+            }
+          }
+        }
+      }
+
+      // --------- Scene: rotating donut ---------
+
+      function renderDonut(A, B) {
+        var output = new Array(COLS * ROWS).fill(' ');
+        var zbuffer = new Array(COLS * ROWS).fill(0);
+        var R1 = 1, R2 = 2, K2 = 5;
+        var K1 = (ROWS * K2 * 3) / (8 * (R1 + R2));
+        var cosA = Math.cos(A), sinA = Math.sin(A);
+        var cosB = Math.cos(B), sinB = Math.sin(B);
+        for (var theta = 0; theta < 6.28; theta += 0.12) {
+          var cosT = Math.cos(theta), sinT = Math.sin(theta);
+          for (var phi = 0; phi < 6.28; phi += 0.04) {
+            var cosP = Math.cos(phi), sinP = Math.sin(phi);
+            var circleX = R2 + R1 * cosT;
+            var circleY = R1 * sinT;
+            var x = circleX * (cosB * cosP + sinA * sinB * sinP) - circleY * cosA * sinB;
+            var y = circleX * (sinB * cosP - sinA * cosB * sinP) + circleY * cosA * cosB;
+            var z = K2 + cosA * circleX * sinP + circleY * sinA;
+            var ooz = 1 / z;
+            var xp = Math.floor(COLS / 2 + K1 * ooz * x * 2);
+            var yp = Math.floor(ROWS / 2 - K1 * ooz * y);
+            var L =
+              cosP * cosT * sinB -
+              cosA * cosT * sinP -
+              sinA * sinT +
+              cosB * (cosA * sinT - cosT * sinA * sinP);
+            if (L > 0 && xp >= 0 && xp < COLS && yp >= 0 && yp < ROWS) {
+              var idx = xp + yp * COLS;
+              if (ooz > zbuffer[idx]) {
+                zbuffer[idx] = ooz;
+                var li = Math.floor(L * 8);
+                if (li < 0) li = 0;
+                if (li > LUMINANCE.length - 1) li = LUMINANCE.length - 1;
+                output[idx] = LUMINANCE[li];
+              }
+            }
+          }
+        }
+        var result = '';
+        for (var r = 0; r < ROWS; r++) {
+          result += output.slice(r * COLS, (r + 1) * COLS).join('');
+          if (r < ROWS - 1) result += '\n';
+        }
+        return result;
+      }
+
+      // --------- Scene: KTP slide-in ---------
+      // Each glyph is 7 chars wide × 5 rows tall; K slides from the left,
+      // T drops from the top, P slides from the right. Letters meet at
+      // a centered baseline and hold.
+
+      var K_GLYPH = [
+        ' _  __ ',
+        '| |/ / ',
+        "| ' /  ",
+        '| . \\  ',
+        '|_|\\_\\ ',
+      ];
+      var T_GLYPH = [
+        ' _____ ',
+        '|_   _|',
+        '  | |  ',
+        '  | |  ',
+        '  |_|  ',
+      ];
+      var P_GLYPH = [
+        ' ____  ',
+        '|  _ \\ ',
+        '| |_) |',
+        '|  __/ ',
+        '|_|    ',
+      ];
+
+      var KTP_TARGET_ROW = 6;
+      var KTP_TARGET_K = 9;
+      var KTP_TARGET_T = 16;
+      var KTP_TARGET_P = 23;
+
+      function easeOutCubic(x) {
+        return 1 - Math.pow(1 - x, 3);
+      }
+
+      function renderKtpIntro(t) {
+        var canvas = emptyCanvas();
+
+        // K: slides from off-left (col -8) to target, 0 → 0.38
+        var kT = Math.min(1, Math.max(0, t / 0.38));
+        var kEased = easeOutCubic(kT);
+        var kCol = Math.round(-8 + (KTP_TARGET_K - -8) * kEased);
+        if (kT > 0) blit(canvas, K_GLYPH, kCol, KTP_TARGET_ROW);
+
+        // T: drops from off-top (row -6) to target, 0.14 → 0.52
+        var tT = Math.min(1, Math.max(0, (t - 0.14) / 0.38));
+        var tEased = easeOutCubic(tT);
+        var tRow = Math.round(-6 + (KTP_TARGET_ROW - -6) * tEased);
+        if (tT > 0) blit(canvas, T_GLYPH, KTP_TARGET_T, tRow);
+
+        // P: slides from off-right (col 40) to target, 0.28 → 0.66
+        var pT = Math.min(1, Math.max(0, (t - 0.28) / 0.38));
+        var pEased = easeOutCubic(pT);
+        var pCol = Math.round(40 + (KTP_TARGET_P - 40) * pEased);
+        if (pT > 0) blit(canvas, P_GLYPH, pCol, KTP_TARGET_ROW);
+
+        return canvasToString(canvas);
+      }
+
+      // --------- Scene: theta LEGO build ---------
+      // A 26-wide × 10-tall theta shape gets stacked cell-by-cell,
+      // bottom row first, left-to-right, like laying bricks.
+
+      var THETA_SHAPE = [
+        '         ████████         ',
+        '      ███        ███      ',
+        '    ██              ██    ',
+        '   █                  █   ',
+        '   █    ██████████    █   ',
+        '   █    ██████████    █   ',
+        '   █                  █   ',
+        '    ██              ██    ',
+        '      ███        ███      ',
+        '         ████████         ',
+      ];
+
+      var THETA_CELLS = (function () {
+        var cells = [];
+        // Build order: bottom row first, then row above, etc. Within each
+        // row, alternate outward from center so it grows symmetrically.
+        for (var r = THETA_SHAPE.length - 1; r >= 0; r--) {
+          var rowCells = [];
+          for (var c = 0; c < THETA_SHAPE[r].length; c++) {
+            if (THETA_SHAPE[r][c] !== ' ') rowCells.push([r, c]);
+          }
+          // Sort by distance from row center so growth is symmetric
+          var mid = THETA_SHAPE[r].length / 2;
+          rowCells.sort(function (a, b) {
+            return Math.abs(a[1] - mid) - Math.abs(b[1] - mid);
+          });
+          for (var i = 0; i < rowCells.length; i++) cells.push(rowCells[i]);
+        }
+        return cells;
+      })();
+
+      var THETA_START_COL = Math.floor((COLS - THETA_SHAPE[0].length) / 2);
+      var THETA_START_ROW = Math.floor((ROWS - THETA_SHAPE.length) / 2);
+
+      function renderThetaLego(t) {
+        var canvas = emptyCanvas();
+        // Build phase occupies the first 65% of the scene; then hold.
+        var buildProgress = Math.min(1, t / 0.65);
+        var cellsToShow = Math.floor(buildProgress * THETA_CELLS.length);
+        for (var i = 0; i < cellsToShow; i++) {
+          var cell = THETA_CELLS[i];
+          var y = THETA_START_ROW + cell[0];
+          var x = THETA_START_COL + cell[1];
+          if (x >= 0 && x < COLS && y >= 0 && y < ROWS) {
+            canvas[y][x] = THETA_SHAPE[cell[0]][cell[1]];
+          }
+        }
+        return canvasToString(canvas);
+      }
+
+      // --------- Scene: static year block ---------
+
+      function padArt(raw) {
+        var lines = raw.split('\n');
+        while (lines.length && lines[0].trim() === '') lines.shift();
+        while (lines.length && lines[lines.length - 1].trim() === '') lines.pop();
+        var maxW = 0;
+        for (var i = 0; i < lines.length; i++) {
+          if (lines[i].length > maxW) maxW = lines[i].length;
+        }
+        var leftPad = Math.max(0, Math.floor((COLS - maxW) / 2));
+        var centered = lines.map(function (l) {
+          var padded = ' '.repeat(leftPad) + l;
+          if (padded.length < COLS) padded += ' '.repeat(COLS - padded.length);
+          return padded.slice(0, COLS);
+        });
+        var topPad = Math.max(0, Math.floor((ROWS - centered.length) / 2));
+        var out = [];
+        for (var t = 0; t < topPad; t++) out.push(' '.repeat(COLS));
+        for (var j = 0; j < centered.length; j++) out.push(centered[j]);
+        while (out.length < ROWS) out.push(' '.repeat(COLS));
+        return out.slice(0, ROWS).join('\n');
+      }
+
+      var YEAR_ART = padArt([
+        '  ____   ___  _ ____  ',
+        ' |___ \\ / _ \\/ |___ \\ ',
+        '   __) | | | | | __) |',
+        '  / __/| |_| | |/ __/ ',
+        ' |_____|\\___/|_|_____|',
+      ].join('\n'));
+
+      // --------- Scene orchestration ---------
+
+      var scenes = [
+        { type: 'donut', duration: 5000 },
+        { type: 'ktp-intro', duration: 3500 },
+        { type: 'donut', duration: 4000 },
+        { type: 'theta-lego', duration: 3500 },
+        { type: 'donut', duration: 4000 },
+        { type: 'static', art: YEAR_ART, duration: 2800 },
+      ];
+
+      var SCRAMBLE_MS = 650;
+
+      var sceneIndex = 0;
+      var phase = 'display';
+      var phaseStart = 0;
+      var currentFrame = '';
+      var scrambleSource = '';
+      var scrambleTarget = '';
+
+      function sceneContent(scene, localMs, absoluteNow) {
+        if (scene.type === 'donut') {
+          // Use absolute time so the donut keeps rotating continuously
+          // across scene boundaries.
+          var t = absoluteNow / 1000;
+          return renderDonut(t * 0.9, t * 0.55);
+        }
+        if (scene.type === 'ktp-intro') {
+          return renderKtpIntro(localMs / scene.duration);
+        }
+        if (scene.type === 'theta-lego') {
+          return renderThetaLego(localMs / scene.duration);
+        }
+        return scene.art;
+      }
+
+      function scrambleFrame(t) {
+        var out = '';
+        for (var i = 0; i < scrambleTarget.length; i++) {
+          var ch = scrambleTarget[i];
+          if (ch === '\n') {
+            out += '\n';
+            continue;
+          }
+          var src = scrambleSource[i] || ' ';
+          var rnd = Math.random();
+          if (rnd < t * t) {
+            out += ch;
+          } else if (rnd < 0.4) {
+            out += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+          } else {
+            out += src;
+          }
+        }
+        return out;
+      }
+
+      function tick(now) {
+        if (!phaseStart) phaseStart = now;
+        var elapsed = now - phaseStart;
+        var scene = scenes[sceneIndex];
+
+        if (phase === 'display') {
+          currentFrame = sceneContent(scene, elapsed, now);
+          el.textContent = currentFrame;
+          if (elapsed >= scene.duration) {
+            phase = 'scramble';
+            phaseStart = now;
+            scrambleSource = currentFrame;
+            var nextScene = scenes[(sceneIndex + 1) % scenes.length];
+            scrambleTarget = sceneContent(nextScene, 0, now);
+          }
+        } else {
+          var t = Math.min(1, elapsed / SCRAMBLE_MS);
+          el.textContent = scrambleFrame(t);
+          if (elapsed >= SCRAMBLE_MS) {
+            sceneIndex = (sceneIndex + 1) % scenes.length;
+            phase = 'display';
+            phaseStart = now;
+          }
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      var prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) {
+        var staticFrames = [
+          renderKtpIntro(1),
+          renderThetaLego(1),
+          YEAR_ART,
+        ];
+        var idx = 0;
+        el.textContent = staticFrames[0];
+        setInterval(function () {
+          idx = (idx + 1) % staticFrames.length;
+          el.textContent = staticFrames[idx];
+        }, 3500);
+        return;
+      }
+
+      el.textContent = renderDonut(0, 0);
+      requestAnimationFrame(tick);
     })();
   </script>
 </Layout>
