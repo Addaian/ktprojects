@@ -110,7 +110,7 @@ const getStatusBadgeClassName = (statusLabel: string) => {
                   </span>
                   <div class="w-px h-full bg-surface-container-high my-2" />
                 </div>
-                <div class="flex-1">
+                <div class="flex-1 min-w-0">
                   <div class="flex items-center justify-between mb-3 gap-4">
                     <div class="flex items-center gap-3 flex-wrap">
                       <span
@@ -155,7 +155,7 @@ const getStatusBadgeClassName = (statusLabel: string) => {
                     }
                   </div>
 
-                  <h3 class="text-2xl font-bold tracking-tight text-on-surface mb-2">
+                  <h3 class="text-2xl font-bold tracking-tight text-on-surface mb-2 line-clamp-2 break-words">
                     {pulseEvent.title}
                   </h3>
                   <p class="text-on-surface-variant font-normal leading-relaxed mb-4">
