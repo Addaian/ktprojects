@@ -6,6 +6,8 @@ startDate: 2026-04-08
 endDate: 2026-04-22
 languages:
   - TypeScript
+  - JavaScript
+  - CSS
 github: https://github.com/12340789ryanlobo/calsync
 image: /calsync.png
 retrospective: wish i did this earlier
@@ -16,7 +18,7 @@ quotes:
 contributors:
   - slug: ryan-alexander-lobo
     role: Project Head
-status: Active
+status: Shipped
 featured: false
 order: 0
 ---
