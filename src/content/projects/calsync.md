@@ -9,6 +9,7 @@ languages:
   - JavaScript
   - CSS
 github: https://github.com/12340789ryanlobo/calsync
+url: https://calsync-omega.vercel.app/
 image: /calsync.png
 retrospective: wish i did this earlier
 quotes:
