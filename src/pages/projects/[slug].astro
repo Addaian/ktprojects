@@ -157,6 +157,22 @@ const filename = `${slug}.md`;
               </div>
             )
           }
+          {
+            data.url && (
+              <div>
+                <span class="text-sky-300">url</span>
+                <span class="text-slate-500">:</span>{' '}
+                <a
+                  href={data.url}
+                  target="_blank"
+                  rel="noopener"
+                  class="text-blue-300 hover:underline break-all"
+                >
+                  {data.url}
+                </a>
+              </div>
+            )
+          }
           <div class="text-slate-600">---</div>
         </div>
 
@@ -168,19 +184,34 @@ const filename = `${slug}.md`;
         <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-3xl mb-5">
           {data.description}
         </p>
-        {
-          data.github && (
-            <a
-              href={data.github}
-              target="_blank"
-              rel="noopener"
-              class="inline-flex items-center gap-2 bg-white text-slate-900 px-4 py-2 rounded-md font-bold text-sm hover:bg-slate-100 transition-all"
-            >
-              <span class="material-symbols-outlined text-base">code</span>
-              View on GitHub
-            </a>
-          )
-        }
+        <div class="flex flex-wrap gap-3">
+          {
+            data.github && (
+              <a
+                href={data.github}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-2 bg-white text-slate-900 px-4 py-2 rounded-md font-bold text-sm hover:bg-slate-100 transition-all"
+              >
+                <span class="material-symbols-outlined text-base">code</span>
+                View on GitHub
+              </a>
+            )
+          }
+          {
+            data.url && (
+              <a
+                href={data.url}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-md font-bold text-sm hover:opacity-90 transition-all"
+              >
+                <span class="material-symbols-outlined text-base">open_in_new</span>
+                Visit site
+              </a>
+            )
+          }
+        </div>
       </div>
     </section>
 

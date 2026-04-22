@@ -7,8 +7,12 @@ endDate: 2026-04-22
 languages:
   - TypeScript
 github: https://github.com/12340789ryanlobo/calsync
-image: https://calsync-omega.vercel.app/
+url: https://calsync-omega.vercel.app/
+image: /calsync.png
 retrospective: wish i did this earlier
+contributors:
+  - slug: ryan-alexander-lobo
+    role: Project Head
 quotes:
   - quote: I hate filling out w2m so i made this
     author: lobo
